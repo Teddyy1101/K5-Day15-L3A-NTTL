@@ -50,8 +50,8 @@ SHOW_RAW = False   # đổi thành True để in nguyên phản hồi của API 
 URL_OPENAI = "https://api.openai.com/v1/chat/completions"
 
 
-def post_json(url, headers, body, timeout=30):
-    """Gửi POST JSON, trả về JSON phản hồi. Tự thử lại tối đa 2 lần khi gặp HTTP 429/503."""
+def post_json(url, headers, body, timeout=45):
+    """Gửi POST JSON, trả về JSON phản hồi. Tự thử lại tối đa 2 lần khi gặp HTTP 429/503 hoặc timeout."""
     payload = json.dumps(body).encode("utf-8")
     hdrs = dict({"Content-Type": "application/json"}, **headers)
     for attempt in range(3):
@@ -66,6 +66,11 @@ def post_json(url, headers, body, timeout=30):
                 time.sleep(2 * (attempt + 1))
                 continue
             raise RuntimeError("HTTP %d: %s" % (e.code, msg))
+        except (TimeoutError, urllib.error.URLError):
+            if attempt < 2:
+                time.sleep(2 * (attempt + 1))
+                continue
+            raise
     if SHOW_RAW:
         print(json.dumps(data, ensure_ascii=False, indent=2)[:3000])
     return data

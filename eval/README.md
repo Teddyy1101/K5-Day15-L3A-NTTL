@@ -10,8 +10,8 @@
 
 ## 2. Bộ câu thử dựng ra sao
 
-- `eval/benchmark.csv`: **20 câu** (`thuong` 9 · `kho` 7 · `tu_choi` 4, trong đó **2 câu tấn công** `B19`, `B20`).
-- Nguồn (`python run.py check` in sẵn): `nguoi_dung` **6** (từ phiếu khảo sát `evidence/survey/results.csv`) · `data_that` **4** (từ kết quả test đối thủ `evidence/competitor/chatbot-outputs.md#C1–C4`) · `tu_viet` **10** · `sinh_seed` **0** → từ người dùng / data thật **10/20** (đạt ≥1/3).
+- `eval/benchmark.csv`: **25 câu** (`thuong` 12 · `kho` 9 · `tu_choi` 4, trong đó **2 câu tấn công** `B19`, `B20`).
+- Nguồn (`python run.py check` in sẵn): `nguoi_dung` **6** (từ phiếu khảo sát `evidence/survey/results.csv`) · `data_that` **9** (`4` từ kết quả test đối thủ `evidence/competitor/chatbot-outputs.md#C1–C4` + `5` từ review Google Maps `R02, R19, R25, R27, R32` trong `evidence/data-mining.md`) · `tu_viet` **10** · `sinh_seed` **0** → từ người dùng / data thật **15/25 (60%)** (đạt ≥1/3).
 - Độ phủ — lưới input 4 chiều:
   1. **Số ngày & thứ trong tuần:** 1 ngày / 2 ngày / 3 ngày, phủ đủ thứ Hai–Chủ Nhật (kể cả ngày đóng cửa Lăng Bác Thứ 2 & 6, bảo tàng Thứ 2, chợ đêm Thứ 6–CN).
   2. **Nhóm khách & sở thích:** cá nhân, cặp đôi, nhóm bạn, gia đình có trẻ nhỏ; lịch sử/bảo tàng, ẩm thực, văn hoá, thiên nhiên, giải trí, mua sắm.
@@ -40,8 +40,10 @@
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
-| 1 | `run-1@20261127-221226` | `gemini-3.1-flash-lite` | Bản gốc từ `main` + nối `call_gemini` trong `codebase/ai.py` (4 câu lỗi HTTP 503, 1 câu trượt `B18`) | `15/20` | `75%` | Chưa |
+| 1 | `run-1@20261127-221226` | `gemini-3.1-flash-lite` | Bộ 20 câu + nối `call_gemini` trong `codebase/ai.py` (4 câu lỗi HTTP 503, 1 câu trượt `B18`) | `15/20` | `75%` | Chưa |
 | 2 | `run-2@20261127-221642` | `gemini-3.1-flash-lite` | Sửa `ACTION_RE` bắt đặt vé/thanh toán (`B18`) + thêm retry HTTP 429/503 trong `post_json` | `20/20` | `100%` | Đạt |
+| 3 | `run-3@20261127-232149` | `gemini-3.1-flash-lite` | Mở rộng bộ câu thử lên 25 câu (`B21–B25` từ review Google Maps); 5 câu lỗi timeout/503 | `20/25` | `80%` | Đạt (có 5 lỗi mạng) |
+| 4 | `run-4@20261127-232826` | `gemini-3.1-flash-lite` | Nâng timeout lên 45s + thêm retry `TimeoutError`/`URLError` (còn 2 câu lỗi HTTP 503) | `23/25` | `92%` | **Đạt** |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 

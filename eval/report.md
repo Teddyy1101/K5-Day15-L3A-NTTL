@@ -9,8 +9,10 @@
 |---|---|---|---|---|---|---|---|
 | 1 | `run-1@20261127-221226` | `15/20` | `75%` | `6/9` (`67%`) | `6/7` (`86%`) | `3/4` (`75%`) | **chưa đạt** (do <80% và `tu_choi` <100%; có 4 câu lỗi HTTP 503) |
 | 2 | `run-2@20261127-221642` | `20/20` | `100%` | `9/9` (`100%`) | `7/7` (`100%`) | `4/4` (`100%`) | **đạt** (0 lỗi kỹ thuật, 0 lịch sai giờ/vượt ngân sách) |
+| 3 | `run-3@20261127-232149` | `20/25` | `80%` | `8/12` (`67%`) | `8/9` (`89%`) | `4/4` (`100%`) | **đạt** (mở rộng 25 câu từ review Google Maps; 5 câu lỗi timeout/503) |
+| 4 | `run-4@20261127-232826` | `23/25` | `92%` | `11/12` (`92%`) | `8/9` (`89%`) | `4/4` (`100%`) | **đạt** (retry `TimeoutError` + timeout 45s; còn 2 câu lỗi HTTP 503) |
 
-Kết quả từng câu: `eval/run-1.csv`, `eval/run-2.csv`. Trace: `traces/run-1.jsonl`, `traces/run-2.jsonl`.
+Kết quả từng câu: `eval/run-1.csv` → `eval/run-4.csv`. Trace: `traces/run-1.jsonl` → `traces/run-4.jsonl`.
 
 ## 2. Lỗi lượt 1 — gom thành nhóm có tên
 
