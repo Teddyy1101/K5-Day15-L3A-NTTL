@@ -10,9 +10,9 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Prompt / thiết kế lời gọi mô hình | Claude Code (Claude Opus 5.5) | Nháp `SYSTEM` prompt trong `agent.py` (chỉ chọn mã trong danh sách, trả JSON, coi yêu cầu khách là dữ liệu) | Chưa thử với model thật — kiểm lại khi nối model trước CP3 | Nguyễn Huy Thứ |
 | Đào data (viết script đếm, gợi ý nhãn) | | | Kiểm tay __ dòng, khớp __ | |
 | Rà câu hỏi phỏng vấn / khảo sát | | Chỉ rà câu dẫn dắt | | |
-| Viết câu thử (benchmark) | | | Mỗi câu thử có `source`; câu thử AI viết được ghi rõ | |
+| Viết câu thử (benchmark) | Claude Code (Claude Opus 5.5) | Viết câu chữ `B21–B30` dựa trên tình huống trong `evidence/interviews/P1–P3.md` (nguồn ghi `nguoi_dung: P_`); trả `B01–B20` về đúng bản CP2 | Mỗi câu thử có `source`; Lâm đọc lại B21–B30 trước khi chạy lượt chính thức | Bùi Văn Lâm, Nguyễn Huy Thứ |
 | Sinh data `synthetic` (nếu có) | | | Seed __ · kiểm tay __ dòng | |
-| Chấm cột `pass` bằng LLM (nếu có) | | | Kiểm tra thủ công __ câu thử, khớp __/__ | |
+| Chấm cột `pass` bằng LLM (nếu có) | Claude Code (Claude Opus 5.5) | Chỉ chấm **thử** 5 output của `run-2` làm người chấm thứ hai (không chấm cột `pass` của lượt nào) | Khớp 5/5 với Lâm; cần một người thật trong nhóm chấm lại 5 câu này (`eval/README.md` mục 3) | Nguyễn Huy Thứ |
 | Slide, văn bản | Claude Code (Claude Opus 5.5) | Nháp `spec.md` §3–§7 (sơ đồ Mermaid, bảng công cụ, kịch bản khó), dòng 5–6 và "Đã đổi gì" của `canvas.md` | §3 còn ghi "chưa kiểm" — cần người thử từng sản phẩm; Trung rà §3–§6 trước khi nộp | Nguyễn Đức Trung, Nguyễn Huy Thứ |
 
 **Không dùng AI để:** tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát; sửa kết quả các lượt đã chạy (`eval/run-*.csv`, `cost/simulate-*.csv`, `traces/`).

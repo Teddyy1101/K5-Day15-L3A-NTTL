@@ -124,16 +124,17 @@ flowchart TD
 - **Bị đòi ngoài phạm vi (lớp 3):** ngoài Hà Nội, >3 ngày, đặt vé / thanh toán, câu tấn công → câu từ chối đứng đầu, nêu phạm vi và việc khách làm tiếp được. · **Trường hợp đặc thù lĩnh vực (lớp 4):** điểm đóng cửa theo thứ, khung giờ hẹp (phở sáng 06:00–10:00, Lăng Bác 07:30–10:30), điểm xa (Bát Tràng ~13 km), ngân sách thấp → code không xếp / bỏ điểm và ghi lý do cho khách.
 
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
-- Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 20 câu (thuong 9 · kho 7 · tu_choi 4) · metric: `eval/metric_spec.yaml` (4 metric)
+- Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 30 câu (thuong 12 · kho 13 · tu_choi 5; `B01–B20` bản CP2, `B21–B30` thêm sau CP2 từ phỏng vấn P1–P3; 10/30 nguồn `nguoi_dung`) · metric: `eval/metric_spec.yaml` (4 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 80% câu qua, và đồng thời: (1) 100% câu `tu_choi` qua; (2) 0 lịch có điểm ngoài danh mục, vào ngày đóng cửa, ngoài giờ mở cửa hoặc chồng giờ (code kiểm); (3) 0 lịch có tổng chi phí (vé + ăn + di chuyển ước tính) vượt ngân sách khách nhập (code kiểm)."
   - Một câu "qua" = output thoả cột `pass_criterion` của câu đó (cột `pass` = 1 trong `eval/run-N.csv`); % tính trên toàn bộ câu trong bộ, mọi `type`.
-- Kết quả: lượt 1 __/__ (__%) · lượt 2 __/__ (__%) — run ID: __ / __ → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Kết quả: lượt 1 __/30 (__%) · lượt 2 __/30 (__%) — run ID: `run-3@…` / `run-4@…` *(chạy lại trên bộ 30 câu)* → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+  - *Chạy thử không chính thức:* `run-1` `15/20 (75%)` → `run-2` `20/20 (100%)` (`run-1@20261127-221226`, `run-2@20261127-221642`, `gemini-3.1-flash-lite`) trên bản bộ câu thử bị sửa sau CP2 — giữ file, không tính.
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
-- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-__.csv` (__ phiên)
-- Chi phí / task thành công: __ (model __) · __ (model __)
-- Chi phí / tháng ở quy mô thật: thấp __ · cơ sở __ · cao __ → chi tiết `cost/cost-estimate.md`
-- So với impact / người / tháng (§2): đáng làm không, vì sao:
+- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-1.csv` (`50` phiên, `12` phiên lỗi không tính vào trung bình)
+- Chi phí / task thành công: `$0.0020 ≈ 51 ₫` (`gemini-3.1-flash-lite`) · `$0.0022 ≈ 55 ₫` (`gpt-5-mini`) · `$0.0109 ≈ 276 ₫` (`gpt-5`)
+- Chi phí / tháng ở quy mô thật (`gemini-3.1-flash-lite`): thấp `$0.5109 (≈ 12.976 ₫)` · cơ sở `$1.28 (≈ 32.439 ₫)` · cao `$3.83 (≈ 97.317 ₫)` → chi tiết `cost/cost-estimate.md`
+- So với impact / người / tháng (§2): **Đáng làm** — chỉ tốn ~65 ₫/người/tháng (mô hình `gemini-3.1-flash-lite`) để tiết kiệm ~17 phút/người/tháng tự tìm và khớp lịch.
 
 ## §9. Rủi ro & an toàn
 - Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí:
@@ -159,8 +160,10 @@ flowchart TD
 | 27/11 21:17 | Code **bảo đảm điểm khách tự chọn**: điểm khách nêu tên / bảo thêm mà AI bỏ sót thì code tự chèn (ngày khách chỉ định, không thì ngày đầu tiên mở cửa); điểm đã chọn được giữ qua các lần sửa tới khi khách bảo bỏ; cắt ngân sách bỏ điểm khác trước. Thêm lệnh `/ds` trong `python run.py` để xem danh mục 24 điểm | Thử với AI giả lập luôn "quên" điểm khách chọn: trước khi sửa, Văn Miếu khách chọn từ đầu bị mất ở lượt sửa sau; sau khi sửa, cả điểm thêm lẫn điểm chọn trước đều giữ, điểm đóng cửa (Lăng Bác Thứ 2) vẫn không bị ép vào. Thử lại với `gpt-5-mini` đúng |
 | 27/11 21:27 | §3: thử thật "chatbot chung" (`gpt-5-mini` hỏi thẳng 5 câu, không danh mục) và ghi kết quả; thêm bộ câu hỏi phỏng vấn `evidence/interviews/GUIDE.md` | Guide 2.1 yêu cầu thử sản phẩm tương tự, §3 đang ghi "chưa kiểm". Kết quả: `evidence/competitor/chatbot-findings.md` (2/4 lịch rơi vào giờ / ngày đóng cửa theo dữ liệu nhóm) |
 | 27/11 22:06 | Sửa `HN06` (Bảo tàng Mỹ thuật Việt Nam) trong `data/places_hanoi.json` / `.csv` và `data/DATA_CARD.md`: đổi `closed_days` từ `["Mon"]` sang `[]` (mở cả tuần) | Đối chiếu trang chính thức `vnfam.vn` (xem 27/11/2026) mở cửa 08:30–17:00 hàng ngày; đã kiểm `eval/benchmark.csv` không có câu thử nào bị ảnh hưởng |
+| 27/11 22:18 | **Bùi Văn Lâm:** cập nhật 10/20 câu thử từ nguồn thật (`evidence/survey/results.csv`, `chatbot-outputs.md`), điền `eval/README.md`, thêm `call_gemini` + retry HTTP 429/503 ở `codebase/ai.py`, sửa `ACTION_RE` ở `codebase/agent.py`, chạy Lượt 1 (`15/20`) → Lượt 2 (`20/20`) và mô phỏng 50 phiên (`cost/simulate-1.csv`) | `run.py check` cần ≥1/3 câu từ người dùng/data thật; Lượt 1 trượt `B18` do `norm()` đổi `oá → óa` làm trượt `"thanh toán"` trong `ACTION_RE` và 4 câu lỗi HTTP 503 — sửa xong Lượt 2 đạt 100% (`eval/report.md`, `cost/cost-estimate.md`) |
 | 27/11 22:29 | Khảo sát thêm 8 phiếu → **n = 21 (đạt ngưỡng 20)**; cập nhật số ở §0–§2, `evidence/summary.md`, canvas dòng 4. Số yếu đi: "≥2 tiếng lên lịch" 8/13 → 10/21; "khó ở đúng lát cắt" 9/13 → 12/21; tác động A ~284 → ~183 giờ / 1.000 khách; hướng C (sửa lịch) vẫn nhỉnh hơn A. Header: Zone 3 | Bản xuất Google Form mới (phiếu cuối 22:14:49). Ghi số thật, kể cả khi yếu đi. Phỏng vấn P1–P3 trên nhánh `trung` **chưa đưa vào** — đang xác minh (3 buổi cùng ghi 22:20) |
-| 27/11 22:47 | Đưa phỏng vấn P1–P3 (Nguyễn Đức Trung, nhóm xác nhận là người thật ngoài nhóm) và `evidence/hypothesis.md` từ nhánh `trung` vào; cập nhật `evidence/summary.md` (bảng P1–P3, trích dẫn, so khảo sát và phỏng vấn), §1 "vì sao chưa bỏ" + dòng bằng chứng, canvas dòng 4. Giữ §0–§2 bản số khảo sát, không lấy bản §0–§2 *(tự ước tính)* trên nhánh `trung` | Nguồn thứ hai để kiểm lại khảo sát (rubric R1). Cả 3 file đang cùng ghi giờ "22:20" — Trung cần ghi lại giờ đúng của từng buổi |
+| 27/11 22:47 | Đưa phỏng vấn P1–P3 và `evidence/hypothesis.md`; cập nhật `evidence/summary.md` (bảng P1–P3, trích dẫn, so khảo sát và phỏng vấn), §1 "vì sao chưa bỏ" + dòng bằng chứng, canvas dòng 4. | Nguồn thứ hai để kiểm lại khảo sát (rubric R1). Cả 3 file đang cùng ghi giờ "22:20" — Trung cần ghi lại giờ đúng của từng buổi |
+| 27/11 23:18 | Merge nhánh `buivanlam` (code Gemini + retry, sửa `ACTION_RE`, chi phí, báo cáo, `run-1` / `run-2`). **Trả `B01–B20` về đúng bản CP2** (bản 23:08 đã thay `B01, B03, B11, B16` và ghi nguồn `nguoi_dung` / `data_that` cho câu tự viết); **thêm `B21–B30`** dựng từ phỏng vấn P1–P3 (`nguoi_dung`) → 30 câu, 10/30 từ người dùng. `run-1` / `run-2` giữ file nhưng ghi là chạy thử không chính thức; lượt chính thức chạy lại trên bộ 30 câu. `timeout` gọi API 30 → 120 giây. Chấm thử người thứ hai 5 output (Claude Code, khớp 5/5 — chờ người thật xác nhận) | Guide 3.4: "câu thử chỉ được thêm, không được sửa"; nhãn nguồn phải đúng nguồn thật (khảo sát không có câu yêu cầu lập lịch; `chatbot-outputs.md` là câu nhóm tự soạn). `timeout` 30 giây dễ ngắt `gpt-5-mini` giữa chừng |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
