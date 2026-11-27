@@ -5,8 +5,15 @@ Chạy từ thư mục gốc repo:
 """
 import csv
 import json
+import sys
 from collections import Counter
 from pathlib import Path
+
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 DATA_DIR = Path(__file__).resolve().parent
 JSON_PATH = DATA_DIR / "places_hanoi.json"
