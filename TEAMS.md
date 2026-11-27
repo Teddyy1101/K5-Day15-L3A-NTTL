@@ -13,7 +13,7 @@
 |---|---|---|---|---|
 | 1 | Nguyễn Đức Trung | 2A202603423 | Đội trưởng | Điều phối nhóm, tổng hợp bằng chứng người dùng và nộp checkpoint |
 | 2 | Nguyễn Huy Thứ | 2A202603356 | Thành viên | Tích hợp model, xây luồng lập lịch và nối vào bản demo |
-| 3 | Phạm Thị Hồng Ngọc | 2A20603602 | Thành viên | Chuẩn bị dữ liệu địa điểm, giờ mở cửa, chi phí và Data Card |
+| 3 | Phạm Thị Hồng Ngọc | 2A202603602 | Thành viên | Chuẩn bị dữ liệu địa điểm, giờ mở cửa, chi phí và Data Card |
 | 4 | Bùi Văn Lâm | 2A202603400 | Thành viên | Xây bộ câu thử, kiểm ràng buộc lịch và mô phỏng chi phí |
 
 **Quy tắc điền**
