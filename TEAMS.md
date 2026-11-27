@@ -11,9 +11,10 @@
 
 | STT | Họ và tên | Mã học viên | Vai trò | Phần việc chính |
 |---|---|---|---|---|
-| 1 | ____ | ____ | Đội trưởng | ____ |
-| 2 | ____ | ____ | Thành viên | ____ |
-| 3 | ____ | ____ | Thành viên | ____ |
+| 1 | Nguyễn Đức Trung | 2A202603423 | Đội trưởng | Điều phối nhóm, tổng hợp bằng chứng người dùng và nộp checkpoint |
+| 2 | Nguyễn Huy Thứ | 2A202603356 | Thành viên | Tích hợp model, xây luồng lập lịch và nối vào bản demo |
+| 3 | Phạm Thị Hồng Ngọc | 2A20603602 | Thành viên | Chuẩn bị dữ liệu địa điểm, giờ mở cửa, chi phí và Data Card |
+| 4 | Bùi Văn Lâm | 2A202603400 | Thành viên | Xây bộ câu thử, kiểm ràng buộc lịch và mô phỏng chi phí |
 
 **Quy tắc điền**
 - **Lớp:** `L3A` hoặc `L3B`. **Track:** một chữ `A` (EdTech), `B` (Y tế), `C` (Du lịch), `D` (Thương mại điện tử), `E` (Tài chính) hoặc `F` (Làn khác). **Link repo:** link GitHub công khai của nhóm.
