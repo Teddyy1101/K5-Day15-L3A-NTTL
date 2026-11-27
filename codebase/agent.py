@@ -222,6 +222,18 @@ def window(req: dict) -> tuple:
     return req.get("gio_bat_dau") or DAY_START, req.get("gio_ket_thuc") or DAY_END
 
 
+def catalogue_text() -> str:
+    """Lệnh /ds trong app.py: danh mục điểm khách có thể chọn (đọc thẳng từ data/places_hanoi.json)."""
+    lines = ["Danh mục %d điểm Hà Nội (giá tham khảo / người) — nhắn \"thêm <tên> vào ngày N\" để đưa vào lịch:"
+             % len(load_places())]
+    for pid, p in load_places().items():
+        lines.append("  %s  %s (%s) · mở %s–%s%s · %s" % (
+            pid, p["name"], p["district"], p["open_time"], p["close_time"],
+            " · đóng %s" % ", ".join(DAY_LABEL[d] for d in p["closed_days"]) if p["closed_days"] else "",
+            vnd(p["estimated_cost_vnd"])))
+    return "\n".join(lines)
+
+
 def check_named(req: dict) -> list:
     """Điểm khách nêu tên nhưng không đi được trong chuyến (đóng cửa mọi ngày đi / không vừa khung giờ)."""
     places, out = load_places(), []
@@ -379,6 +391,8 @@ def trim_budget(req: dict, result: dict) -> tuple:
     removed = []
     while req["ngan_sach"] is not None and result["check"]["tong_chi_phi"] > req["ngan_sach"]:
         stops = [(s["chi_phi"], s["id"], s["name"]) for d in result["days"] for s in d["lich"] if s["chi_phi"] > 0]
+        # giữ điểm khách tự chọn tới cùng: chỉ bỏ chúng khi không còn điểm nào khác để bỏ
+        stops = [x for x in stops if x[1] not in req["dia_diem_muon"]] or stops
         if not stops:
             break
         cost, pid, name = max(stops)
@@ -449,10 +463,27 @@ def finish(req: dict, cands: list, ask, fallback, prev: list = None) -> dict:
     ask(errors) gọi AI → (plan, khong_co_du_lieu) hoặc None; fallback() là luật dự phòng.
     prev: lịch cũ [{"thu","ids","ly_do"}] khi đang sửa — code tự so lịch cũ / mới để báo "đã đổi gì".
     Trả {"output": str, "state": lịch mới} — state để app.py giữ cho lần sửa sau (eval chỉ đọc "output")."""
+    places = load_places()
     ban = set(req.get("bo_diem") or [])
+    cant = {pid for pid in req["dia_diem_muon"] if any(places[pid]["name"] in x for x in check_named(req))}
+    want = [pid for pid in req["dia_diem_muon"] if pid not in ban and pid not in cant]
 
-    def drop_banned(plan):  # khách bảo bỏ điểm nào thì code chắc chắn bỏ, kể cả khi AI quên
-        return [{"ids": [i for i in d["ids"] if i not in ban], "ly_do": d["ly_do"]} for d in plan]
+    def enforce(plan):
+        """Code bảo đảm ý khách, kể cả khi AI quên: điểm khách bảo BỎ thì chắc chắn bỏ; điểm khách nêu tên / bảo
+        THÊM (và đi được trong chuyến) thì chắc chắn đưa vào — ngày khách chỉ định, không thì ngày đầu tiên mở cửa."""
+        plan = [{"ids": [i for i in d["ids"] if i not in ban], "ly_do": d["ly_do"]} for d in plan]
+        days, target = day_list(req), req.get("ngay_dich")
+        for pid in want:
+            if any(pid in d["ids"] for d in plan):
+                continue
+            order = ([target - 1] if target and 1 <= target <= len(plan) else []) + list(range(len(plan)))
+            k = next((k for k in order if days[k] not in places[pid]["closed_days"]), None)
+            if k is not None:
+                plan[k]["ids"].append(pid)
+                note("code thêm %s vào ngày %d (AI bỏ sót điểm khách chọn)" % (pid, k + 1))
+        return plan
+
+    drop_banned = enforce
 
     # 3. AI chọn & chia điểm (quyết định trung tâm); sai định dạng → luật dự phòng
     got, source, missing = ask(), "Chọn điểm: AI.", []
@@ -501,7 +532,8 @@ def finish(req: dict, cands: list, ask, fallback, prev: list = None) -> dict:
     if req["troi_mua"]:
         notes.append("Trời mưa: đã ưu tiên điểm trong nhà khi chọn.")
     state = {"req": req, "days": [{"thu": d["thu"], "ids": [s["id"] for s in d["lich"]], "ly_do": d["ly_do"]}
-                                  for d in result["days"]]}
+                                  for d in result["days"]],
+             "chon": want}  # điểm khách TỰ CHỌN (nêu tên / bảo thêm) — giữ qua các lần sửa sau, tới khi khách bảo bỏ
     if prev is not None:
         top.append(diff_text(prev, state["days"]))
     note("dừng: lịch đã qua kiểm (%d lần sửa)" % fixes)
@@ -591,7 +623,10 @@ def edit(text: str, state: dict) -> dict:
     req["co_tre_nho"] = req["co_tre_nho"] or new["co_tre_nho"]
     req["troi_mua"] = req["troi_mua"] or new["troi_mua"]
     req["chen_lenh"], req["doi_hanh_dong"], req["thanh_pho_khac"] = new["chen_lenh"], new["doi_hanh_dong"], None
-    req["dia_diem_muon"], req["bo_diem"] = split_named(t)
+    add, remove = split_named(t)
+    # điểm khách đã tự chọn ở các lượt trước vẫn giữ, cộng điểm vừa bảo thêm, trừ điểm vừa bảo bỏ
+    req["dia_diem_muon"] = sorted((set(state.get("chon") or []) | set(add)) - set(remove))
+    req["bo_diem"] = remove
     m = re.search(r"(?:vào|sang|cho|ở)\s*ngày\s*(\d)", t)
     req["ngay_dich"] = int(m.group(1)) if m else None
     if not 1 <= req["so_ngay"] <= MAX_DAYS:

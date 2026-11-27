@@ -29,14 +29,14 @@ def _where(e):
 def main() -> int:
     try:
         import tracing
-        from agent import answer, edit
+        from agent import answer, catalogue_text, edit
     except Exception as e:  # lỗi cú pháp, thiếu thư viện… trong codebase/
         print("Không nạp được codebase/ — lỗi ở %s: %s: %s" % (_where(e), type(e).__name__, e))
         print("Sửa lỗi rồi chạy lại. Cách nối model: docs/connect-model.md")
         return 1
     print("Bản chạy thử — gõ đầu vào rồi Enter. Thoát: Ctrl+C (hoặc Enter 2 lần với dòng trống).")
     print("Có lịch rồi thì nhắn tiếp để SỬA (vd: bỏ Lăng Bác · thêm Văn Miếu vào ngày 2 · trời mưa đổi sang chỗ "
-          "trong nhà · đổi ngân sách thành 2 triệu). Gõ /moi để bỏ lịch hiện tại.")
+          "trong nhà · đổi ngân sách thành 2 triệu). Gõ /ds để xem danh mục điểm, /moi để bỏ lịch hiện tại.")
     blank = 0
     state = None  # lịch đang có trong phiên chat — chỉ giữ trong bộ nhớ, tắt chương trình là mất
     while True:
@@ -51,6 +51,9 @@ def main() -> int:
                 return 0
             continue
         blank = 0
+        if text.lower() == "/ds":
+            print(catalogue_text())
+            continue
         if text.lower() in ("/moi", "/mới"):
             state = None
             print("Đã bỏ lịch hiện tại — nhập yêu cầu lập lịch mới.")
