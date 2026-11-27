@@ -7,7 +7,7 @@
 
 | | |
 |---|---|
-| Dùng để làm gì | Nguồn sự thật (ground truth) cho các công cụ `tra_dia_diem`, `toi_uu_lo_trinh_tsp`, `kiem_lich_trinh` trong `codebase/tools.py` và làm căn cứ chấm bộ câu thử `eval/benchmark.csv` |
+| Dùng để làm gì | Nguồn sự thật (ground truth) cho các công cụ `tra_dia_diem`, `sap_xep_lo_trinh`, `kiem_lich_trinh` trong `codebase/tools.py` và làm căn cứ chấm bộ câu thử `eval/benchmark.csv` |
 | Từ đâu | Nhóm tự tổng hợp và chuẩn hoá dựa trên danh sách địa điểm Hà Nội từ nền tảng dự án web sẵn có của nhóm, đối chiếu thêm giờ mở cửa, ngày đóng cửa và giá vé công khai tại thời điểm kiểm tra |
 | Xử lý những bước gì | (1) Chuẩn hoá mã định danh `HN01–HN24` · (2) Bổ sung đủ trường kiểm ràng buộc (`open_time`, `close_time`, `closed_days`, `duration_min`, `estimated_cost_vnd`, `indoor`, `kid_friendly`) · (3) Chạy kiểm tra tự động tọa độ, trùng mã, giờ mở < giờ đóng và xuất bản CSV phẳng bằng `data/validate_places.py` |
 | Số dòng / số đoạn | **24 địa điểm** tại Hà Nội (phủ 6 quận/huyện: Hoàn Kiếm, Ba Đình, Đống Đa, Tây Hồ, Cầu Giấy, Gia Lâm) |
