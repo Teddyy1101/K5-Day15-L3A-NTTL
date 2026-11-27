@@ -4,7 +4,7 @@ HN02,Văn Miếu – Quốc Tử Giám,Đống Đa,lich-su|van-hoa,21.0276,105.8
 HN03,Di tích Nhà tù Hỏa Lò,Hoàn Kiếm,lich-su|van-hoa,21.0253,105.8465,08:00,17:00,,90,50000,sang|chieu,True,False,"Mở cả tuần, không gian trong nhà phù hợp khi trời mưa; ít phù hợp với trẻ quá nhỏ."
 HN04,Hoàng Thành Thăng Long,Ba Đình,lich-su|van-hoa,21.0352,105.8402,08:00,17:00,,120,100000,sang|chieu,False,True,"Khuôn viên rộng nằm sát cụm Ba Đình, dễ ghép tuyến với Lăng Bác và Văn Miếu."
 HN05,Bảo tàng Dân tộc học Việt Nam,Cầu Giấy,lich-su|van-hoa,21.0404,105.7988,08:30,17:30,Mon,120,40000,sang|chieu,True,True,Đóng cửa vào Thứ 2; nằm ở Cầu Giấy (cách trung tâm Hoàn Kiếm khoảng 6 km).
-HN06,Bảo tàng Mỹ thuật Việt Nam,Ba Đình,van-hoa|lich-su,21.0306,105.8369,08:30,17:00,Mon,90,40000,sang|chieu,True,True,"Đóng cửa Thứ 2; rất gần Văn Miếu (~400 m), thích hợp đi tránh nắng hoặc mưa."
+HN06,Bảo tàng Mỹ thuật Việt Nam,Ba Đình,van-hoa|lich-su,21.0306,105.8369,08:30,17:00,,90,40000,sang|chieu,True,True,"Mở cả tuần (theo vnfam.vn); rất gần Văn Miếu (~400 m), thích hợp đi tránh nắng hoặc mưa."
 HN07,Bảo tàng Lịch sử Quốc gia,Hoàn Kiếm,lich-su|van-hoa,21.0247,105.8597,08:00,17:00,Mon,90,40000,sang|chieu,True,True,Đóng cửa Thứ 2; nghỉ trưa 12:00–13:30; gần Nhà hát Lớn và Hồ Hoàn Kiếm.
 HN08,Bảo tàng Phụ nữ Việt Nam,Hoàn Kiếm,van-hoa|lich-su,21.0226,105.8515,08:00,17:00,,75,40000,sang|chieu,True,True,Mở cửa cả tuần kể cả Thứ 2; nằm gần Hồ Gươm và Nhà tù Hỏa Lò.
 HN09,Nhà hát Múa rối Nước Thăng Long,Hoàn Kiếm,van-hoa|giai-tri,21.0315,105.8534,13:45,21:00,,60,150000,chieu|toi,True,True,Chỉ có suất diễn từ 13:45 đến tối; rất phù hợp gia đình có trẻ nhỏ và ngày mưa.
