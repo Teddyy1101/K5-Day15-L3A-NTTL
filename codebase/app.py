@@ -29,13 +29,16 @@ def _where(e):
 def main() -> int:
     try:
         import tracing
-        from agent import answer
+        from agent import answer, edit
     except Exception as e:  # lỗi cú pháp, thiếu thư viện… trong codebase/
         print("Không nạp được codebase/ — lỗi ở %s: %s: %s" % (_where(e), type(e).__name__, e))
         print("Sửa lỗi rồi chạy lại. Cách nối model: docs/connect-model.md")
         return 1
     print("Bản chạy thử — gõ đầu vào rồi Enter. Thoát: Ctrl+C (hoặc Enter 2 lần với dòng trống).")
+    print("Có lịch rồi thì nhắn tiếp để SỬA (vd: bỏ Lăng Bác · thêm Văn Miếu vào ngày 2 · trời mưa đổi sang chỗ "
+          "trong nhà · đổi ngân sách thành 2 triệu). Gõ /moi để bỏ lịch hiện tại.")
     blank = 0
+    state = None  # lịch đang có trong phiên chat — chỉ giữ trong bộ nhớ, tắt chương trình là mất
     while True:
         try:
             text = input("> ").strip()
@@ -48,9 +51,13 @@ def main() -> int:
                 return 0
             continue
         blank = 0
+        if text.lower() in ("/moi", "/mới"):
+            state = None
+            print("Đã bỏ lịch hiện tại — nhập yêu cầu lập lịch mới.")
+            continue
         tracing.begin("app")
         try:
-            result = answer(text)
+            result = edit(text, state) if state else answer(text)
         except NotImplementedError as e:
             tracing.end()
             print("Chưa nối model: %s" % e)
@@ -60,6 +67,8 @@ def main() -> int:
             print("[lỗi] %s: %s" % (type(e).__name__, e))
             continue
         s, _ = tracing.end()
+        if isinstance(result, dict) and result.get("state"):
+            state = result["state"]
         print(result.get("output", "") if isinstance(result, dict) else result)
         print("   (model: %s · gọi model %d lần · công cụ %d lần · token vào %d / ra %d)"
               % (", ".join(s["models"]) or "—", s["model_calls"], s["tool_calls"], s["tokens_in"], s["tokens_out"]))

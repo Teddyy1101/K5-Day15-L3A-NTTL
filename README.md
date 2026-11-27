@@ -2,7 +2,7 @@
 
 # NTTL — VietTravel Copilot: lập lịch đi Hà Nội 1–3 ngày
 
-Khách nhập một câu (số ngày, thứ bắt đầu, sở thích, ngân sách) → **AI chọn và chia địa điểm theo ngày** từ danh mục 24 điểm Hà Nội của nhóm → code xếp giờ, kiểm giờ mở cửa, ngày đóng cửa, khung giờ khách chọn và cộng tổng chi phí (vé + ăn + di chuyển ước tính) → khách nhận lịch từng ngày và tự quyết. Thiết kế: [spec.md](spec.md) §4.
+Khách nhập một câu (số ngày, thứ bắt đầu, sở thích, ngân sách) → **AI chọn và chia địa điểm theo ngày** từ danh mục 24 điểm Hà Nội của nhóm → code xếp giờ, kiểm giờ mở cửa, ngày đóng cửa, khung giờ khách chọn và cộng tổng chi phí (vé + ăn + di chuyển ước tính) → khách nhận lịch từng ngày, **nhắn tiếp để sửa** (bỏ / thêm / đổi điểm, trời mưa, đổi ngân sách) và tự quyết. Thiết kế: [spec.md](spec.md) §4.
 
 ### Chạy bản chạy thử của nhóm (Windows: `py` thay cho `python` nếu cần)
 
@@ -10,6 +10,7 @@ Khách nhập một câu (số ngày, thứ bắt đầu, sở thích, ngân sá
 copy .env.example .env          # macOS / Linux: cp .env.example .env
 # mở .env, điền: MODEL_PROVIDER=openai · MODEL_NAME=gpt-5-mini · API_KEY=<key của nhóm>  (KHÔNG commit .env)
 python run.py                   # gõ vd: Đi Hà Nội 2 ngày từ thứ 7, 2 người, ngân sách 1,5 triệu, thích lịch sử và ăn uống
+                                #   rồi nhắn tiếp để sửa: bỏ Lăng Bác, thêm Bảo tàng Phụ nữ vào ngày 1 · /moi = lập lịch mới
 python run.py eval --try        # thử 3 câu, thấy "Nối model được" là xong
 ```
 
