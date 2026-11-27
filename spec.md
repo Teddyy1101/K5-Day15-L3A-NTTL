@@ -15,7 +15,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): không dù
 - Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI):
 - Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:
 - Pain (KHÔNG chữ AI): ai — đang làm gì — vướng đâu — hậu quả gì:
-- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): __
+- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): *(bản CP2)* khảo sát n = 13 (chưa đạt ngưỡng 20): 8/13 mất ≥2 tiếng lên lịch chuyến 2–3 ngày; 9/13 thấy khó nhất ở sắp thuận đường hoặc cân đối thời gian + chi phí; nhưng chỉ 4/13 coi giờ mở cửa và chi phí là thông tin quan trọng nhất → giả thuyết đúng một phần.
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
