@@ -94,7 +94,7 @@ flowchart TD
   | G8 / G9 — dễ bỏ qua, dễ sửa | Bước ⑥ → khách: dòng cuối mời bỏ / thay điểm, đổi thứ, đổi ngân sách; khách tự quyết lưu. Hiện sửa bằng cách gửi lại yêu cầu — sửa từng điểm trong cùng phiên chưa làm |
 
 - Phần nào còn giả (công cụ trả dữ liệu giả, model chế độ giả…) — ghi rõ, không giả làm thật:
-  - **Model đang ở chế độ giả** (`MODEL_PROVIDER` trống) → bước ③ luôn rơi vào luật dự phòng; output ghi "Chọn điểm: luật dự phòng". Nối model thật trước CP3.
+  - ~~Model đang ở chế độ giả~~ → **đã nối model thật** từ 27/11 20:40 (`gpt-5-mini`, xem §10). Luật dự phòng chỉ còn chạy khi AI trả sai JSON hoặc khi để trống `MODEL_PROVIDER`.
   - Thời gian và tiền di chuyển là ước tính từ toạ độ, chưa có kẹt xe thật; giờ mở cửa và giá vé là dữ liệu tĩnh nhóm tổng hợp (`data/DATA_CARD.md`).
   - Giao diện là dòng lệnh (`python run.py`).
 
@@ -146,6 +146,10 @@ flowchart TD
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
 | 27/11 20:40 | Nối model thật: `codebase/ai.py` gọi OpenAI Chat Completions, model `gpt-5-mini`; token lấy từ `usage` | Guide 3.3 — bản chạy thử phải gọi AI thật trước CP3. Đã thử: `eval --try` có token > 0; 5/5 input thường AI trả đúng JSON ("Chọn điểm: AI") |
+| 27/11 20:48 | Thêm **khung giờ khách chọn** ("13h đến 21h", "buổi tối 20h"…): `sap_xep_lo_trinh` nhận giờ kết thúc, `kiem_lich_trinh` kiểm thêm "ngoài khung giờ" | Lớp 4 ở §5 — câu thử B09, B15, B16 cần; trước đó code luôn xếp từ 07:30 đến 22:00 |
+| 27/11 20:48 | Nhận ra **điểm khách nêu tên** (theo tên trong danh mục + tên gọi quen như "Lăng Bác", "Hồ Gươm"): báo ở dòng đầu nếu điểm đóng cửa mọi ngày đi hoặc không vừa khung giờ, gợi ý đổi ngày | Lớp 4 — B11 (Lăng Bác, Bảo tàng Dân tộc học vào Thứ 2), B16 (Văn Miếu lúc 20h) |
+| 27/11 20:48 | AI trả thêm `khong_co_du_lieu` (điểm / hoạt động khách hỏi mà danh mục không có) → hiện "Chưa có dữ liệu cho: …" ở dòng đầu; code lọc bỏ mục trỏ tới điểm có trong danh mục; prompt cấm gán hoạt động mà danh sách không ghi | Lớp 1 — B10 (workshop), B15 (Ba Vì). Lần thử đầu AI gọi Bát Tràng là "workshop" và ghi nhầm Lăng Bác vào "chưa có dữ liệu" → sửa prompt + lọc bằng code, thử lại đúng |
+| 27/11 20:48 | README: lệnh chạy, bảng phần thật / giả, dùng AI vào việc gì; §4 bỏ dòng "model đang ở chế độ giả" | Guide 3.2 — README repo phải có lệnh chạy |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

@@ -109,13 +109,13 @@ def tra_dia_diem(so_thich: list = None, co_tre_nho: bool = False, troi_mua: bool
 
 
 @tool
-def sap_xep_lo_trinh(ids: list, thu: str, gio_bat_dau: str = "08:00") -> dict:
+def sap_xep_lo_trinh(ids: list, thu: str, gio_bat_dau: str = "08:00", gio_ket_thuc: str = DAY_END) -> dict:
     """Tên: sap_xep_lo_trinh — xếp thứ tự và giờ cho các điểm của MỘT ngày.
     Cách xếp (tham lam): từ điểm hiện tại, xét các điểm bắt đầu được trong vòng 30 phút so với điểm
     sớm nhất (tính cả thời gian di chuyển và chờ mở cửa), chọn điểm có "giờ muộn nhất còn vào kịp"
     (giờ đóng − thời lượng) sớm nhất — để điểm mở ngắn (vd phở sáng) không bị bỏ lỡ. Điểm đóng cửa
-    hôm đó, hoặc không còn kịp tham quan trước giờ đóng / trước 22:00, đưa vào khong_xep_duoc kèm lý do.
-    Input: ids (list mã địa điểm), thu (Mon..Sun), gio_bat_dau ("HH:MM").
+    hôm đó, hoặc không còn kịp tham quan trước giờ đóng / trước gio_ket_thuc, đưa vào khong_xep_duoc kèm lý do.
+    Input: ids (list mã địa điểm), thu (Mon..Sun), gio_bat_dau, gio_ket_thuc ("HH:MM" — khung giờ khách đi trong ngày).
     Output: {"lich": [{id, name, den, bat_dau, ket_thuc, di_chuyen_phut, di_chuyen_km,
                        tien_di_chuyen (1 người, chặng tới điểm này), chi_phi (vé/ăn 1 người)}],
              "khong_xep_duoc": [{id, ly_do}]}.
@@ -139,7 +139,7 @@ def sap_xep_lo_trinh(ids: list, thu: str, gio_bat_dau: str = "08:00") -> dict:
             move = travel_min(here, p) if here else 0
             start = max(now + move, to_min(p["open_time"]))
             end = start + p["duration_min"]
-            if end > to_min(p["close_time"]) or end > to_min(DAY_END):
+            if end > to_min(p["close_time"]) or end > to_min(gio_ket_thuc):
                 continue
             latest = to_min(p["close_time"]) - p["duration_min"]  # giờ muộn nhất còn vào kịp
             feasible.append((start, latest, p, move, now + move, end))
@@ -157,20 +157,23 @@ def sap_xep_lo_trinh(ids: list, thu: str, gio_bat_dau: str = "08:00") -> dict:
         con_lai.remove(p)
         now, here = end, p
     for p in con_lai:
-        bo.append({"id": p["id"], "ly_do": "%s không còn kịp giờ mở cửa (%s–%s) trong ngày"
-                   % (p["name"], p["open_time"], p["close_time"])})
+        bo.append({"id": p["id"], "ly_do": "%s không còn kịp giờ mở cửa (%s–%s) trong khung %s–%s"
+                   % (p["name"], p["open_time"], p["close_time"], gio_bat_dau, gio_ket_thuc)})
     return {"lich": lich, "khong_xep_duoc": bo}
 
 
 @tool
-def kiem_lich_trinh(cac_ngay: list, ngan_sach: int = None, so_nguoi: int = 1) -> dict:
+def kiem_lich_trinh(cac_ngay: list, ngan_sach: int = None, so_nguoi: int = 1,
+                    gio_bat_dau: str = None, gio_ket_thuc: str = None) -> dict:
     """Tên: kiem_lich_trinh — chốt chặn cuối: kiểm cả lịch nhiều ngày trước khi đưa cho khách.
     Kiểm: mã địa điểm có thật · không trùng điểm giữa các ngày · không đi vào ngày đóng cửa ·
-          bắt đầu sau giờ mở, kết thúc trước giờ đóng · các điểm trong ngày không chồng giờ ·
+          bắt đầu sau giờ mở, kết thúc trước giờ đóng · nằm trong khung giờ khách chọn (nếu có) ·
+          các điểm trong ngày không chồng giờ ·
           tổng chi phí = (vé + ăn tại điểm + di chuyển ước tính giữa các điểm) × số người
           không vượt ngân sách. Tiền di chuyển được TÍNH LẠI từ toạ độ, không tin số trong lịch.
     Input: cac_ngay (list {"thu": Mon..Sun, "lich": output "lich" của sap_xep_lo_trinh}),
-           ngan_sach (int VND cho cả nhóm, None = khách chưa cho), so_nguoi (int).
+           ngan_sach (int VND cho cả nhóm, None = khách chưa cho), so_nguoi (int),
+           gio_bat_dau / gio_ket_thuc ("HH:MM", None = không giới hạn).
     Output: {"hop_le": bool, "loi": [str], "tong_chi_phi": int, "tong_ve_an": int, "tong_di_chuyen": int}.
     Tác động ra ngoài: KHÔNG (chỉ đọc và kiểm)."""
     places = load_places()
@@ -190,6 +193,8 @@ def kiem_lich_trinh(cac_ngay: list, ngan_sach: int = None, so_nguoi: int = 1) ->
             start, end = to_min(s["bat_dau"]), to_min(s["ket_thuc"])
             if start < to_min(p["open_time"]) or end > to_min(p["close_time"]):
                 loi.append("Ngày %d: %s ngoài giờ mở cửa (%s–%s)" % (i, p["name"], p["open_time"], p["close_time"]))
+            if (gio_bat_dau and start < to_min(gio_bat_dau)) or (gio_ket_thuc and end > to_min(gio_ket_thuc)):
+                loi.append("Ngày %d: %s ngoài khung giờ khách chọn (%s–%s)" % (i, p["name"], gio_bat_dau, gio_ket_thuc))
             if start < prev_end:
                 loi.append("Ngày %d: %s chồng giờ với điểm trước" % (i, p["name"]))
             prev_end = end
