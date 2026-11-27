@@ -1,33 +1,39 @@
-# AI SPEC — [Tên lát cắt] · Nhóm [tên nhóm] · Phòng [XXX] · Zone [X]
+# AI SPEC — VietTravel Copilot (Lập lịch Hà Nội 1–3 ngày) · Nhóm NTTL · Lớp L3A
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 > Đầu mỗi mục ghi bước guide (`02-guide.md` trong repo đề) chỉ cách điền. Mỗi mục ngắn, có số và nguồn; chi tiết để ở file được trỏ tới. Xoá dòng hướng dẫn trong ngoặc vuông khi điền xong.
 
-Track: [ ] A · [ ] B · [ ] C · [ ] D · [ ] E — bài toán: [đề gợi ý trong file track, hoặc bài toán nhóm tự mở rộng] __
-Data BTC cấp đã dùng (nếu có — không commit nguyên file): __
+Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán: VietTravel Copilot lập lịch đi Hà Nội từ 1 đến 3 ngày
+Data BTC cấp đã dùng (nếu có — không commit nguyên file): Không dùng data BTC; nhóm tự xây dựng `data/places_hanoi.csv` và `data/places_hanoi.json`.
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
-- Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin):
-- Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn. Không kiểm được thì ghi "chưa kiểm":
+- Luồng hiện tại của việc này trên các app thật (4 bước):
+  1. Người dùng tìm địa điểm ăn uống, tham quan trên TikTok, Facebook hoặc blog du lịch.
+  2. Mở Google Maps để xem từng điểm nằm ở khu vực nào, cách nhau bao xa và mất bao lâu di chuyển.
+  3. Tra giờ mở cửa từng ngày trong tuần (nhiều điểm tại Hà Nội như Lăng Bác, bảo tàng đóng cửa thứ Hai hoặc thứ Sáu; phố đi bộ chỉ mở cuối tuần) và giá vé/chi phí ước tính.
+  4. Tự ghép lịch theo buổi vào Google Docs, Notes hoặc Google Sheets, rồi sửa lại khi phát hiện trùng giờ hoặc vượt ngân sách.
+- Công cụ / AI đang được dùng cho việc này: Google Maps, TikTok/Facebook, Google Sheets/Notes, ChatGPT riêng *(chưa kiểm nguồn tỷ lệ dùng chính thức — chờ số liệu khảo sát thật ở `evidence/survey/`)*.
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
-- Người dùng chính (một vai cụ thể):
-- Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI):
-- Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:
-- Pain (KHÔNG chữ AI): ai — đang làm gì — vướng đâu — hậu quả gì:
-- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): __
+- Người dùng chính (một vai cụ thể): Khách tự lên kế hoạch cho chuyến đi ngắn (1–3 ngày) ở Hà Nội.
+- Việc họ cố làm xong: Lập lịch trình tham quan và ăn uống tại Hà Nội trong 1–3 ngày khớp sở thích, giờ mở cửa, thời gian di chuyển và ngân sách.
+- Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ: Tự tra rời rạc trên Google Maps, TikTok/blog rồi ghép vào Notes; dễ sót giờ đóng cửa theo thứ trong tuần hoặc ước lượng sai thời gian di chuyển và tổng chi phí; chưa bỏ vì các công cụ hiện tại miễn phí và quen dùng.
+- Pain (KHÔNG chữ AI): Khách tự lên lịch đi Hà Nội — đang phải đối chiếu giờ mở cửa, chi phí và thời gian di chuyển từ nhiều nguồn rời rạc — vướng ở việc dữ liệu phân tán và thay đổi theo ngày trong tuần — hậu quả là mất nhiều thời gian sắp xếp lại hoặc đến nơi mới phát hiện điểm đóng cửa / vượt chi phí.
+- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): *(chờ kết quả thu thập thật từ khảo sát ≥20 phiếu và phỏng vấn ≥3 người ở `evidence/survey/` và `evidence/interviews/P1.md`–`P3.md`)*.
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |
+| Tự lên lịch đi Hà Nội 1–3 ngày (đối chiếu giờ mở cửa, tuyến đường, ngân sách) | 100 *(tự ước tính)* | 1 *(tự ước tính)* | 45 phút *(tự ước tính)* | 4.500 phút *(tự ước tính)* | Có (dữ liệu Hà Nội gọn, kiểm được ràng buộc) | Có |
+| Gợi ý đặt vé máy bay và khách sạn tự động đa thành phố | 100 *(tự ước tính)* | 0.5 *(tự ước tính)* | 60 phút *(tự ước tính)* | 3.000 phút *(tự ước tính)* | Không (rủi ro giao dịch/giá biến động, ngoài phạm vi 1 ngày) | Không |
+| Hướng dẫn viên tương tác giọng nói thời gian thực tại điểm | 40 *(tự ước tính)* | 0.5 *(tự ước tính)* | 30 phút *(tự ước tính)* | 600 phút *(tự ước tính)* | Không (đòi hỏi hạ tầng audio/GPS ngoài lát cắt) | Không |
 
-- **Impact / tháng** của hướng chọn = __ người × __ lần × __ phút = __ — nguồn từng thừa số: __ (không có nguồn thì ghi rõ *(tự ước tính)*)
-- Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):
-- Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8):
+- **Impact / tháng** của hướng chọn = 100 người *(tự ước tính)* × 1 lần *(tự ước tính)* × 45 phút *(tự ước tính)* = 4.500 phút/tháng *(tự ước tính — sẽ cập nhật bằng số khảo sát & phỏng vấn thật tại `evidence/summary.md`)*.
+- Hướng ĐÃ LOẠI + vì sao:
+  - *Đặt vé máy bay/khách sạn tự động đa thành phố*: liên quan thanh toán thật và biến động giá theo thời gian thực, vượt phạm vi bản chạy thử an toàn.
+  - *Hướng dẫn viên giọng nói thời gian thực*: đòi hỏi xử lý audio/GPS liên tục, không kịp hoàn thiện và kiểm định trong thời gian hackathon.
+- Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8): Khách đi cuối tuần tự phát: 1–2 lần/tháng *(tự ước tính)* · Khách du lịch từ tỉnh khác đến Hà Nội ngắn ngày: 0.25–0.5 lần/tháng *(tự ước tính)*.
 
 ## §3. Giải pháp tương tự *(guide 2.1)*
 - [sản phẩm / tính năng gần giống]: một điều đáng học · một điều đáng né · mình khác gì
