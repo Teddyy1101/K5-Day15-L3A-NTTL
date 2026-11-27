@@ -19,17 +19,17 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Không dù
 - Việc họ cố làm xong: Lập lịch trình tham quan và ăn uống tại Hà Nội trong 1–3 ngày khớp sở thích, giờ mở cửa, thời gian di chuyển và ngân sách.
 - Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ: Tự tra rời rạc trên Google Maps, TikTok/blog rồi ghép vào Notes; dễ sót giờ đóng cửa theo thứ trong tuần hoặc ước lượng sai thời gian di chuyển và tổng chi phí; chưa bỏ vì các công cụ hiện tại miễn phí và quen dùng.
 - Pain (KHÔNG chữ AI): Khách tự lên lịch đi Hà Nội — đang phải đối chiếu giờ mở cửa, chi phí và thời gian di chuyển từ nhiều nguồn rời rạc — vướng ở việc dữ liệu phân tán và thay đổi theo ngày trong tuần — hậu quả là mất nhiều thời gian sắp xếp lại hoặc đến nơi mới phát hiện điểm đóng cửa / vượt chi phí.
-- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): *(chờ kết quả thu thập thật từ khảo sát ≥20 phiếu và phỏng vấn ≥3 người ở `evidence/survey/` và `evidence/interviews/P1.md`–`P3.md`)*.
+- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): **3/3 người phỏng vấn** (P1–P3) gặp sự cố do đối chiếu rời rạc giờ mở cửa/nghỉ trưa, khoảng cách tuyến đường và chi phí; thời gian chuẩn bị trước chuyến đi 45–150 phút (trung vị 90 phút), phát sinh ngoài dự kiến 250.000đ–1.200.000đ/chuyến. *(Đang chờ ghép thêm số liệu khảo sát ≥20 phiếu).*
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
-| Tự lên lịch đi Hà Nội 1–3 ngày (đối chiếu giờ mở cửa, tuyến đường, ngân sách) | 100 *(tự ước tính)* | 1 *(tự ước tính)* | 45 phút *(tự ước tính)* | 4.500 phút *(tự ước tính)* | Có (dữ liệu Hà Nội gọn, kiểm được ràng buộc) | Có |
-| Gợi ý đặt vé máy bay và khách sạn tự động đa thành phố | 100 *(tự ước tính)* | 0.5 *(tự ước tính)* | 60 phút *(tự ước tính)* | 3.000 phút *(tự ước tính)* | Không (rủi ro giao dịch/giá biến động, ngoài phạm vi 1 ngày) | Không |
-| Hướng dẫn viên tương tác giọng nói thời gian thực tại điểm | 40 *(tự ước tính)* | 0.5 *(tự ước tính)* | 30 phút *(tự ước tính)* | 600 phút *(tự ước tính)* | Không (đòi hỏi hạ tầng audio/GPS ngoài lát cắt) | Không |
+| Tự lên lịch đi Hà Nội 1–3 ngày (đối chiếu giờ mở cửa, tuyến đường, ngân sách) | 100 *(tự ước tính)* | 0,67 *(trung vị 2 lần/quý từ P1–P3)* | 90 phút *(trung vị từ P1–P3)* | 6.030 phút *(tự ước tính quy mô 100 người)* | Có (dữ liệu Hà Nội gọn, kiểm được ràng buộc) | Có |
+| Gợi ý đặt vé máy bay và khách sạn tự động đa thành phố | 100 *(tự ước tính)* | 0,5 *(tự ước tính)* | 60 phút *(tự ước tính)* | 3.000 phút *(tự ước tính)* | Không (rủi ro giao dịch/giá biến động, ngoài phạm vi 1 ngày) | Không |
+| Hướng dẫn viên tương tác giọng nói thời gian thực tại điểm | 40 *(tự ước tính)* | 0,5 *(tự ước tính)* | 30 phút *(tự ước tính)* | 600 phút *(tự ước tính)* | Không (đòi hỏi hạ tầng audio/GPS ngoài lát cắt) | Không |
 
-- **Impact / tháng** của hướng chọn = 100 người *(tự ước tính)* × 1 lần *(tự ước tính)* × 45 phút *(tự ước tính)* = 4.500 phút/tháng *(tự ước tính — sẽ cập nhật bằng số khảo sát & phỏng vấn thật tại `evidence/summary.md`)*.
+- **Impact / tháng** của hướng chọn = 100 người *(tự ước tính)* × 0,67 lần/tháng *(từ P1–P3: 1–3 lần/quý, trung vị 2 lần/quý)* × 90 phút *(trung vị từ P1–P3: 45–150 phút)* ≈ **6.030 phút/tháng**.
 - Hướng ĐÃ LOẠI + vì sao:
   - *Đặt vé máy bay/khách sạn tự động đa thành phố*: liên quan thanh toán thật và biến động giá theo thời gian thực, vượt phạm vi bản chạy thử an toàn.
   - *Hướng dẫn viên giọng nói thời gian thực*: đòi hỏi xử lý audio/GPS liên tục, không kịp hoàn thiện và kiểm định trong thời gian hackathon.
