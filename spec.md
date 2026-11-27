@@ -53,21 +53,19 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): không dù
 
 ```mermaid
 flowchart TD
-    U["Khách nhập yêu cầu<br/>số ngày · thứ · sở thích · ngân sách · số người"] --> P["① Đọc yêu cầu — CODE<br/>parse_request + check_scope"]
-    P -->|"ngoài Hà Nội · >3 ngày · đặt vé / thanh toán · câu tấn công"| R["Từ chối ở dòng đầu + nêu phạm vi<br/>(G10)"]
-    P -->|"thiếu số ngày / thứ / ngân sách"| Q["Hỏi lại MỘT câu gom đủ phần thiếu<br/>(G10) — không gọi AI"]
-    P -->|"đủ thông tin"| T1["② tra_dia_diem — CÔNG CỤ<br/>đọc data/places_hanoi.json"]
-    T1 --> AI["③ AI chọn & chia điểm theo ngày<br/>QUYẾT ĐỊNH TRUNG TÂM → JSON chỉ gồm mã HNxx"]
-    AI -->|"JSON sai định dạng"| FB["Luật dự phòng (code)<br/>ghi rõ trong output"]
-    AI --> B["④ sap_xep_lo_trinh — CÔNG CỤ<br/>giờ từng điểm + phút / km / tiền di chuyển"]
-    FB --> B
-    B --> K{"⑤ kiem_lich_trinh — CHỐT CHẶN<br/>mã có thật · ngày đóng cửa · giờ mở<br/>chồng giờ · tổng tiền ≤ ngân sách"}
-    K -->|"có lỗi, lần sửa 1"| AI
-    K -->|"vẫn vượt ngân sách"| TB["Code bỏ điểm đắt nhất, xếp lại giờ<br/>báo rõ đã bỏ gì; quá thấp → báo không đủ"]
-    K -->|"hợp lệ"| O["⑥ Trình bày — CODE<br/>lịch + giờ + tiền + vì sao chọn + căn cứ"]
-    TB --> O
-    O --> H(["KHÁCH duyệt: bỏ / thay điểm, đổi thứ, đổi ngân sách<br/>tự quyết lưu và tự đặt vé"])
+    U["Khách nhập yêu cầu"] --> P{"① Đọc yêu cầu (code)"}
+    P -->|"ngoài phạm vi / tấn công"| R["Từ chối"]
+    P -->|"thiếu ngày, thứ, ngân sách"| Q["Hỏi lại"]
+    P -->|"đủ"| T["② tra_dia_diem"]
+    T --> AI["③ AI chọn điểm theo ngày"]
+    AI --> S["④ sap_xep_lo_trinh"]
+    S --> K{"⑤ kiem_lich_trinh"}
+    K -->|"có lỗi → sửa 1 lần"| AI
+    K -->|"hợp lệ"| O["⑥ Trình bày lịch (code)"]
+    O --> H(["Khách duyệt, tự quyết"])
 ```
+
+  Ghi chú: AI trả sai JSON → code chọn bằng luật dự phòng · vẫn vượt ngân sách → code bỏ điểm đắt nhất và báo khách.
 
 - **Hình dạng:** [x] workflow cố định · [ ] một agent · [ ] nhiều agent — Lập lịch luôn đi đúng một chuỗi bước (đọc yêu cầu → tra điểm → chọn → xếp giờ → kiểm → trình bày), chỉ bước "chọn và chia điểm" cần AI; các bước còn lại là luật rõ ràng nên làm bằng code thì rẻ hơn và đo được. **Không** chọn agent vì đường đi không đổi theo input — để AI tự chọn bước sẽ tốn thêm lượt gọi model và mở đường cho AI bỏ qua bước kiểm; không chọn nhiều agent vì không có các vai thật sự khác nhau.
 - **AI dựa vào đâu** — mỗi công cụ (khớp `codebase/tools.py`):
