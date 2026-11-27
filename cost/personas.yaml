@@ -3,50 +3,47 @@
 # Mọi số phải có nguồn (data / phỏng vấn / khảo sát / quy mô khoá có nguồn) hoặc ghi rõ "(tự ước tính)".
 # Chạy: python run.py simulate --try   (10 phiên, kiểm khung — làm trước CP3)
 #       python run.py simulate         (đủ số phiên dưới đây — bản nộp CP4)
-# Thay mọi dòng "(ví dụ)" bằng số và nguồn của nhóm; simulate nhắc nếu còn sót.
 
 sessions: 50        # số phiên mô phỏng — bản nộp ≥50
 seed: 42            # giữ cố định để chạy lại ra cùng chuỗi phiên
 
-users:              # số người dùng thật nếu đưa vào dùng — 3 kịch bản, ở quy mô thật của sản phẩm
-                    # track A: khoá học · track B–F: người dùng của sản phẩm / nhóm nhắm tới, nguồn công khai có link
-  low: 300
-  base: 700
-  high: 1000
-  source: "(ví dụ) track A — thay bằng số của nhóm. Cơ sở: lớp L3 hơn 700 học viên (README hackathon); thấp, cao: (tự ước tính)"
+users:              # số người dùng thật nếu đưa vào dùng — 3 kịch bản (khách du lịch tự túc đi Hà Nội 1-3 ngày)
+  low: 200
+  base: 500
+  high: 1500
+  source: "(tự ước tính) Quy mô pilot nhóm khách tự túc đi Hà Nội (18-24 tuổi, đi 1-2 lần/năm theo evidence/survey/results.csv)"
 
 personas:           # ≥3 kiểu người dùng; share cộng lại = 1
-  - name: dung_it
-    share: 0.5              # tỉ lệ người dùng kiểu này
-    uses_per_month: 4       # số phiên / người / tháng
-    turns_per_session: 1    # số lượt hỏi trong một phiên
-    source: "(ví dụ) phỏng vấn P1, P3 — thay bằng nguồn của nhóm"
-  - name: dung_vua
-    share: 0.3
-    uses_per_month: 10
-    turns_per_session: 3
-    source: "(ví dụ) khảo sát n = 24, câu 3"
-  - name: dung_nhieu
+  - name: khach_di_1_ngay
+    share: 0.4              # tỉ lệ người dùng kiểu này
+    uses_per_month: 2       # số phiên / người / tháng (tự ước tính: người đi ngắn ngày/cuối tuần)
+    turns_per_session: 1    # số lượt hỏi trong một phiên (lập lịch xong dùng luôn)
+    source: "evidence/survey/results.csv (3/13 chọn thời gian lên lịch dưới 30 phút, 1-2 lần/năm); số phiên/tháng và lượt/phiên (tự ước tính)"
+  - name: khach_di_2_3_ngay
+    share: 0.4
+    uses_per_month: 1
+    turns_per_session: 3    # lập lịch + 2 lượt nhắn sửa điểm/ngân sách
+    source: "evidence/survey/results.csv (8/13 mất >=2 tiếng lên lịch 2-3 ngày, 9/13 khó sửa lịch); lượt sửa (tự ước tính)"
+  - name: khach_nhom_gia_dinh
     share: 0.2
-    uses_per_month: 20
-    turns_per_session: 5
-    source: "(ví dụ) data/preclass: đếm số lượt / người — cách đếm ở evidence/data-mining.md"
-# Mỗi lượt hỏi lấy ngẫu nhiên một đầu vào trong eval/benchmark.csv (type thuong và kho).
-# Persona hỏi kiểu riêng: thêm vào persona đó
-#     types: [thuong, kho, tu_choi]
-# hoặc
-#     inputs: ["câu hỏi kiểu 1", "câu hỏi kiểu 2"]
+    uses_per_month: 1
+    turns_per_session: 4    # hỏi kỹ ràng buộc trẻ nhỏ/giờ mở cửa + nhiều lượt chỉnh lịch
+    source: "evidence/survey/results.csv (9/13 khó cân đối thời gian & chi phí cho nhiều người); lượt sửa (tự ước tính)"
 
-prices:             # USD / 1 triệu token — chép từ further-reading/model-prices.md của repo đề. ≥2 mức model
+prices:             # USD / 1 triệu token — ≥2 mức model (gồm gemini-3.1-flash-lite đang chạy thật ở ai.py)
   - model: gemini-3.1-flash-lite
     input: 0.25
     output: 1.50
-    source: "(ví dụ) https://ai.google.dev/gemini-api/docs/pricing · xem 25/11/2026"
-  - model: gemini-4-hydrogen
-    input: 1.50
-    output: 7.50
-    source: "(ví dụ) https://ai.google.dev/gemini-api/docs/pricing · xem 25/11/2026"
+    source: "https://ai.google.dev/gemini-api/docs/pricing · xem 27/11/2026"
+  - model: gpt-5-mini
+    input: 0.25
+    output: 2.00
+    source: "https://openai.com/api/pricing/ · xem 27/11/2026"
+  - model: gpt-5
+    input: 1.25
+    output: 10.00
+    source: "https://openai.com/api/pricing/ · xem 27/11/2026"
 
-usd_to_vnd:         # tuỳ chọn: điền thì bản tóm tắt in thêm tiền Việt
-  rate:
-  source:
+usd_to_vnd:
+  rate: 25400
+  source: "Tỉ giá tham khảo Vietcombank ~25.400 VND/USD (tự ước tính cho bản nháp)"

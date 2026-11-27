@@ -19,6 +19,7 @@ Nối model thật: điền .env (chép từ .env.example), rồi viết nhánh 
 """
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 
@@ -49,16 +50,22 @@ SHOW_RAW = False   # đổi thành True để in nguyên phản hồi của API 
 URL_OPENAI = "https://api.openai.com/v1/chat/completions"
 
 
-def post_json(url, headers, body, timeout=120):
-    """Gửi POST JSON, trả về JSON phản hồi. Chỉ dùng thư viện chuẩn (urllib) — theo docs/connect-model.md."""
-    req = urllib.request.Request(
-        url, data=json.dumps(body).encode("utf-8"), method="POST",
-        headers=dict({"Content-Type": "application/json"}, **headers))
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            data = json.loads(r.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        raise RuntimeError("HTTP %d: %s" % (e.code, e.read().decode("utf-8", "replace")[:300]))
+def post_json(url, headers, body, timeout=30):
+    """Gửi POST JSON, trả về JSON phản hồi. Tự thử lại tối đa 2 lần khi gặp HTTP 429/503."""
+    payload = json.dumps(body).encode("utf-8")
+    hdrs = dict({"Content-Type": "application/json"}, **headers)
+    for attempt in range(3):
+        req = urllib.request.Request(url, data=payload, method="POST", headers=hdrs)
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = json.loads(r.read().decode("utf-8"))
+            break
+        except urllib.error.HTTPError as e:
+            msg = e.read().decode("utf-8", "replace")[:300]
+            if e.code in (429, 503) and attempt < 2:
+                time.sleep(2 * (attempt + 1))
+                continue
+            raise RuntimeError("HTTP %d: %s" % (e.code, msg))
     if SHOW_RAW:
         print(json.dumps(data, ensure_ascii=False, indent=2)[:3000])
     return data
@@ -76,6 +83,23 @@ def call_openai(system, user):
             "tokens_in": u["prompt_tokens"], "tokens_out": u["completion_tokens"]}
 
 
+def call_gemini(system, user):
+    """Gemini generateContent API. Token lấy từ usageMetadata (gồm cả thoughtsTokenCount nếu có)."""
+    if not API_KEY:
+        raise RuntimeError("Chưa có API_KEY trong .env")
+    url = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % MODEL_NAME
+    body = {"contents": [{"role": "user", "parts": [{"text": user}]}]}
+    if system:
+        body["systemInstruction"] = {"parts": [{"text": system}]}
+    data = post_json(url, {"x-goog-api-key": API_KEY}, body)
+    parts = data["candidates"][0]["content"].get("parts", [])
+    text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
+    u = data.get("usageMetadata", {})
+    tokens_in = int(u.get("promptTokenCount", 0))
+    tokens_out = int(u.get("candidatesTokenCount", 0)) + int(u.get("thoughtsTokenCount", 0))
+    return {"text": text, "tokens_in": tokens_in, "tokens_out": tokens_out}
+
+
 @model_call
 def call_model(system: str, user: str) -> dict:
     if MODEL_PROVIDER == "fake":
@@ -83,9 +107,11 @@ def call_model(system: str, user: str) -> dict:
         return {"text": "[câu trả lời giả — chưa nối model] " + last[:60], "model": "fake", "tokens_in": 0, "tokens_out": 0}
     if MODEL_PROVIDER == "openai":
         r = call_openai(system, user)
+    elif MODEL_PROVIDER == "gemini":
+        r = call_gemini(system, user)
     else:
         raise NotImplementedError(
-            "chưa viết phần gọi model cho MODEL_PROVIDER=%s trong codebase/ai.py — nhóm đang dùng openai"
+            "chưa viết phần gọi model cho MODEL_PROVIDER=%s trong codebase/ai.py — nhóm đang dùng openai hoặc gemini"
             % MODEL_PROVIDER)
     return {"text": r["text"], "model": MODEL_NAME,
             "tokens_in": int(r["tokens_in"]), "tokens_out": int(r["tokens_out"])}

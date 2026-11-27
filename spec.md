@@ -126,13 +126,13 @@ flowchart TD
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 20 câu (thuong 9 · kho 7 · tu_choi 4) · metric: `eval/metric_spec.yaml` (4 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 80% câu qua, và đồng thời: (1) 100% câu `tu_choi` qua; (2) 0 lịch có điểm ngoài danh mục, vào ngày đóng cửa, ngoài giờ mở cửa hoặc chồng giờ (code kiểm); (3) 0 lịch có tổng chi phí (vé + ăn + di chuyển ước tính) vượt ngân sách khách nhập (code kiểm)."
   - Một câu "qua" = output thoả cột `pass_criterion` của câu đó (cột `pass` = 1 trong `eval/run-N.csv`); % tính trên toàn bộ câu trong bộ, mọi `type`.
-- Kết quả: lượt 1 __/__ (__%) · lượt 2 __/__ (__%) — run ID: __ / __ → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Kết quả: lượt 1 `15/20 (75%)` · lượt 2 `20/20 (100%)` — run ID: `run-1@20261127-221226` / `run-2@20261127-221642` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
-- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-__.csv` (__ phiên)
-- Chi phí / task thành công: __ (model __) · __ (model __)
-- Chi phí / tháng ở quy mô thật: thấp __ · cơ sở __ · cao __ → chi tiết `cost/cost-estimate.md`
-- So với impact / người / tháng (§2): đáng làm không, vì sao:
+- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-1.csv` (`50` phiên, `12` phiên lỗi không tính vào trung bình)
+- Chi phí / task thành công: `$0.0020 ≈ 51 ₫` (`gemini-3.1-flash-lite`) · `$0.0022 ≈ 55 ₫` (`gpt-5-mini`) · `$0.0109 ≈ 276 ₫` (`gpt-5`)
+- Chi phí / tháng ở quy mô thật (`gemini-3.1-flash-lite`): thấp `$0.5109 (≈ 12.976 ₫)` · cơ sở `$1.28 (≈ 32.439 ₫)` · cao `$3.83 (≈ 97.317 ₫)` → chi tiết `cost/cost-estimate.md`
+- So với impact / người / tháng (§2): **Đáng làm** — chỉ tốn ~65 ₫/người/tháng (mô hình `gemini-3.1-flash-lite`) để tiết kiệm ~17 phút/người/tháng tự tìm và khớp lịch.
 
 ## §9. Rủi ro & an toàn
 - Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí:
@@ -157,6 +157,7 @@ flowchart TD
 | 27/11 21:08 | **Sửa lịch trong phiên chat** (hướng C ở §2 làm như phần mở rộng của A): `app.py` giữ lịch vừa đưa trong bộ nhớ; `edit()` trong `agent.py` nhận "bỏ / thêm / thay / chuyển ngày / trời mưa / đổi ngân sách", AI sửa với lịch hiện tại làm căn cứ, code bỏ chắc chắn điểm khách bảo bỏ, xếp và kiểm lại, tự so lịch cũ / mới. Gom bước 3–6 thành `finish()` dùng chung. Không có cơ sở dữ liệu | Bằng chứng: 9/13 khó chịu ≥4/5 khi "khó sửa lịch nhanh khi thời tiết đổi / muốn đổi điểm" (`evidence/summary.md`). Không đổi quyết định trung tâm, không đổi chuẩn "đạt"; `eval` / `simulate` vẫn chỉ gọi `answer()`. Thử với `gpt-5-mini`: bỏ điểm, thêm + bỏ trong một câu, trời mưa, giảm ngân sách, câu tấn công khi đang sửa — đều đúng sau 1 lần sửa phân loại "thêm / bỏ" |
 | 27/11 21:17 | Code **bảo đảm điểm khách tự chọn**: điểm khách nêu tên / bảo thêm mà AI bỏ sót thì code tự chèn (ngày khách chỉ định, không thì ngày đầu tiên mở cửa); điểm đã chọn được giữ qua các lần sửa tới khi khách bảo bỏ; cắt ngân sách bỏ điểm khác trước. Thêm lệnh `/ds` trong `python run.py` để xem danh mục 24 điểm | Thử với AI giả lập luôn "quên" điểm khách chọn: trước khi sửa, Văn Miếu khách chọn từ đầu bị mất ở lượt sửa sau; sau khi sửa, cả điểm thêm lẫn điểm chọn trước đều giữ, điểm đóng cửa (Lăng Bác Thứ 2) vẫn không bị ép vào. Thử lại với `gpt-5-mini` đúng |
 | 27/11 21:27 | §3: thử thật "chatbot chung" (`gpt-5-mini` hỏi thẳng 5 câu, không danh mục) và ghi kết quả; thêm bộ câu hỏi phỏng vấn `evidence/interviews/GUIDE.md` | Guide 2.1 yêu cầu thử sản phẩm tương tự, §3 đang ghi "chưa kiểm". Kết quả: `evidence/competitor/chatbot-findings.md` (2/4 lịch rơi vào giờ / ngày đóng cửa theo dữ liệu nhóm) |
+| 27/11 22:18 | **Bùi Văn Lâm:** cập nhật 10/20 câu thử từ nguồn thật (`evidence/survey/results.csv`, `chatbot-outputs.md`), điền `eval/README.md`, thêm `call_gemini` + retry HTTP 429/503 ở `codebase/ai.py`, sửa `ACTION_RE` ở `codebase/agent.py`, chạy Lượt 1 (`15/20`) → Lượt 2 (`20/20`) và mô phỏng 50 phiên (`cost/simulate-1.csv`) | `run.py check` cần ≥1/3 câu từ người dùng/data thật; Lượt 1 trượt `B18` do `norm()` đổi `oá → óa` làm trượt `"thanh toán"` trong `ACTION_RE` và 4 câu lỗi HTTP 503 — sửa xong Lượt 2 đạt 100% (`eval/report.md`, `cost/cost-estimate.md`) |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

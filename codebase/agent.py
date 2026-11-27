@@ -79,7 +79,7 @@ INTERESTS = {
 WEEKDAY_WORDS = {"2": "Mon", "hai": "Mon", "3": "Tue", "ba": "Tue", "4": "Wed", "tư": "Wed", "bốn": "Wed",
                  "5": "Thu", "năm": "Thu", "6": "Fri", "sáu": "Fri", "7": "Sat", "bảy": "Sat"}
 NUM_WORDS = {"một": 1, "hai": 2, "ba": 3, "bốn": 4, "năm": 5}
-ACTION_RE = re.compile(r"đặt (giúp |hộ |luôn )?(\d+ )?(vé|phòng|bàn|tour|xe|chỗ)|\bbook|thanh toán|chuyển khoản"
+ACTION_RE = re.compile(r"đặt (?:giúp |hộ |luôn )?(?:tôi |mình )?(?:\d+ )?(vé|phòng|bàn|tour|xe|chỗ)|\bbook|thanh t(?:oá|óa)n|chuyển kh(?:oả|ỏa)n"
                        r"|mua vé|trả tiền|gửi (email|tin)")
 # Câu cố đổi luật / đòi lộ cấu hình / đòi sửa dữ liệu — luật chung, không so khớp câu thử cụ thể
 INJECTION_RE = re.compile(r"bỏ qua (tất cả |mọi |các )?(hướng dẫn|chỉ dẫn|quy tắc|luật|yêu cầu|ràng buộc)"
