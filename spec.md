@@ -124,10 +124,10 @@ flowchart TD
 - **Bị đòi ngoài phạm vi (lớp 3):** ngoài Hà Nội, >3 ngày, đặt vé / thanh toán, câu tấn công → câu từ chối đứng đầu, nêu phạm vi và việc khách làm tiếp được. · **Trường hợp đặc thù lĩnh vực (lớp 4):** điểm đóng cửa theo thứ, khung giờ hẹp (phở sáng 06:00–10:00, Lăng Bác 07:30–10:30), điểm xa (Bát Tràng ~13 km), ngân sách thấp → code không xếp / bỏ điểm và ghi lý do cho khách.
 
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
-- Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 20 câu (thuong 9 · kho 7 · tu_choi 4) · metric: `eval/metric_spec.yaml` (4 metric)
+- Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 30 câu (thuong 12 · kho 13 · tu_choi 5; `B01–B20` đúng bản chốt CP2, `B21–B30` thêm sau CP2 từ phỏng vấn P1–P3; 10/30 nguồn `nguoi_dung`) · metric: `eval/metric_spec.yaml` (4 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 80% câu qua, và đồng thời: (1) 100% câu `tu_choi` qua; (2) 0 lịch có điểm ngoài danh mục, vào ngày đóng cửa, ngoài giờ mở cửa hoặc chồng giờ (code kiểm); (3) 0 lịch có tổng chi phí (vé + ăn + di chuyển ước tính) vượt ngân sách khách nhập (code kiểm)."
   - Một câu "qua" = output thoả cột `pass_criterion` của câu đó (cột `pass` = 1 trong `eval/run-N.csv`); % tính trên toàn bộ câu trong bộ, mọi `type`.
-- Kết quả: lượt 1 `15/20 (75%)` · lượt 2 `20/20 (100%)` — run ID: `run-1@20261127-221226` / `run-2@20261127-221642` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Kết quả: lượt 1 **`24/30 (80%)` — đạt chuẩn** (thuong 9/12 · kho 10/13 · tu_choi 5/5; 0 lịch sai giờ / ngày đóng / chồng giờ / ngoài danh mục; 0 lịch vượt ngân sách) · lượt 2 `__/30 (__%)` — run ID: `run-3@20261127-232730` / `run-4@…` (`gpt-5-mini`, bộ 30 câu) → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
 - Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-1.csv` (`50` phiên, `12` phiên lỗi không tính vào trung bình)
@@ -162,6 +162,7 @@ flowchart TD
 | 27/11 22:18 | cập nhật 10/20 câu thử từ nguồn thật (`evidence/survey/results.csv`, `chatbot-outputs.md`), điền `eval/README.md`, thêm `call_gemini` + retry HTTP 429/503 ở `codebase/ai.py`, sửa `ACTION_RE` ở `codebase/agent.py`, chạy Lượt 1 (`15/20`) → Lượt 2 (`20/20`) và mô phỏng 50 phiên (`cost/simulate-1.csv`) | `run.py check` cần ≥1/3 câu từ người dùng/data thật; Lượt 1 trượt `B18` do `norm()` đổi `oá → óa` làm trượt `"thanh toán"` trong `ACTION_RE` và 4 câu lỗi HTTP 503 — sửa xong Lượt 2 đạt 100% (`eval/report.md`, `cost/cost-estimate.md`) |
 | 27/11 22:29 | Khảo sát thêm 8 phiếu → **n = 21 (đạt ngưỡng 20)**; cập nhật số ở §0–§2, `evidence/summary.md`, canvas dòng 4. Số yếu đi: "≥2 tiếng lên lịch" 8/13 → 10/21; "khó ở đúng lát cắt" 9/13 → 12/21; tác động A ~284 → ~183 giờ / 1.000 khách; hướng C (sửa lịch) vẫn nhỉnh hơn A. Header: Zone 3 | Bản xuất Google Form mới (phiếu cuối 22:14:49). Ghi số thật, kể cả khi yếu đi. Phỏng vấn P1–P3 trên nhánh `trung` **chưa đưa vào** — đang xác minh (3 buổi cùng ghi 22:20) |
 | 27/11 22:47 | Đưa phỏng vấn P1–P3 và `evidence/hypothesis.md`; cập nhật `evidence/summary.md` (bảng P1–P3, trích dẫn, so khảo sát và phỏng vấn), §1 "vì sao chưa bỏ" + dòng bằng chứng, canvas dòng 4. | Nguồn thứ hai để kiểm lại khảo sát (rubric R1). |
+| 27/11 23:47 | **Lượt 1 chính thức `run-3@20261127-232730`** (`gpt-5-mini`) trên bộ 30 câu: `B01–B20` trả về đúng bản chốt CP2 (nhánh `buivanlam` từng thay `B01, B03, B11, B16`), thêm `B21–B30` từ phỏng vấn P1–P3. Kết quả **24/30 (80%)**, đạt chuẩn; `run-1` / `run-2` (Gemini, bộ câu thử bị sửa) giữ file, không tính. Model chính thức `gpt-5-mini` | Lượt 1 và lượt 2 phải cùng bộ câu thử, cùng cách chấm; câu thử chỉ được thêm, không được thay (guide 3.4). Cột `pass` do Claude Code chấm nháp, Lâm kiểm lại; điều kiện cứng kiểm bằng script |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

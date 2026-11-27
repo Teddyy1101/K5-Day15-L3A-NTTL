@@ -10,11 +10,15 @@ Khách nhập một câu (số ngày, thứ bắt đầu, sở thích, ngân sá
 copy .env.example .env          # macOS / Linux: cp .env.example .env
 # mở .env, điền: MODEL_PROVIDER=openai · MODEL_NAME=gpt-5-mini · API_KEY=<key của nhóm>  (KHÔNG commit .env)
 python run.py                   # gõ vd: Đi Hà Nội 2 ngày từ thứ 7, 2 người, ngân sách 1,5 triệu, thích lịch sử và ăn uống
-                                #   rồi nhắn tiếp để sửa: bỏ Lăng Bác, thêm Bảo tàng Phụ nữ vào ngày 1 · /moi = lập lịch mới
+                                #   rồi nhắn tiếp để sửa: bỏ Lăng Bác, thêm Bảo tàng Phụ nữ vào ngày 1
+                                #   /ds = xem danh mục 24 điểm · /moi = bỏ lịch hiện tại, lập lịch mới
 python run.py eval --try        # thử 3 câu, thấy "Nối model được" là xong
+python run.py check             # kiểm bộ 30 câu thử + metric
 ```
 
-Để trống `MODEL_PROVIDER` thì chạy chế độ giả: AI không được gọi, bước chọn điểm dùng luật dự phòng (output ghi rõ). Không cần `pip install`.
+- **Model chính thức của nhóm: `gpt-5-mini`** (OpenAI) — dùng cho lượt đánh giá chính thức (`eval/run-3.csv` trở đi).
+- Có sẵn nhánh Gemini trong `codebase/ai.py`: điền `MODEL_PROVIDER=gemini` · `MODEL_NAME=gemini-3.1-flash-lite` · `API_KEY=<key Gemini>`. Nhóm đã dùng để chạy thử (`run-1`, `run-2`) và so chi phí (`cost/`), không dùng cho lượt chính thức.
+- Để trống `MODEL_PROVIDER` thì chạy chế độ giả: AI không được gọi, bước chọn điểm dùng luật dự phòng (output ghi rõ). Không cần `pip install`.
 
 **Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md). **Điền TEAMS.md đúng format**: khi chấm và đánh giá, BTC quét file này để ghép điểm cho từng người.
 
@@ -97,7 +101,8 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm (chọn và chia điểm theo ngày) | **Thật** (từ 27/11 tối) | Model: `gpt-5-mini` (OpenAI Chat Completions), token lấy từ `usage` của API |
+| Lời gọi AI ở quyết định trung tâm (chọn và chia điểm theo ngày) | **Thật** (từ 27/11 tối) | Model chính thức: `gpt-5-mini` (OpenAI Chat Completions); có thêm `gemini-3.1-flash-lite` (chạy thử, so chi phí). Token lấy từ `usage` / `usageMetadata` của API |
+| Sửa lịch trong phiên chat (bỏ / thêm / đổi ngày / trời mưa / đổi ngân sách) | **Thật** — AI sửa danh sách điểm, code xếp và kiểm lại | Lịch chỉ giữ trong bộ nhớ của phiên `python run.py`, không có cơ sở dữ liệu |
 | Đọc yêu cầu, xếp giờ, kiểm giờ mở cửa / ngày đóng cửa / khung giờ / ngân sách, cộng tiền | **Thật** — code, không dùng AI | `codebase/agent.py`, `codebase/tools.py` |
 | Danh mục 24 địa điểm (giờ mở cửa, ngày đóng cửa, giá vé) | **Thật nhưng tĩnh** — nhóm tự tổng hợp, giá / giờ tham khảo 11/2026 | `data/places_hanoi.json`, `data/DATA_CARD.md` |
 | Thời gian và tiền di chuyển | **Ước tính** — đường chim bay × 1,4; 20 km/h; 15.000đ + 12.000đ/km mỗi người mỗi chặng | `data/chi_phi_khac.csv` *(tự ước tính)* |
@@ -109,7 +114,8 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
 
 - **Claude Code** hỗ trợ viết `codebase/` (luồng 6 bước, 3 công cụ, nối OpenAI) và nháp `spec.md` §0–§7; Nguyễn Huy Thứ đọc diff, chạy `python run.py` với input mẫu và bộ câu thử, thử AI giả lập bịa mã để kiểm bước sửa.
-- **ChatGPT (`gpt-5-mini`)** là model trong bản chạy thử, chỉ làm bước chọn và chia địa điểm; giờ, tiền, ràng buộc do code kiểm.
+- **ChatGPT (`gpt-5-mini`)** là model trong bản chạy thử, chỉ làm bước chọn và chia địa điểm; giờ, tiền, ràng buộc do code kiểm. Gemini dùng cho lượt chạy thử và so chi phí.
+- **Claude Code** còn viết câu chữ câu thử `B21–B30` từ ghi chép phỏng vấn và chấm nháp cột `pass` — khai rõ trong `docs/ai-usage.md`, có người trong nhóm kiểm lại.
 - Không dùng AI để tạo câu trả lời khảo sát, trích dẫn hay số liệu bằng chứng — số trong `evidence/` đếm từ phiếu thật bằng script.
 
 ## File mẫu — điền ở bước nào

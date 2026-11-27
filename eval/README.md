@@ -45,13 +45,17 @@
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
-| 1 | `run-1@20261127-221226` | `gemini-3.1-flash-lite` | Bản gốc từ `main` + nối `call_gemini` trong `codebase/ai.py` (4 câu lỗi HTTP 503, 1 câu trượt `B18`) | `15/20` | `75%` | Chưa |
-| 2 | `run-2@20261127-221642` | `gemini-3.1-flash-lite` | Sửa `ACTION_RE` bắt đặt vé/thanh toán (`B18`) + thêm retry HTTP 429/503 trong `post_json` | `20/20` | `100%` | Đạt |
+| *(thử)* | `run-1@20261127-221226` | `gemini-3.1-flash-lite` | Bản gốc từ `main` + nối `call_gemini` trong `codebase/ai.py` (4 câu lỗi HTTP 503, 1 câu trượt `B18`) — **bộ câu thử bị sửa sau CP2, không tính** | `15/20` | `75%` | — |
+| *(thử)* | `run-2@20261127-221642` | `gemini-3.1-flash-lite` | Sửa `ACTION_RE` bắt đặt vé/thanh toán (`B18`) + thêm retry HTTP 429/503 trong `post_json` — **bộ câu thử bị sửa sau CP2, không tính** | `20/20` | `100%` | — |
+| **1** | `run-3@20261127-232730` | `gpt-5-mini` | Bộ 30 câu (`B01–B20` bản CP2 + `B21–B30`); code `main` sau khi merge các nhánh (có sửa `ACTION_RE`, retry, khung giờ, điểm khách nêu tên, báo "chưa có dữ liệu", sửa lịch); 0 lỗi kỹ thuật | **`24/30`** | **`80%`** | **Đạt** (đúng ngưỡng; `tu_choi` 5/5; 0 vi phạm giờ / ngân sách) |
+| 2 | `run-4@…` | `gpt-5-mini` | Một cải tiến từ lỗi của `run-3` (`eval/report.md` mục 3) | `__/30` | `__%` | |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
-> ⚠️ `run-1` và `run-2` chạy trên **bản bộ câu thử đã bị sửa sau CP2** (thay `B01, B03, B11, B16`, nhãn nguồn sai — xem mục 2) nên **không dùng làm lượt chính thức**; giữ nguyên file, không xoá. Lượt chính thức chạy lại trên bộ **30 câu** hiện tại (`B01–B20` bản CP2 + `B21–B30`) → ghi thêm dòng `run-3` (lượt 1) và `run-4` (lượt 2) vào bảng trên. Lỗi `B18` và retry HTTP 503 mà Lâm tìm ra ở `run-1` vẫn là cải tiến thật, đã có trong code.
+> ⚠️ `run-1` và `run-2` chạy trên **bản bộ câu thử đã bị sửa sau CP2** (thay `B01, B03, B11, B16`, nhãn nguồn sai — xem mục 2) nên **không dùng làm lượt chính thức**; giữ nguyên file, không xoá. Lỗi `B18` và retry HTTP 503 mà Lâm tìm ra ở `run-1` vẫn là cải tiến thật, đã có trong code trước `run-3`.
+>
+> Cột `pass` của `run-3` do Claude Code chấm nháp theo `pass_criterion` (lý do từng câu ở cột `ghi_chu`); điều kiện cứng (2)–(3) của chuẩn "đạt" kiểm bằng script trên output. **Bùi Văn Lâm kiểm lại** trước khi nộp.
 
 ## 6. Lỗi chính
 
-Nhóm lỗi ở lượt 1 gồm 4 câu lỗi kỹ thuật `HTTP 503` từ API và 1 câu `B18` (`tu_choi`) không từ chối đặt vé/thanh toán do `norm()` đổi `"oá"` thành `"óa"` làm trượt regex `ACTION_RE`. Sau khi sửa `ACTION_RE` và thêm retry trong `post_json`, lượt 2 đạt `20/20 (100%)`, còn lại phần test hội thoại sửa lịch nhiều lượt mới kiểm tra tay.
+Lượt 1 chính thức (`run-3`, 24/30): 6 câu trượt, gom 3 nhóm — **đọc sai yêu cầu** (`B24` "hai đứa mình" thành 1 người, `B28` không hiểu "Chủ nhật … 8h–11h30" là đi 1 ngày), **không làm được nhưng không nói rõ vì sao** (`B14` ngân sách quá thấp ra lịch rỗng không báo, `B29` hỏi chỗ đỗ xe / cấm đường không nói "chưa có dữ liệu"), **chọn / xếp điểm chưa khớp ý** (`B08` đi ngược đường giữa Tây Hồ và Ba Đình, `B21` thích bảo tàng nhưng chỉ có di tích). Chi tiết và ≥3 lỗi cụ thể: `eval/report.md` mục 2.
