@@ -47,11 +47,11 @@
 
 ---
 
-## Dataset 2 · Bằng chứng người dùng & review công khai (cập nhật đủ trước CP3)
+## Dataset 2 · Bằng chứng người dùng & review công khai
 
 | | |
 |---|---|
-| Dùng để làm gì | Đào và kiểm chứng bằng chứng pain (không đưa vào công cụ lập lịch) |
-| Từ đâu | (1) Khảo sát người dùng ngoài nhóm (`evidence/survey/results.csv`) · (2) Phỏng vấn ≥3 người (`evidence/interviews/P1..P3.md`) · (3) Review công khai trên Google Maps / Tripadvisor (`evidence/data-mining.md`) |
-| Xử lý những bước gì | Ẩn danh toàn bộ họ tên, email, tài khoản người viết; trích tối đa 2 câu nguyên văn, kèm link nguồn và ngày xem |
-| Trạng thái | Đang hoàn thiện và đối chiếu hai nguồn trước CP3 (10:00 ngày 28/11/2026) |
+| Dùng để làm gì | Đào và kiểm chứng bằng chứng pain (không đưa vào công cụ lập lịch), đồng thời cung cấp ví dụ nguồn `data_that` cho bộ câu thử |
+| Từ đâu | (1) Khảo sát người dùng ngoài nhóm (`evidence/survey/results.csv`) · (2) Phỏng vấn người dùng (`evidence/interviews/`) · (3) **50 review công khai mới nhất trên Google Maps** của 5 điểm Hà Nội (`evidence/reviews_labeled.csv`, tổng hợp ở `evidence/data-mining.md`) |
+| Xử lý những bước gì | Lấy lần lượt 10 review mới nhất mỗi điểm (không lọc riêng review chê), ẩn danh toàn bộ tên người viết, cắt tối đa 2 câu nguyên văn, kèm link và ngày xem `27/11/2026`; AI gắn nhãn nháp, Phạm Thị Hồng Ngọc kiểm tay lại 50/50 dòng; đếm bằng `python3 evidence/count_reviews.py` |
+| Trạng thái | Đã hoàn thành phần đào review công khai (`N = 50`, 5/50 có pain lập lịch) ngày 27/11/2026 |

@@ -7,13 +7,13 @@
 
 | Nguồn | Đạt ngưỡng? | File |
 |---|---|---|
-| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ chưa làm | `evidence/data-mining.md` |
+| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☑ **50 review Google Maps** (10 review mới nhất × 5 điểm, có 2 điểm đối chứng; Phạm Thị Hồng Ngọc kiểm tay 50/50 nhãn) | `evidence/data-mining.md`, `evidence/reviews_labeled.csv`, `evidence/count_reviews.py` |
 | Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | ☑ **3 người** (P1–P3, video, Nguyễn Đức Trung hỏi và ghi; nhóm xác nhận là người thật ngoài nhóm) — dùng làm **nguồn thứ hai** kiểm lại khảo sát | `evidence/interviews/P1.md`, `P2.md`, `P3.md` |
 | Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☑ **21 phiếu** (bản xuất lúc 27/11 22:14). Cần nhóm xác nhận không có thành viên nhóm trả lời; 1 phiếu dưới 18 tuổi, 4 phiếu "không lên lịch trước" vẫn giữ trong mẫu số | `evidence/survey/` (`questions.md`, `results.csv`, `count_survey.py`) |
 
 ## 2. Số chính
 
-- Đào data: __/__ (__%) …
+- **Đào review Google Maps, N = 50** (chạy lại bằng `python evidence/count_reviews.py`): **5/50 (10%)** review có pain liên quan lập lịch — đóng cửa / sai giờ 2/50 (4%, **cả 2 đều 1 sao**), chờ lâu lỡ lịch 2/50, giá khác dự tính 1/50, xa / khó đi 0/50; 45/50 không liên quan. Nhóm 3 điểm có ràng buộc giờ: 4/30 (13,3%), trong đó đóng cửa 2/30; nhóm 2 điểm đối chứng mở cả tuần: 1/20 (5%), đóng cửa 0/20.
 - **Phỏng vấn, n = 3** *(n nhỏ — không ghi %)*: **3/3** kể được một lần tự lên lịch đi chơi gần đây (cuối 10 – giữa 11/2026) bị trục trặc khi đi thật · chuẩn bị mất 45 / 90 / 150 phút · tự lên lịch 1–3 lần / quý.
   - **Vượt chi phí: 3/3** (P1 +~250.000đ tiền xe do dồn lịch · P2 vượt ~1,2 triệu · P3 +~700.000đ giá vé, gửi xe).
   - **Đi lại / tuyến đường: 3/3** (P1 phải đặt xe nhiều chặng lẻ sau khi lỡ giờ · P2 đi chéo tuyến, ~2 tiếng kẹt xe · P3 cấm đường cuối tuần, gửi xe xa ~1,5 km).
@@ -46,6 +46,11 @@ Phỏng vấn (nguyên văn trong `evidence/interviews/P_.md`):
 - "Giờ mở cửa thì mình xem kỹ rồi, nhưng không ngờ cuối tuần cấm đường phố đi bộ làm phải gửi ô tô cách quán ăn cả cây số rồi bế con đi bộ." — P3
 - "Đọc review trên mạng toàn giá vé từ năm ngoái, đến cổng mua mới biết cuối tuần phụ thu thêm mấy trăm nghìn." — P3
 
+Review Google Maps (bỏ tên, tối đa 2 câu — đủ trong `evidence/data-mining.md` mục 4):
+
+- *"In plina zi sa fii inchis?! Se deschidea abia la ora 14:00...."* ("Giữa ban ngày mà đóng cửa?! …") — R02, Lăng Bác, 1★
+- *"23일(월요일) 갔으나 휴관 임. 매표소 안내에 월요일및 설 휴관이라고.ㅜㅜ"* ("Đến ngày 23 (thứ Hai) thì đóng cửa. Quầy vé ghi đóng cửa thứ Hai và Tết.") — R19, Bảo tàng Dân tộc học, 1★
+
 Nguyên văn câu trả lời tự do trong khảo sát (cả ý ủng hộ lẫn ý ngược):
 
 1. "chỉ cần đi, và mọi thứ cần lo theo kế hoạch" — phiếu khảo sát 27/11/2026 17:43:40 (câu mong muốn)
@@ -59,7 +64,8 @@ Nguyên văn câu trả lời tự do trong khảo sát (cả ý ủng hộ lẫ
 
 ## 4. Các nguồn có khớp nhau không
 
-Hai nguồn đạt ngưỡng: khảo sát (n = 21) và phỏng vấn (n = 3).
+Ba nguồn đạt ngưỡng: khảo sát (n = 21), phỏng vấn (n = 3), đào review Google Maps (N = 50).
+- **Review so với khảo sát / phỏng vấn:** review xác nhận chuyện **đến nơi mới biết đóng cửa** có thật và nặng (2/2 ca đều chấm 1 sao) nhưng **hiếm** (2/50) — khớp với khảo sát (chỉ 7/21 coi giờ mở cửa là quan trọng nhất) và phỏng vấn (1/3 vướng giờ). Review có **0/50** than ngược đường vì khách chấm từng điểm riêng lẻ, trong khi khảo sát (9/21) và phỏng vấn (P2) đều có — chỗ lệch do cách dữ liệu được viết, không phải do pain không có. Pain lập lịch chỉ 5/50 review → cận dưới, không phải tỉ lệ người gặp.
 - **Khớp:** khảo sát 12/21 thấy khó ở sắp thuận đường / cân đối thời gian + chi phí, 9/21 khó chịu vì đến nơi mới thấy xa nhau / ngược đường → phỏng vấn 3/3 gặp chuyện đi lại và 3/3 vượt chi phí khi đi thật. Khảo sát 10/21 mất ≥2 tiếng lên lịch → phỏng vấn 45–150 phút, xoay xở bằng 3–4 công cụ ghép tay (khảo sát: 10/21 khó chịu vì mở 4–5 app / tab). Khảo sát 13/21 khó chịu khi phải sửa lịch → P1, P2, P3 đều phải đổi lịch giữa chuyến.
 - **Lệch / bổ sung:** giờ mở cửa không phải vướng mắc chính — khảo sát chỉ 7/21 coi trọng, phỏng vấn 1/3 vướng (khung nghỉ trưa, P1). Phỏng vấn cho thấy chi phí phát sinh chủ yếu từ **đi lại, gửi xe, giá vé thay đổi** (P1, P3) và tiêu không kiểm soát (P2) — lát cắt có cộng tiền vé + ăn + di chuyển ước tính nhưng **chưa có** cấm đường, gửi xe, phụ thu cuối tuần. Lý do giữ cách cũ (miễn phí và chia sẻ cho nhóm, nhanh không phải nhập liệu, linh hoạt theo con) khớp với 12/21 khảo sát đánh giá "lưu, chia sẻ lịch" hữu ích — phần lát cắt chưa làm.
 
