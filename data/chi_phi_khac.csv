@@ -1,0 +1,9 @@
+loai,muc,gia_vnd,don_vi,tuyen_hoac_mo_ta,nguon
+ve_may_bay,tiet_kiem,2000000,khu_hoi_1_nguoi,TP.HCM - Hà Nội,(tự ước tính)
+ve_may_bay,vua,3500000,khu_hoi_1_nguoi,TP.HCM - Hà Nội,(tự ước tính)
+ve_may_bay,cao,6000000,khu_hoi_1_nguoi,TP.HCM - Hà Nội,(tự ước tính)
+khach_san,tiet_kiem,300000,dem_1_phong,Ghi nhận giá trung bình khách sạn 2 sao,(tự ước tính)
+khach_san,vua,800000,dem_1_phong,Ghi nhận giá trung bình khách sạn 3 sao,(tự ước tính)
+khach_san,cao,1800000,dem_1_phong,Ghi nhận giá trung bình khách sạn 4 sao,(tự ước tính)
+di_chuyen_noi_thanh,co_dinh,15000,khoi_diem_moi_chuyen,Khoảng cách đường chim bay × 1.4 (cùng hệ số với thời gian di chuyển),(tự ước tính)
+di_chuyen_noi_thanh,theo_km,12000,km,Đơn giá xe ôm công nghệ,(tự ước tính)
