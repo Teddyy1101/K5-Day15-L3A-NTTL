@@ -11,9 +11,9 @@
 | Từ đâu | Danh sách 24 địa điểm Hà Nội lấy từ nền tảng dự án web của nhóm, đối chiếu trực tiếp giờ mở cửa, ngày đóng cửa và giá vé với trang chính thức của từng di tích/bảo tàng và Google Maps (chi tiết link và ngày xem ở bảng dưới) |
 | Xử lý những bước gì | (1) Chuẩn hoá mã định danh `HN01–HN24` · (2) Bổ sung đủ trường kiểm ràng buộc (`open_time`, `close_time`, `closed_days`, `duration_min`, `estimated_cost_vnd`, `indoor`, `kid_friendly`) · (3) Chạy kiểm tra tự động tọa độ, trùng mã, `open_time < close_time`, ngày đóng cửa và xuất CSV phẳng bằng `data/validate_places.py` |
 | Số dòng / số đoạn | **24 địa điểm** tại Hà Nội (phủ 6 quận/huyện: Hoàn Kiếm, Ba Đình, Đống Đa, Tây Hồ, Cầu Giấy, Gia Lâm) |
-| Phiên bản / ngày lấy | `v1.1` · đối chiếu ngày **27/11/2026** |
+| Phiên bản / ngày lấy | `v1.2` · cập nhật **27/11/2026** |
 | Nhãn | Tổng hợp và đối chiếu từ trang chính thức + Google Maps (`verified_public_sources` — **không phải** bằng chứng pain) |
-| Giới hạn | Chỉ phủ **Hà Nội** (cố ý để kiểm tra khả năng từ chối / báo "chưa có dữ liệu" khi hỏi thành phố khác); giá vé và giờ mở cửa là mức chuẩn ban ngày ngày thường (chưa cập nhật tự động theo mùa nóng/lạnh, ngày lễ/Tết hoặc tour đêm); `HN06` (Bảo tàng Mỹ thuật VN) giữ `closed_days: ["Mon"]` trong bản v1.0 để khớp bộ câu thử đã chốt CP2, ghi nhận trang `vnfam.vn` hiện mở cả tuần; thời gian di chuyển ước tính từ tọa độ GPS chưa gồm kẹt xe thời gian thực |
+| Giới hạn | Chỉ phủ **Hà Nội** (cố ý để kiểm tra khả năng từ chối / báo "chưa có dữ liệu" khi hỏi thành phố khác); giá vé và giờ mở cửa là mức chuẩn ban ngày ngày thường (chưa cập nhật tự động theo mùa nóng/lạnh, ngày lễ/Tết hoặc tour đêm); thời gian di chuyển ước tính từ tọa độ GPS chưa gồm kẹt xe thời gian thực |
 
 ### Bảng nguồn đối chiếu giờ mở cửa, ngày đóng cửa & giá vé (kiểm 27/11/2026)
 
@@ -24,7 +24,7 @@
 | `HN03` | Di tích Nhà tù Hỏa Lò | `08:00–17:00` · Mở cả tuần · `50.000đ` | https://hoalo.vn | 27/11/2026 |
 | `HN04` | Hoàng Thành Thăng Long | `08:00–17:00` · Mở cả tuần · `100.000đ` | https://hoangthanhthanglong.vn | 27/11/2026 |
 | `HN05` | Bảo tàng Dân tộc học VN | `08:30–17:30` · Đóng `Mon` · `40.000đ` | https://vme.org.vn | 27/11/2026 |
-| `HN06` | Bảo tàng Mỹ thuật VN | `08:30–17:00` · `40.000đ` *(xem mục Giới hạn)* | https://vnfam.vn | 27/11/2026 |
+| `HN06` | Bảo tàng Mỹ thuật VN | `08:30–17:00` · Mở cả tuần · `40.000đ` | https://vnfam.vn | 27/11/2026 |
 | `HN07` | Bảo tàng Lịch sử Quốc gia | `08:00–17:00` (nghỉ trưa `12:00–13:30`) · Đóng `Mon` · `40.000đ` | https://baotanglichsu.vn | 27/11/2026 |
 | `HN08` | Bảo tàng Phụ nữ Việt Nam | `08:00–17:00` · Mở cả tuần · `40.000đ` | https://baotangphunu.org.vn | 27/11/2026 |
 | `HN09` | Nhà hát Múa rối Nước Thăng Long | `13:45–21:00` (các suất chiều/tối) · `150.000đ` | https://thanglongwaterpuppet.com | 27/11/2026 |

@@ -114,15 +114,15 @@
     "lng": 105.8369,
     "open_time": "08:30",
     "close_time": "17:00",
-    "closed_days": ["Mon"],
+    "closed_days": [],
     "duration_min": 90,
     "estimated_cost_vnd": 40000,
     "cost_note": "Vé tham quan 40.000đ/người lớn",
     "best_slots": ["sang", "chieu"],
     "indoor": true,
     "kid_friendly": true,
-    "tags": ["văn hóa", "nghệ thuật", "bảo tàng", "trong nhà", "ba đình"],
-    "notes": "Đóng cửa Thứ 2; rất gần Văn Miếu (~400 m), thích hợp đi tránh nắng hoặc mưa.",
+    "tags": ["văn hóa", "nghệ thuật", "bảo tàng", "trong nhà", "ba đình", "mở cả tuần"],
+    "notes": "Mở cả tuần (theo vnfam.vn); rất gần Văn Miếu (~400 m), thích hợp đi tránh nắng hoặc mưa.",
     "source": "public_info_2026-11"
   },
   {
