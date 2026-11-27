@@ -1,4 +1,4 @@
-# Canvas — [tên nhóm] · Track [A–F]
+# Canvas — NTTL · Track C
 
 > Điền ở guide bước 1.4. CP1 17:00 Thứ Sáu 27/11: nộp bản đầu, đủ 7 dòng (dòng 4 được ghi giả thuyết + nguồn sẽ kiểm).
 > CP2 19:30 Thứ Sáu 27/11: cập nhật (số bằng chứng đầu, lát cắt đã chốt) và điền dòng "Đã đổi gì so với CP1".
@@ -6,11 +6,11 @@
 
 | # | Dòng | Nhóm điền |
 |---|---|---|
-| 1 | Track + lát cắt dự kiến | |
-| 2 | Người dùng chính (một vai cụ thể — không phải "học viên nói chung") | |
-| 3 | Pain một câu: ai — đang làm gì — vướng đâu — hậu quả | |
-| 4 | Bằng chứng đầu — CP1: giả thuyết + nguồn sẽ kiểm · CP2: số đầu tiên + 1 trích dẫn | |
-| 5 | **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả) | |
-| 6 | AI tự làm đến đâu + 1 dòng lý do: sai thì ai chịu gì | |
-| 7 | Phân công có tên | |
+| 1 | Track + lát cắt dự kiến | **C · Du lịch.** VietTravel Copilot lập lịch đi Hà Nội từ 1 đến 3 ngày. |
+| 2 | Người dùng chính (một vai cụ thể — không phải "học viên nói chung") | Khách tự lên kế hoạch cho chuyến đi ngắn ở Hà Nội. |
+| 3 | Pain một câu: ai — đang làm gì — vướng đâu — hậu quả | Khi tự lên lịch đi Hà Nội, khách phải đối chiếu giờ mở cửa, chi phí và thời gian di chuyển từ nhiều nguồn, dễ mất thời gian sắp xếp lại khi các điểm không khớp lịch. |
+| 4 | Bằng chứng đầu — CP1: giả thuyết + nguồn sẽ kiểm · CP2: số đầu tiên + 1 trích dẫn | Giả thuyết cần kiểm: việc đối chiếu giờ mở cửa và thời gian di chuyển khiến khách mất thời gian hoặc phải đổi lịch. Nhóm sẽ phỏng vấn ít nhất 3 người ngoài nhóm từng tự lên lịch đi chơi, hỏi về lần gần nhất và ghi thời gian chuẩn bị hoặc lý do phải đổi lịch. |
+| 5 | **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả) | Một khách tự lên kế hoạch đi Hà Nội chọn số ngày (1, 2 hoặc 3), nhập sở thích và ngân sách cả chuyến để AI chọn và phân bổ địa điểm, rồi nhận lịch từng ngày đã được kiểm tra giờ mở cửa, thời gian di chuyển và tổng chi phí. |
+| 6 | AI tự làm đến đâu + 1 dòng lý do: sai thì ai chịu gì | AI đề xuất lịch từ danh sách địa điểm của nhóm. Code kiểm tra giờ mở cửa, thời gian di chuyển và ngân sách vì lịch sai có thể làm khách lỡ điểm hoặc vượt chi phí. Khách xem và quyết định lưu lịch. |
+| 7 | Phân công có tên | Bằng chứng người dùng · Dữ liệu địa điểm · Luồng AI và kiểm lịch · Đánh giá và demo. Bổ sung tên người phụ trách theo TEAMS.md. |
 | — | *(CP2)* Đã đổi gì so với CP1 | |
