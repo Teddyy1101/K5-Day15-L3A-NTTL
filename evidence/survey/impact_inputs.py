@@ -1,6 +1,6 @@
 """Số đầu vào cho bảng impact ở spec.md §2 — chạy lại được: python evidence/survey/impact_inputs.py
 
-Nguồn: evidence/survey/results.csv (n = 13, CHƯA đạt ngưỡng 20 — số sẽ đổi khi thêm phiếu).
+Nguồn: evidence/survey/results.csv (n = 21 tại CP3; số đổi khi thêm phiếu — chạy lại script).
 Giả định (tự ước tính), vì form hỏi theo khoảng chứ không hỏi số:
   - Thời gian lên lịch: lấy giữa khoảng. "Trên 5 tiếng" lấy 300 phút (cận dưới). "Không lên lịch trước" = 0.
   - Số chuyến / năm: "1–2" = 1,5 · "dưới 1" = 0,5 · "3–5" = 4.

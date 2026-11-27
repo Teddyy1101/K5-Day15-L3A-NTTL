@@ -66,8 +66,9 @@ for col, label in [("kc_nhieu_app", "Mở 4–5 ứng dụng / tab để lên l�
     show(label, ge4(col))
 
 print("\nĐã từng bỏ / đổi một địa điểm vì thiếu thông tin:")
-for v in ["Rất thường xuyên", "Thỉnh thoảng", "Hiếm khi"]:
+for v in ["Rất thường xuyên", "Thỉnh thoảng", "Hiếm khi", "Chưa bao giờ"]:
     show(v, sum(1 for r in rows if r["tung_bo_doi_diem"] == v))
+show("(bỏ trống câu này)", sum(1 for r in rows if not r["tung_bo_doi_diem"].strip()))
 
 print("\nThông tin quan trọng nhất khi chọn điểm (chọn nhiều):")
 for text in ["Hình ảnh thực tế của địa điểm", "Đánh giá chi tiết / Video review thực tế",

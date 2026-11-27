@@ -1,7 +1,7 @@
 # Khảo sát — thói quen và khó khăn khi lập kế hoạch du lịch tự túc
 
 - Form: Google Form "KHẢO SÁT THÓI QUEN VÀ KHÓ KHĂN KHI LẬP KẾ HOẠCH DU LỊCH TỰ TÚC"
-- Kênh đã gửi: __ *(nhóm điền)* · mở: __ · bản xuất dùng ở đây: phiếu cuối lúc 27/11/2026 18:45:42 (13 phiếu)
+- Kênh đã gửi: __ *(nhóm điền)* · mở: __ · bản xuất dùng ở đây: phiếu cuối lúc 27/11/2026 22:14:49 (**21 phiếu**; bản CP2 có 13 phiếu, phiếu cuối 18:45:42)
 - Bản xuất gốc chỉ có dấu thời gian + câu trả lời, không có tên / email. `results.csv` giữ nguyên câu trả lời, đổi tên cột cho ngắn; câu chọn nhiều ngăn bằng ` | `.
 - Đếm: `python evidence/survey/count_survey.py`
 

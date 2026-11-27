@@ -1,4 +1,4 @@
-# AI SPEC — VietTravel Copilot: lập lịch đi Hà Nội 1–3 ngày · Nhóm NTTL · Phòng H210 · Zone 5
+# AI SPEC — VietTravel Copilot: lập lịch đi Hà Nội 1–3 ngày · Nhóm NTTL · Phòng H210 · Zone 3
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 > Đầu mỗi mục ghi bước guide (`02-guide.md` trong repo đề) chỉ cách điền. Mỗi mục ngắn, có số và nguồn; chi tiết để ở file được trỏ tới. Xoá dòng hướng dẫn trong ngoặc vuông khi điền xong.
@@ -7,38 +7,39 @@ Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán: mở rộng t�
 Data BTC cấp đã dùng (nếu có — không commit nguyên file): không dùng; nhóm tự tổng hợp `data/places_hanoi.json` (xem `data/DATA_CARD.md`)
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
-- Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin) — dựng từ câu trả lời khảo sát (n = 13), *chưa có ảnh chụp*:
-  1. Tìm điểm ăn chơi hợp sở thích trên TikTok / Facebook / Instagram, blog, hỏi bạn bè (11/13 thấy đây là khâu khó).
-  2. Đọc review để lọc điểm, đoán đâu là review thật, đâu là quảng cáo (7/13 thấy khó).
-  3. Mở Google Maps xem vị trí, giờ mở cửa, khoảng cách; tự sắp thứ tự cho thuận đường (7/13 thấy khó).
-  4. Tự cân đối thời gian giữa các điểm và cộng chi phí, ghi vào Notes / Excel hoặc nhớ trong đầu (6/13 thấy khó).
-  5. Đến nơi mới phát hiện điểm xa nhau, ngược đường (7/13 khó chịu ≥4/5) hoặc phải sửa lịch khi thời tiết đổi (9/13 khó chịu ≥4/5).
-- Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn: Google Maps 12/13 · TikTok / Facebook / Instagram 12/13 · hỏi bạn bè 7/13 · blog, diễn đàn 6/13 · app du lịch (TripAdvisor, Traveloka, Klook…) 3/13 · ghi chú thủ công 3/13 — nguồn: `evidence/survey/results.csv`. Không ai ghi đang dùng chatbot AI (form không có lựa chọn này — *chưa kiểm*).
+- Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin) — dựng từ câu trả lời khảo sát (n = 21), *chưa có ảnh chụp*:
+  1. Tìm điểm ăn chơi hợp sở thích trên TikTok / Facebook / Instagram, blog, hỏi bạn bè (16/21 thấy đây là khâu khó).
+  2. Đọc review để lọc điểm, đoán đâu là review thật, đâu là quảng cáo (9/21 thấy khó).
+  3. Mở Google Maps xem vị trí, giờ mở cửa, khoảng cách; tự sắp thứ tự cho thuận đường (9/21 thấy khó).
+  4. Tự cân đối thời gian giữa các điểm và cộng chi phí, ghi vào Notes / Excel hoặc nhớ trong đầu (9/21 thấy khó).
+  5. Đến nơi mới phát hiện điểm xa nhau, ngược đường (9/21 khó chịu ≥4/5) hoặc phải sửa lịch khi thời tiết đổi (13/21 khó chịu ≥4/5).
+  — 4/21 người trả lời không lên lịch trước ("đi tới đâu tính tới đó").
+- Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn: Google Maps 19/21 · TikTok / Facebook / Instagram 17/21 · hỏi bạn bè 11/21 · blog, diễn đàn 7/21 · app du lịch (TripAdvisor, Traveloka, Klook…) 6/21 · ghi chú thủ công 5/21 — nguồn: `evidence/survey/results.csv`. Không ai ghi đang dùng chatbot AI (form không có lựa chọn này — *chưa kiểm*).
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
-- Người dùng chính (một vai cụ thể): khách tự lên kế hoạch cho chuyến đi ngắn 1–3 ngày ở Hà Nội, đi một mình hoặc theo nhóm (bạn bè, gia đình có trẻ nhỏ). Người trả lời khảo sát: 12/13 ở tuổi 18–24, 9/13 đi tự túc 1–2 lần/năm.
+- Người dùng chính (một vai cụ thể): khách tự lên kế hoạch cho chuyến đi ngắn 1–3 ngày ở Hà Nội, đi một mình hoặc theo nhóm (bạn bè, gia đình có trẻ nhỏ). Người trả lời khảo sát: 18/21 ở tuổi 18–24, 14/21 đi tự túc 1–2 lần/năm.
 - Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI): sắp xếp các điểm muốn đi thành lịch từng ngày cho chuyến 1–3 ngày ở Hà Nội sao cho đúng giờ mở cửa, thuận đường và vừa ngân sách.
-- Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ: ghép tay từ Google Maps (12/13) và mạng xã hội (12/13); hỏng ở khâu sắp thứ tự thuận đường và cân đối thời gian + chi phí (9/13), tốn thời gian (8/13 mất ≥2 tiếng cho chuyến 2–3 ngày). Vì sao chưa bỏ: *chưa biết* — cần hỏi trong phỏng vấn.
+- Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ: ghép tay từ Google Maps (19/21) và mạng xã hội (17/21); hỏng ở khâu sắp thứ tự thuận đường hoặc cân đối thời gian + chi phí (12/21), tốn thời gian (10/21 mất ≥2 tiếng cho chuyến 2–3 ngày), khó sửa lịch khi tình huống đổi (13/21 khó chịu ≥4/5). Vì sao chưa bỏ: *chưa biết* — khảo sát không hỏi, cần phỏng vấn.
 - Pain (KHÔNG chữ AI): khách tự lên lịch đi Hà Nội — đang ghép giờ mở cửa, khoảng cách, chi phí từ nhiều nguồn — vướng ở sắp thứ tự cho thuận đường và cân đối thời gian, tiền — hậu quả: mất hàng giờ chuẩn bị, đến nơi mới thấy điểm xa nhau hoặc phải sửa lịch.
-- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): *(bản CP2)* khảo sát n = 13 (chưa đạt ngưỡng 20): 8/13 mất ≥2 tiếng lên lịch chuyến 2–3 ngày; 9/13 thấy khó nhất ở sắp thuận đường hoặc cân đối thời gian + chi phí; nhưng chỉ 4/13 coi giờ mở cửa và chi phí là thông tin quan trọng nhất → giả thuyết đúng một phần.
+- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): khảo sát **n = 21 (đạt ngưỡng 20)**: 10/21 (48%) mất ≥2 tiếng lên lịch chuyến 2–3 ngày; 12/21 (57%) thấy khó ở sắp thuận đường hoặc cân đối thời gian + chi phí; 13/21 (62%) khó chịu khi phải sửa lịch; nhưng khó nhất là tìm điểm hợp sở thích (16/21), chỉ 7/21 coi giờ mở cửa và chi phí là thông tin quan trọng nhất, 4/21 không lên lịch trước → giả thuyết đúng một phần.
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
-> Số từ khảo sát n = 13 (chưa đạt ngưỡng 20), tính lại bằng `python evidence/survey/impact_inputs.py`. Quy mô tính trên **1.000 khách tự túc** *(tự ước tính)*; phút / lần lấy giữa khoảng trả lời, "trên 5 tiếng" = 300 phút *(tự ước tính)*; chuyến / năm: "1–2" = 1,5, "dưới 1" = 0,5, "3–5" = 4 *(tự ước tính)*.
+> Số từ khảo sát n = 21, tính lại bằng `python evidence/survey/impact_inputs.py`. Quy mô tính trên **1.000 khách tự túc** *(tự ước tính)*; phút / lần lấy giữa khoảng trả lời, "trên 5 tiếng" = 300 phút *(tự ước tính)*; chuyến / năm: "1–2" = 1,5, "dưới 1" = 0,5, "3–5" = 4 *(tự ước tính)*.
 
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
-| A · Lập lịch 1–3 ngày có kiểm thuận đường, giờ mở cửa, chi phí | 9/13 → ~692 / 1.000 | ~0,13 | ~190 phút lên lịch | ~17.100 phút (~284 giờ) | Kịp — có dữ liệu 24 điểm, kiểm được bằng code | **Chọn** |
-| B · Lọc / tóm tắt review thật – quảng cáo | 7/13 → ~538 / 1.000 | ~0,09 | ~171 phút; mất niềm tin, đổi điểm | ~8.200 phút (~137 giờ) | Không — cần nguồn review lớn, khó kiểm review thật / giả trong 2 ngày | Không |
-| C · Sửa lịch nhanh khi thời tiết đổi / muốn đổi điểm | 9/13 khó chịu ≥4/5 → ~692 / 1.000 | ~0,14 | ~185 phút | ~17.800 phút (~296 giờ) | Một phần — cần có lịch (hướng A) trước mới sửa được | **Làm như phần mở rộng của A** (sửa lịch trong phiên chat, 27/11 tối — §10) |
-| D · Ảnh thực tế để hình dung địa điểm | 5/13 → ~385 / 1.000 | ~0,09 | ~108 phút | ~3.800 phút (~63 giờ) | Không — ảnh cần bản quyền / nguồn | Không |
+| A · Lập lịch 1–3 ngày có kiểm thuận đường, giờ mở cửa, chi phí | 12/21 → ~571 / 1.000 | ~0,12 | ~168 phút lên lịch | ~11.000 phút (~183 giờ) | Kịp — có dữ liệu 24 điểm, kiểm được bằng code | **Chọn** |
+| B · Lọc / tóm tắt review thật – quảng cáo | 9/21 → ~429 / 1.000 | ~0,08 | ~143 phút; mất niềm tin, đổi điểm | ~4.800 phút (~81 giờ) | Không — cần nguồn review lớn, khó kiểm review thật / giả trong 2 ngày | Không |
+| C · Sửa lịch nhanh khi thời tiết đổi / muốn đổi điểm | 13/21 khó chịu ≥4/5 → ~619 / 1.000 | ~0,12 | ~151 phút | ~11.400 phút (~190 giờ) | Một phần — cần có lịch (hướng A) trước mới sửa được | **Làm như phần mở rộng của A** (sửa lịch trong phiên chat, 27/11 tối — §10) |
+| D · Ảnh thực tế để hình dung địa điểm | 7/21 → ~333 / 1.000 | ~0,09 | ~118 phút | ~3.500 phút (~58 giờ) | Không — ảnh cần bản quyền / nguồn | Không |
 
-- **Impact / tháng** của hướng chọn = ~692 người × ~0,13 lần × ~190 phút ≈ **17.100 phút ≈ 284 giờ / tháng trên 1.000 khách tự túc** — nguồn: tỉ lệ gặp 9/13, số chuyến / năm và thời gian lên lịch từ `evidence/survey/results.csv`; quy mô 1.000 và cách quy khoảng ra số là *(tự ước tính)*. Giới hạn: "phút / lần" là **toàn bộ** thời gian lên lịch, không chỉ phần sắp thuận đường và cân đối tiền — phần lát cắt tiết kiệm được nhỏ hơn con số này.
+- **Impact / tháng** của hướng chọn = ~571 người × ~0,12 lần × ~168 phút ≈ **11.000 phút ≈ 183 giờ / tháng trên 1.000 khách tự túc** — nguồn: tỉ lệ gặp 12/21, số chuyến / năm và thời gian lên lịch từ `evidence/survey/results.csv`; quy mô 1.000 và cách quy khoảng ra số là *(tự ước tính)*. Giới hạn: "phút / lần" là **toàn bộ** thời gian lên lịch, không chỉ phần sắp thuận đường và cân đối tiền — phần lát cắt tiết kiệm được nhỏ hơn con số này.
 - Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):
-  - **B (review):** bằng chứng khá (7/13, trích dẫn "Review chân thực lên xin đừng lừa :(") nhưng không làm kịp và dễ bịa nếu không có nguồn review thật.
-  - **C (sửa lịch):** impact ngang A (~296 giờ so với ~284 giờ, chênh trong sai số của n = 13), nhưng cần lịch của A trước. Không chọn làm hướng chính; **đã làm như phần mở rộng của A**: khách nhắn sửa lịch trong cùng phiên chat, AI sửa, code kiểm lại (G8 / G9).
-  - **D (ảnh):** ít người gặp nhất (5/13), vướng bản quyền ảnh.
-- Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8): từ câu "số chuyến / năm" — ít: dưới 1 chuyến / năm (3/13, ~0,04 lần / tháng) · vừa: 1–2 chuyến / năm (9/13, ~0,13 lần / tháng) · nhiều: 3–5 chuyến / năm (1/13, ~0,33 lần / tháng). Mỗi chuyến khách còn sửa lịch nhiều lần — số lần sửa *chưa đo*.
+  - **B (review):** bằng chứng khá (9/21, trích dẫn "Review chân thực lên xin đừng lừa :(") nhưng không làm kịp và dễ bịa nếu không có nguồn review thật.
+  - **C (sửa lịch):** impact ngang A (~190 giờ so với ~183 giờ, chênh trong sai số của n = 21), nhưng cần lịch của A trước. Không chọn làm hướng chính; **đã làm như phần mở rộng của A**: khách nhắn sửa lịch trong cùng phiên chat, AI sửa, code kiểm lại (G8 / G9).
+  - **D (ảnh):** ít người gặp nhất (7/21), vướng bản quyền ảnh.
+- Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8): từ câu "số chuyến / năm" — ít: dưới 1 chuyến / năm (6/21, ~0,04 lần / tháng) · vừa: 1–2 chuyến / năm (14/21, ~0,13 lần / tháng) · nhiều: 3–5 chuyến / năm (1/21, ~0,33 lần / tháng). Mỗi chuyến khách còn sửa lịch nhiều lần — số lần sửa *chưa đo*.
 
 ## §3. Giải pháp tương tự *(guide 2.1)*
 > Chatbot chung: **đã thử** 27/11 (5 câu, xem dưới). Google Maps và app lập lịch: nháp từ hiểu biết chung, **chưa kiểm** bằng thử 10 phút / sản phẩm (guide 2.1) — người phụ trách thử lại và sửa trước CP3.
@@ -157,6 +158,7 @@ flowchart TD
 | 27/11 21:08 | **Sửa lịch trong phiên chat** (hướng C ở §2 làm như phần mở rộng của A): `app.py` giữ lịch vừa đưa trong bộ nhớ; `edit()` trong `agent.py` nhận "bỏ / thêm / thay / chuyển ngày / trời mưa / đổi ngân sách", AI sửa với lịch hiện tại làm căn cứ, code bỏ chắc chắn điểm khách bảo bỏ, xếp và kiểm lại, tự so lịch cũ / mới. Gom bước 3–6 thành `finish()` dùng chung. Không có cơ sở dữ liệu | Bằng chứng: 9/13 khó chịu ≥4/5 khi "khó sửa lịch nhanh khi thời tiết đổi / muốn đổi điểm" (`evidence/summary.md`). Không đổi quyết định trung tâm, không đổi chuẩn "đạt"; `eval` / `simulate` vẫn chỉ gọi `answer()`. Thử với `gpt-5-mini`: bỏ điểm, thêm + bỏ trong một câu, trời mưa, giảm ngân sách, câu tấn công khi đang sửa — đều đúng sau 1 lần sửa phân loại "thêm / bỏ" |
 | 27/11 21:17 | Code **bảo đảm điểm khách tự chọn**: điểm khách nêu tên / bảo thêm mà AI bỏ sót thì code tự chèn (ngày khách chỉ định, không thì ngày đầu tiên mở cửa); điểm đã chọn được giữ qua các lần sửa tới khi khách bảo bỏ; cắt ngân sách bỏ điểm khác trước. Thêm lệnh `/ds` trong `python run.py` để xem danh mục 24 điểm | Thử với AI giả lập luôn "quên" điểm khách chọn: trước khi sửa, Văn Miếu khách chọn từ đầu bị mất ở lượt sửa sau; sau khi sửa, cả điểm thêm lẫn điểm chọn trước đều giữ, điểm đóng cửa (Lăng Bác Thứ 2) vẫn không bị ép vào. Thử lại với `gpt-5-mini` đúng |
 | 27/11 21:27 | §3: thử thật "chatbot chung" (`gpt-5-mini` hỏi thẳng 5 câu, không danh mục) và ghi kết quả; thêm bộ câu hỏi phỏng vấn `evidence/interviews/GUIDE.md` | Guide 2.1 yêu cầu thử sản phẩm tương tự, §3 đang ghi "chưa kiểm". Kết quả: `evidence/competitor/chatbot-findings.md` (2/4 lịch rơi vào giờ / ngày đóng cửa theo dữ liệu nhóm) |
+| 27/11 22:29 | Khảo sát thêm 8 phiếu → **n = 21 (đạt ngưỡng 20)**; cập nhật số ở §0–§2, `evidence/summary.md`, canvas dòng 4. Số yếu đi: "≥2 tiếng lên lịch" 8/13 → 10/21; "khó ở đúng lát cắt" 9/13 → 12/21; tác động A ~284 → ~183 giờ / 1.000 khách; hướng C (sửa lịch) vẫn nhỉnh hơn A. Header: Zone 3 | Bản xuất Google Form mới (phiếu cuối 22:14:49). Ghi số thật, kể cả khi yếu đi. Phỏng vấn P1–P3 trên nhánh `trung` **chưa đưa vào** — đang xác minh (3 buổi cùng ghi 22:20) |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
