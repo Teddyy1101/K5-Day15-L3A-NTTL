@@ -1,7 +1,7 @@
 # Báo cáo đánh giá — lượt 1 → một cải tiến → lượt 2
 
 > Điền ở guide bước 4.1. Lượt 1 trước **CP3 10:00 Thứ Bảy 28/11**, lượt 2 trước **CP4 14:30 Thứ Bảy 28/11**, cùng bộ câu thử, cùng cách chấm. Chấm ở rubric R5.
-> Số lấy từ `python run.py score eval/run-3.csv` (và `run-4.csv`) sau khi điền cột `pass`. **Kết quả thấp ghi thật vẫn đủ điểm.**
+> Số lấy từ `python run.py score eval/run-1.csv` (và `run-2.csv`) sau khi điền cột `pass`. **Kết quả thấp ghi thật vẫn đủ điểm.**
 
 ## 1. Kết quả
 
@@ -9,10 +9,10 @@ Bộ câu thử: `eval/benchmark.csv` — **30 câu** (`B01–B20` đúng bản 
 
 | Lượt | Run ID | Đạt / tổng | % | thuong | kho | tu_choi | Điều kiện cứng (code kiểm) | So với chuẩn "đạt" |
 |---|---|---|---|---|---|---|---|---|
-| 1 | `run-3@20261127-232730` | **24/30** | **80%** | 9/12 (75%) | 10/13 (77%) | 5/5 (100%) | 0 vi phạm giờ / ngày đóng / chồng giờ / ngoài danh mục trên 21 lịch · 0 lịch vượt ngân sách | **Đạt — vừa đúng ngưỡng 80%** |
-| 2 | `run-4@…` | __/30 | __% | | | | | *(sau một cải tiến, trước CP4)* |
+| 1 | `run-1@20261127-232730` | **24/30** | **80%** | 9/12 (75%) | 10/13 (77%) | 5/5 (100%) | 0 vi phạm giờ / ngày đóng / chồng giờ / ngoài danh mục trên 21 lịch · 0 lịch vượt ngân sách | **Đạt — vừa đúng ngưỡng 80%** |
+| 2 | `run-2@…` | __/30 | __% | | | | | *(sau một cải tiến, trước CP4)* |
 
-- Kết quả từng câu + lý do chấm: `eval/run-3.csv` (cột `pass`, `ghi_chu`). Trace: `traces/run-3.jsonl`. Lượt chạy 30/30 câu, 0 lỗi kỹ thuật; trung bình 1,0 lần gọi model, 4,3 lần gọi công cụ, 1.849 token vào / 3.034 token ra mỗi câu.
+- Kết quả từng câu + lý do chấm: `eval/run-1.csv` (cột `pass`, `ghi_chu`). Trace: `traces/run-1.jsonl`. Lượt chạy 30/30 câu, 0 lỗi kỹ thuật; trung bình 1,0 lần gọi model, 4,3 lần gọi công cụ, 1.849 token vào / 3.034 token ra mỗi câu.
 - **Người chấm:** cột `pass` do **Claude Code chấm nháp** theo `pass_criterion` (khai trong `docs/ai-usage.md`), điều kiện cứng (2)–(3) kiểm bằng script đọc output. **Bùi Văn Lâm cần kiểm lại**, nhất là 6 câu trượt và `B21`, `B22`.
 - **Độ nhạy:** `B21` chấm chặt là trượt (lịch không có điểm nào là bảo tàng, chỉ di tích); nếu coi Hỏa Lò là bảo tàng thì đạt → 25/30. Cách chấm chặt vẫn đạt chuẩn.
 
@@ -35,10 +35,10 @@ Bộ câu thử: `eval/benchmark.csv` — **30 câu** (`B01–B20` đúng bản 
 
 **Đạt nhưng sát:** `B22` đạt vì lịch tình cờ xếp bảo tàng buổi sáng — code **chưa** mô hình hoá khung nghỉ trưa 12:00–13:30 (chỉ có trong ghi chú dữ liệu). `B04` tính cho 1 người vì input "gia đình có trẻ nhỏ" không nêu số người.
 
-## 3. Một lần cải tiến *(làm sau CP3, chạy lại thành `run-4` trước CP4)*
+## 3. Một lần cải tiến *(làm sau CP3, chạy lại thành `run-2` trước CP4)*
 
-- **Nhắm vào nhóm lỗi:** __ *(gợi ý: "Đọc sai yêu cầu của khách" hoặc "Không làm được nhưng không nói rõ vì sao" — sửa được bằng luật chung, không so khớp câu thử)*
-- **Đã sửa gì:** __
+- **Nhắm vào nhóm lỗi:** **Đọc sai yêu cầu của khách** — `B24` ("hai đứa mình" thành 1 người), `B28` ("Chủ nhật … từ 8h đến 11h30" bị hỏi lại số ngày).
+- **Đã sửa gì:** `parse_request` trong `codebase/agent.py`, luật chung: (1) số người viết bằng chữ ("hai đứa", "ba người"; bỏ qua "thứ hai"); (2) có một thứ / ngày cụ thể + khung giờ có cả giờ đi lẫn giờ về mà không nói số ngày → 1 ngày. So kết quả đọc cả 30 câu trước / sau: chỉ `B24`, `B28` đổi. *Lưu ý:* `run-2` còn gồm phần siết chatbot / chặn prompt injection làm cùng buổi (`spec.md` §10, 28/11 09:50).
 - **Kết quả:** nhóm lỗi __ → __ · tổng 24/30 → __/30
 - **Câu nào tệ đi sau khi sửa:** __
 
@@ -46,7 +46,3 @@ Bộ câu thử: `eval/benchmark.csv` — **30 câu** (`B01–B20` đúng bản 
 
 - **Lỗi chưa sửa + nguy hiểm thế nào:** khung nghỉ trưa bảo tàng chưa có trong code (`B22` đạt do may); `run.py eval` chạy từng câu độc lập nên chưa đo tự động kịch bản **sửa lịch nhiều lượt** (`agent.edit()` mới thử tay); dữ liệu giờ mở cửa / giá vé là dữ liệu tĩnh 24 điểm, tiền di chuyển là ước tính.
 - **Nếu có thêm 1 tuần:** bộ câu thử tự động cho hội thoại sửa lịch nhiều lượt; xếp lịch theo cụm khu vực trước rồi mới theo giờ; mở rộng danh mục và cập nhật giờ / giá theo mùa, cấm đường cuối tuần.
-
-## Phụ lục — chạy thử không tính (`run-1`, `run-2`)
-
-`run-1@20261127-221226` (15/20) và `run-2@20261127-221642` (20/20), model `gemini-3.1-flash-lite`, chạy trên **bản bộ câu thử bị sửa sau CP2** (thay `B01, B03, B11, B16`) nên không dùng làm lượt chính thức; giữ file để minh bạch. Từ lượt này Bùi Văn Lâm tìm ra 2 lỗi thật đã được sửa trước `run-3`: `B18` không từ chối đặt vé / thanh toán vì `norm()` đổi "oá" → "óa" làm trượt regex `ACTION_RE`, và 4 câu lỗi `HTTP 503` vì `post_json` chưa tự thử lại.

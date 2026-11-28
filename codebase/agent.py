@@ -81,6 +81,7 @@ INTERESTS = {
 WEEKDAY_WORDS = {"2": "Mon", "hai": "Mon", "3": "Tue", "ba": "Tue", "4": "Wed", "tư": "Wed", "bốn": "Wed",
                  "5": "Thu", "năm": "Thu", "6": "Fri", "sáu": "Fri", "7": "Sat", "bảy": "Sat"}
 NUM_WORDS = {"một": 1, "hai": 2, "ba": 3, "bốn": 4, "năm": 5}
+PEOPLE_WORDS = dict(NUM_WORDS, sáu=6, bảy=7, tám=8, chín=9, mười=10)  # số người viết bằng chữ: "hai đứa mình"
 ACTION_RE = re.compile(r"đặt (?:giúp |hộ |luôn )?(?:tôi |mình )?(?:\d+ )?(vé|phòng|bàn|tour|xe|chỗ)|\bbook|thanh t(?:oá|óa)n|chuyển kh(?:oả|ỏa)n"
                        r"|mua vé|trả tiền|gửi (email|tin)")
 # Câu cố đổi luật / đòi lộ cấu hình / đòi sửa dữ liệu — luật chung, không so khớp câu thử cụ thể
@@ -236,9 +237,15 @@ def parse_request(text: str, today: datetime.date = None) -> dict:
         req["thu"] = req["thu"] or "Sat"
         req["so_ngay"] = req["so_ngay"] or 2
 
-    # "2 đứa con … 4 người": ưu tiên số đứng trước người/khách, lấy số lớn nhất
-    counts = [int(x) for x in re.findall(r"(\d+)\s*(?:người|khách)", t)] \
-        or [int(x) for x in re.findall(r"(\d+)\s*(?:bạn|đứa)", t)]
+    # "2 đứa con … 4 người": ưu tiên số đứng trước người/khách, lấy số lớn nhất. Số viết bằng chữ cũng tính
+    # ("hai đứa mình", "ba người"), trừ khi chữ số đó là thứ trong tuần ("thứ hai").
+    def people(unit):
+        found = []
+        for m in re.finditer(r"(?<!\w)(\d+|%s)\s*(?:%s)(?!\w)" % ("|".join(PEOPLE_WORDS), unit), t):
+            if not t[:m.start()].rstrip().endswith("thứ"):
+                found.append(int(m.group(1)) if m.group(1).isdigit() else PEOPLE_WORDS[m.group(1)])
+        return found
+    counts = people("người|khách") or people("bạn|đứa")
     if counts:
         req["so_nguoi"] = max(1, max(counts))
     elif re.search(r"vợ chồng|hai vợ|cặp đôi", t):
@@ -258,6 +265,9 @@ def parse_request(text: str, today: datetime.date = None) -> dict:
     req["co_tre_nho"] = bool(re.search(r"trẻ (em|nhỏ|con)|con nhỏ|em bé|\bbé\b|con (tôi|mình|em)|mấy đứa nhỏ", t))
     req["troi_mua"] = "mưa" in t
     req["gio_bat_dau"], req["gio_ket_thuc"] = parse_time_window(t)
+    # Một thứ / ngày cụ thể + khung giờ có cả giờ đi lẫn giờ về ("Chủ nhật … từ 8h đến 11h30") → đi trong 1 ngày
+    if req["so_ngay"] is None and req["thu"] and req["gio_bat_dau"] and req["gio_ket_thuc"]:
+        req["so_ngay"] = 1
     req["dia_diem_muon"] = sorted(pid for pid, ks in place_keys().items() if any(k in t for k in ks))
     return req
 

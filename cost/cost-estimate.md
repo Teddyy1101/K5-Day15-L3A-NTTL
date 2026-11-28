@@ -9,7 +9,7 @@
 - **Persona** (`cost/personas.yaml`): 3 kiểu (`khach_di_1_ngay` 40%, 1 lượt/phiên, 2 phiên/tháng · `khach_di_2_3_ngay` 40%, 3 lượt/phiên, 1 phiên/tháng · `khach_nhom_gia_dinh` 20%, 4 lượt/phiên, 1 phiên/tháng). Nguồn: `evidence/survey/results.csv` và `*(tự ước tính)*`.
 - **Số người dùng thật** 3 kịch bản: thấp `200` · cơ sở `500` · cao `1.500`. Nguồn: `*(tự ước tính)*` quy mô pilot nhóm khách tự túc đi Hà Nội (18–24 tuổi, đi 1–2 lần/năm theo `evidence/survey/results.csv`).
 - **Giá** 3 mức model: `gemini-3.1-flash-lite` ($0.25 / $1.50 per 1M tokens, `https://ai.google.dev/gemini-api/docs/pricing`, xem 27/11/2026) · `gpt-5-mini` ($0.25 / $2.00 per 1M tokens) · `gpt-5` ($1.25 / $10.00 per 1M tokens, `https://openai.com/api/pricing/`, xem 27/11/2026).
-- **Tỉ lệ đạt** dùng để tính: `20/20 (100%)` — lượt `run-2@20261127-221642` (`eval/run-2.csv`).
+- **Tỉ lệ đạt** dùng để tính: `20/20 (100%)` — lượt chạy thử Gemini `run-2@20261127-221642` (**file đã xoá 28/11**, không phải lượt chính thức). **Cần chạy lại `python run.py simulate`** với tỉ lệ đạt của lượt chính thức `run-1` (24/30, 80%) / `run-2`.
 - Đo token trên model `gemini-3.1-flash-lite`, tính giá model `gemini-3.1-flash-lite`, `gpt-5-mini` và `gpt-5` (tỷ giá `1 USD = 25.400 ₫`, tự ước tính).
 
 ## 2. Kết quả mô phỏng
