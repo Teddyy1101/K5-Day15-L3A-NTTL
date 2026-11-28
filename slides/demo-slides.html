@@ -64,7 +64,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 32px 40px;
+      padding: 30px 38px;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
     }
     .slide.active { display: block; }
@@ -81,8 +81,8 @@
       border-radius: 999px;
       margin-bottom: 10px;
     }
-    h1 { font-size: 27px; line-height: 1.28; margin-bottom: 6px; font-weight: 700; }
-    .subtitle { color: var(--text2); font-size: 14.5px; margin-bottom: 20px; }
+    h1 { font-size: 25px; line-height: 1.3; margin-bottom: 6px; font-weight: 700; }
+    .subtitle { color: var(--text2); font-size: 14px; margin-bottom: 18px; }
 
     .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
@@ -90,10 +90,10 @@
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 18px;
+      padding: 15px 18px;
     }
     .card h3 {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       color: var(--accent);
       margin-bottom: 8px;
@@ -102,14 +102,15 @@
     }
     .card h3.amber { color: var(--accent2); }
     .card h3.green { color: var(--green); }
+    .card h3.red { color: var(--red); }
 
-    .stat { font-size: 26px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .stat { font-size: 25px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
     .stat.green { color: var(--green); }
     .stat.amber { color: var(--accent2); }
     .stat.blue { color: var(--accent); }
     .small { font-size: 13px; color: var(--text2); line-height: 1.5; }
 
-    ul { padding-left: 18px; line-height: 1.6; font-size: 13.5px; color: var(--text); }
+    ul { padding-left: 18px; line-height: 1.58; font-size: 13.5px; color: var(--text); }
     li + li { margin-top: 5px; }
     strong { color: #fff; }
     code {
@@ -120,7 +121,7 @@
       font-size: 12.5px;
     }
 
-    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
     .pill {
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -132,7 +133,7 @@
     .pill.hi { border-color: var(--accent); color: var(--accent); font-weight: 600; }
 
     table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
-    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
     th { color: var(--text2); font-weight: 600; font-size: 12px; text-transform: uppercase; }
 
     .quote {
@@ -189,181 +190,365 @@
 </head>
 <body>
   <header>
-    <div><span class="brand">VietTravel Copilot</span> <strong>Nhóm NTTL · L3A · Track C</strong> — Lập lịch Hà Nội 1–3 ngày</div>
-    <div id="counter">Slide 1 / 4</div>
+    <div><span class="brand">VietTravel Copilot</span> <strong>Nhóm NTTL · Lớp L3A · Track C (Du lịch)</strong> — Lập lịch tham quan Hà Nội 1–3 ngày</div>
+    <div id="counter">Slide 1 / 8</div>
   </header>
 
   <main>
-    <!-- SLIDE 1: NGƯỜI DÙNG, PAIN & TÁC ĐỘNG -->
-    <section class="slide active" data-title="Người dùng, Pain & Impact">
-      <span class="tag">1 / 4 · Bài toán, Người dùng &amp; Tác động</span>
-      <h1>Khách tự túc đi Hà Nội mất hàng giờ ghép lịch &amp; dễ lỡ giờ, vượt tiền</h1>
-      <p class="subtitle">Đối tượng: Khách tự lên kế hoạch đi Hà Nội 1–3 ngày (đi lẻ, cặp đôi, gia đình) · Kiểm chứng từ 3 nguồn độc lập</p>
+    <!-- SLIDE 1: NGƯỜI DÙNG & NỖI ĐAU THỰC TẾ -->
+    <section class="slide active" data-title="Người dùng và nỗi đau thực tế">
+      <span class="tag">1 / 8 · Người dùng &amp; Bằng chứng nỗi đau</span>
+      <h1>Khách tự lên lịch đi Hà Nội mất hàng giờ đối chiếu rời rạc và dễ lỡ giờ, vượt chi phí</h1>
+      <p class="subtitle">Người dùng chính: Khách tự lên kế hoạch đi Hà Nội 1–3 ngày (đi cá nhân, nhóm bạn trẻ, cặp đôi, gia đình có con nhỏ)</p>
 
       <div class="grid-3">
         <div class="card">
           <div class="stat blue">10 / 21 (48%)</div>
-          <div class="small">Khảo sát (<code>n = 21</code>): mất <strong>≥ 2 tiếng</strong> lên lịch chuyến 2–3 ngày; <strong>12/21 (57%)</strong> vướng sắp thuận đường &amp; cân đối giờ + tiền; <strong>13/21 (62%)</strong> khó chịu khi phải sửa lịch.</div>
+          <div class="small"><strong>Khảo sát 21 khách tự túc:</strong> mất từ <strong>2 tiếng trở lên</strong> để lên lịch chuyến 2–3 ngày; <strong>12/21 (57%)</strong> gặp khó khi sắp thứ tự điểm thuận đường và cân đối thời gian + chi phí; <strong>13/21 (62%)</strong> khó chịu khi phải sửa lịch.</div>
         </div>
         <div class="card">
-          <div class="stat amber">3 / 3 phỏng vấn</div>
-          <div class="small">Phỏng vấn sâu (<code>P1–P3</code>): chuẩn bị 45–150 phút nhưng <strong>3/3 vượt chi phí (+250k–1,2tr)</strong> và kẹt/chéo tuyến; P1 lỡ bảo tàng vì quên khung nghỉ trưa.</div>
+          <div class="stat amber">3 / 3 chuyến thật</div>
+          <div class="small"><strong>Phỏng vấn sâu 3 nhóm khách</strong> (nhóm bạn trẻ, cặp đôi sinh viên, gia đình có bé 4 tuổi): chuẩn bị 45–150 phút nhưng <strong>cả 3/3 đều phát sinh vượt dự toán (+250.000đ đến +1.200.000đ)</strong> do đi chéo tuyến, lỡ giờ nghỉ trưa bảo tàng hoặc giá vé cũ.</div>
         </div>
         <div class="card">
-          <div class="stat">5 / 50 review (10%)</div>
-          <div class="small">Đào Google Maps (<code>N = 50</code>, 5 điểm): gặp pain lập lịch; <strong>2/50 đóng cửa/sai giờ</strong> đều chấm 1 sao (trên nhóm 3 điểm có ràng buộc giờ là 13,3%).</div>
+          <div class="stat">5 / 50 đánh giá (10%)</div>
+          <div class="small"><strong>Phân tích 50 đánh giá Google Maps</strong> tại 5 điểm du lịch Hà Nội: 5/50 phản ánh trục trặc lịch trình; <strong>2/50 trường hợp đến nơi đóng cửa / sai giờ</strong> đều chấm 1 sao (chiếm 13,3% ở nhóm điểm có ngày đóng cửa).</div>
         </div>
       </div>
 
-      <div class="grid-2" style="margin-top:16px;">
+      <div class="grid-2" style="margin-top:14px;">
         <div class="card">
-          <h3 class="green">Tác động &amp; Quyết định chọn lát cắt (spec.md §2)</h3>
+          <h3>Hiện trạng công cụ rời rạc &amp; Vì sao khách chưa bỏ</h3>
           <ul>
-            <li><strong>Impact hướng A:</strong> ~571/1.000 khách × ~0,12 lần/tháng × ~168 phút ≈ <strong>183 giờ / tháng / 1.000 khách</strong>.</li>
-            <li><strong>Mở rộng hướng C:</strong> Sửa lịch nhanh (~190 giờ/tháng) được gộp ngay trong phiên chat vì cần có lịch A trước.</li>
-            <li><strong>Đã loại B (lọc review) &amp; D (ảnh):</strong> Vướng nguồn dữ liệu lớn &amp; bản quyền, không kịp làm trọn trong 2 ngày.</li>
+            <li>Khách đang phải nhảy qua lại giữa <strong>Google Maps (19/21)</strong>, <strong>mạng xã hội TikTok/Facebook/Instagram (17/21)</strong> và ghi chú thủ công / bảng tính để tự ghép lịch.</li>
+            <li>Chưa bỏ cách cũ vì miễn phí, dễ chia sẻ bảng tính cho nhóm bạn, chụp màn hình nhanh, hoặc gia đình có trẻ nhỏ cần lịch linh hoạt theo giờ sinh hoạt riêng mà tour cố định không đáp ứng.</li>
           </ul>
         </div>
         <div class="card">
-          <h3 class="amber">Vì sao khách chưa bỏ cách cũ &amp; Tiếng nói người dùng</h3>
-          <ul>
-            <li>Miễn phí, dễ chia sẻ nhóm (P1); chụp màn hình nhanh (P2); cần linh hoạt giờ cho con nhỏ, tour không đáp ứng (P3).</li>
-          </ul>
-          <div class="quote">"Review chân thực lên xin đừng lừa :(" — phiếu khảo sát 27/11 18:25</div>
-          <div class="quote">"một ứng dụng tiện gọn có thể làm được tất cả" — phiếu khảo sát 27/11 21:25</div>
+          <h3 class="amber">Trích dẫn nguyên văn từ người dùng</h3>
+          <div class="quote">"Mình chia cột tiền ăn và tiền phòng trên Sheets kỹ lắm, nhưng lại sót đúng khung giờ nghỉ trưa của bảo tàng nên cả nhóm ngồi chờ vạ vật mất cả tiếng." — Nhóm bạn trẻ đi Hà Nội 2 ngày</div>
+          <div class="quote">"Lúc lưu thì cứ thấy quán nào xinh là chụp màn hình, đến lúc đứng ở phố Hàng Mã mở album ra mới ngớ người vì quán muốn ăn nằm tuốt bên Xã Đàn." — Cặp đôi sinh viên đi Hà Nội 3 ngày</div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 2: SẢN PHẨM, TRẢI NGHIỆM & THIẾT KẾ -->
-    <section class="slide" data-title="Sản phẩm & Trải nghiệm">
-      <span class="tag">2 / 4 · Sản phẩm, Trải nghiệm người dùng &amp; An toàn</span>
-      <h1>Từ nền tảng du lịch sẵn có đến lát cắt AI làm trọn trong Hackathon</h1>
-      <p class="subtitle">1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả — Khách tự kiểm soát &amp; duyệt lịch, không tự ý đặt/thanh toán</p>
-
-      <div class="badge-row">
-        <span class="pill">Nền tảng gốc (React + FastAPI + PostgreSQL): Khám phá bản đồ · Kéo-thả Plan · Tối ưu lộ trình TSP · Review cộng đồng</span>
-        <span class="pill hi">Lát cắt Hackathon: Nhập 1 câu → Lập &amp; Sửa lịch Hà Nội 1–3 ngày an toàn</span>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <h3>Trải nghiệm người dùng (CLI &amp; Web UI)</h3>
-          <ul>
-            <li><strong>Nhập tự nhiên:</strong> Nêu số ngày (1–3), thứ, sở thích, ngân sách → AI chọn &amp; chia điểm từ danh mục 24 điểm Hà Nội (<code>HN01–HN24</code>).</li>
-            <li><strong>Sửa linh hoạt tại chỗ:</strong> Nhắn sửa trong phiên chat (bỏ/thêm điểm, trời mưa, đổi ngân sách) hoặc <strong>kéo-thả trên Web UI</strong> (chọn điểm xuất phát/GPS, gợi ý điểm gần nhất) — hệ thống tự tính lại giờ &amp; tiền.</li>
-            <li><strong>Minh bạch (G1/G11):</strong> Giải thích "Vì sao chọn", ghi rõ điểm bị bỏ (đóng cửa/vượt tiền) và nguồn dữ liệu tham khảo 11/2026.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3 class="amber">Chốt chặn rủi ro &amp; Phân định AI — Người</h3>
-          <ul>
-            <li><strong>Không bịa giờ/giá:</strong> AI chỉ trả mã điểm; toàn bộ giờ mở cửa, ngày đóng, thời lượng, tiền vé/di chuyển do <code>tools.py</code> kiểm 100%.</li>
-            <li><strong>Thu hẹp phạm vi (G10):</strong> Thiếu thông tin → hỏi lại 1 câu; ngoài Hà Nội, &gt;3 ngày, nhờ đặt vé/thanh toán hoặc prompt injection → từ chối ngay.</li>
-            <li><strong>Chỗ người duyệt:</strong> Khách tự quyết định lưu và tự đặt vé/khách sạn — không có công cụ tác động ra ngoài.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 3: ĐÁNH GIÁ THỰC CHỨNG & ĐỐI THỦ -->
-    <section class="slide" data-title="Đánh giá & Đối thủ">
-      <span class="tag">3 / 4 · Kiểm chứng thực chứng &amp; Chất lượng</span>
-      <h1>Tăng từ 24/30 (80%) lên 28/30 (93%) ở Lượt 2 · Vượt trội Chatbot chung</h1>
-      <p class="subtitle">Đối chiếu Chatbot chung (5 câu) · Bộ câu thử <code>eval/benchmark.csv</code> 30 câu (<code>gpt-5-mini</code>, <code>run-1</code> → <code>run-2</code>)</p>
-
-      <div class="grid-3">
-        <div class="card">
-          <div class="stat amber">2 / 4 lịch sai</div>
-          <div class="small"><strong>Chatbot chung</strong> (<code>gpt-5-mini</code> hỏi thẳng): xếp Lăng Bác vào Thứ 6, phở Bát Đàn buổi chiều (đóng cửa), 2/4 sai giá vé.</div>
-        </div>
-        <div class="card">
-          <div class="stat green">80% → 93% (28/30)</div>
-          <div class="small"><strong>Lượt 1 → Lượt 2 (<code>run-2@20261128-110858</code>):</strong> <code>thuong</code> <strong>12/12</strong> · <code>kho</code> <strong>11/13</strong> · <code>tu_choi</code> <strong>5/5 (100%)</strong>.</div>
-        </div>
-        <div class="card">
-          <div class="stat green">0 vi phạm</div>
-          <div class="small"><strong>Điều kiện cứng:</strong> 0 lịch sai giờ/ngày đóng/chồng giờ/ngoài danh mục · 0 lịch vượt ngân sách · 0 lỗi kỹ thuật.</div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:16px;">
-        <h3>Cải tiến từ Lượt 1 → Lượt 2 &amp; 2 câu còn trượt (eval/report.md)</h3>
-        <table>
-          <thead>
-            <tr><th>Nhóm lỗi</th><th>Lượt 1 → Lượt 2</th><th>Kết quả &amp; Phần còn lại</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>Đọc sai yêu cầu (code)</strong></td><td>2 → <strong>0</strong> (B24, B28)</td><td>Đã vá <code>parse_request</code> (số người bằng chữ, thứ + khung giờ = 1 ngày) → <strong>B24, B28 đều đạt</strong>.</td></tr>
-            <tr><td><strong>Chọn / xếp điểm</strong></td><td>2 → <strong>0</strong> (B08, B21)</td><td>Cả B08 và B21 đều đạt ở <code>run-2-cp4.csv</code>.</td></tr>
-            <tr><td><strong>Chưa nói rõ lý do</strong></td><td>2 → <strong>2</strong> (B14, B29)</td><td>Còn trượt: B14 (ngân sách 100k lịch trống) &amp; B29 (chỗ đỗ ô tô/cấm đường chưa báo rõ).</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- SLIDE 4: CHI PHÍ, KINH DOANH & LỘ TRÌNH -->
-    <section class="slide" data-title="Chi phí & Lộ trình">
-      <span class="tag">4 / 4 · Chi phí vận hành, Tính khả thi &amp; Lộ trình</span>
-      <h1>~51–55 ₫ / lịch thành công — Khả thi kinh tế rõ ràng ở quy mô Pilot</h1>
-      <p class="subtitle">Mô phỏng 50 phiên từ 3 persona thật (<code>cost/personas.yaml</code> → <code>cost/simulate-1.csv</code>, seed 42)</p>
+    <!-- SLIDE 2: VÌ SAO CHỌN BÀI TOÁN NÀY (IMPACT) -->
+    <section class="slide" data-title="Tác động và quyết định chọn lát cắt">
+      <span class="tag">2 / 8 · Quy mô tác động &amp; Quyết định chọn lát cắt</span>
+      <h1>Chọn lát cắt lập và sửa lịch có kiểm chứng ràng buộc: Tác động ~183 giờ/tháng trên 1.000 khách</h1>
+      <p class="subtitle">Đối chiếu 4 bài toán thực tế từ dữ liệu khảo sát (21 phiếu) quy chiếu trên quy mô 1.000 khách du lịch tự túc</p>
 
       <div class="card">
         <table>
           <thead>
             <tr>
-              <th>Model (giá $/1M token vào · ra)</th>
-              <th>Chi phí / task thành công</th>
-              <th>Thấp (200 người/tháng)</th>
-              <th>Cơ sở (500 người/tháng)</th>
-              <th>Cao (1.500 người/tháng)</th>
-              <th>/ người / tháng (cơ sở)</th>
+              <th>Bài toán người dùng gặp phải</th>
+              <th>Tỷ lệ gặp</th>
+              <th>Tần suất / tháng</th>
+              <th>Thời gian tốn / lần</th>
+              <th>Tác động / tháng (1.000 khách)</th>
+              <th>Quyết định của nhóm &amp; Lý do</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>gemini-3.1-flash-lite</code> ($0.25 · $1.50)</td>
-              <td><strong>$0.0020 (≈ 51 ₫)</strong></td>
-              <td>12.976 ₫</td>
-              <td><strong>32.439 ₫</strong></td>
-              <td>97.317 ₫</td>
-              <td><strong>≈ 65 ₫</strong></td>
+              <td><strong>Lập lịch Hà Nội 1–3 ngày kiểm tra thuận đường, giờ mở cửa và chi phí</strong></td>
+              <td>12/21 (~571 người)</td>
+              <td>~0,12 lần</td>
+              <td>~168 phút</td>
+              <td><strong>~11.000 phút (~183 giờ)</strong></td>
+              <td><strong>CHỌN CHÍNH</strong> — Có bộ dữ liệu 24 địa điểm chuẩn hóa, kiểm chứng chính xác giờ và tiền bằng code.</td>
             </tr>
             <tr>
-              <td><code>gpt-5-mini</code> ($0.25 · $2.00)</td>
-              <td><strong>$0.0022 (≈ 55 ₫)</strong></td>
-              <td>14.170 ₫</td>
-              <td><strong>35.424 ₫</strong></td>
-              <td>106.272 ₫</td>
-              <td><strong>≈ 71 ₫</strong></td>
+              <td><strong>Sửa lịch nhanh khi thời tiết thay đổi hoặc muốn đổi điểm</strong></td>
+              <td>13/21 (~619 người)</td>
+              <td>~0,12 lần</td>
+              <td>~151 phút</td>
+              <td><strong>~11.400 phút (~190 giờ)</strong></td>
+              <td><strong>TÍCH HỢP MỞ RỘNG</strong> — Cần có lịch trình gốc trước mới sửa được; đã hỗ trợ sửa ngay trong phiên chat &amp; kéo-thả Web.</td>
             </tr>
             <tr>
-              <td><code>gpt-5</code> ($1.25 · $10.00)</td>
-              <td>$0.0109 (≈ 276 ₫)</td>
-              <td>70.848 ₫</td>
-              <td>177.120 ₫</td>
-              <td>531.359 ₫</td>
-              <td>≈ 354 ₫</td>
+              <td><strong>Tự động lọc và tóm tắt đánh giá thật so với quảng cáo</strong></td>
+              <td>9/21 (~429 người)</td>
+              <td>~0,08 lần</td>
+              <td>~143 phút</td>
+              <td>~4.800 phút (~81 giờ)</td>
+              <td><strong>LOẠI BỎ</strong> — Cần kho dữ liệu đánh giá lớn, dễ suy diễn sai thật/giả nếu làm trong 2 ngày.</td>
+            </tr>
+            <tr>
+              <td><strong>Cung cấp bộ ảnh thực tế để hình dung trước địa điểm</strong></td>
+              <td>7/21 (~333 người)</td>
+              <td>~0,09 lần</td>
+              <td>~118 phút</td>
+              <td>~3.500 phút (~58 giờ)</td>
+              <td><strong>LOẠI BỎ</strong> — Ít người gặp nhất trong khảo sát và vướng bản quyền nguồn ảnh.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="grid-2" style="margin-top:16px;">
+      <div class="card" style="margin-top:14px;">
+        <h3 class="green">Lát cắt sản phẩm trong một câu</h3>
+        <p class="small" style="font-size:14px; color:var(--text);">Một <strong>khách tự lên kế hoạch đi Hà Nội</strong> nhập số ngày (1–3 ngày), thứ bắt đầu, sở thích và ngân sách cả chuyến; <strong>AI chọn và phân bổ địa điểm theo ngày</strong> từ danh mục 24 điểm đã kiểm chứng; <strong>code tự động xếp giờ và kiểm tra giờ mở cửa, ngày đóng cửa, thời gian di chuyển, tổng chi phí</strong> trước khi trả lịch để khách tự duyệt.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: THIẾT KẾ GIẢI PHÁP & AN TOÀN -->
+    <section class="slide" data-title="Thiết kế giải pháp và chốt chặn an toàn">
+      <span class="tag">3 / 8 · Thiết kế hệ thống &amp; Phân định AI — Code — Người dùng</span>
+      <h1>Workflow cố định 6 bước: AI chỉ chọn điểm phù hợp, Code khóa chặt giờ mở cửa và ngân sách</h1>
+      <p class="subtitle">Không dùng Agent tự do để tránh bỏ qua bước kiểm tra ràng buộc và tiết kiệm chi phí gọi mô hình</p>
+
+      <div class="badge-row">
+        <span class="pill">1. Code đọc &amp; lọc yêu cầu</span>
+        <span class="pill">2. Công cụ tra cứu 24 địa điểm</span>
+        <span class="pill hi">3. AI chọn &amp; chia điểm theo ngày</span>
+        <span class="pill">4. Code xếp khung giờ &amp; tính quãng đường</span>
+        <span class="pill">5. Code kiểm tra giờ mở cửa, ngày nghỉ &amp; ngân sách</span>
+        <span class="pill">6. Trình bày minh bạch để khách duyệt</span>
+      </div>
+
+      <div class="grid-2">
         <div class="card">
-          <h3 class="green">Quyết định: GO (Tiếp tục triển khai)</h3>
+          <h3>Nguyên tắc thiết kế trải nghiệm &amp; Minh bạch</h3>
           <ul>
-            <li>Chi phí <strong>~65–71 ₫/người/tháng</strong> đổi lấy ~17 phút tiết kiệm/người/tháng (~183 giờ/1.000 khách), rẻ hơn <strong>5,4×</strong> so với <code>gpt-5</code>.</li>
-            <li>Hạ tầng nhẹ, dữ liệu tĩnh JSON giúp chi phí vận hành ngoài model gần như bằng 0 ở giai đoạn pilot 500 người.</li>
+            <li><strong>Thu hẹp phạm vi khi thiếu dữ kiện:</strong> Thiếu số ngày, thứ bắt đầu hoặc ngân sách thì hỏi lại đúng 1 câu rõ lý do; yêu cầu ngoài Hà Nội hoặc quá 3 ngày thì từ chối ngay.</li>
+            <li><strong>Nêu rõ khả năng và giới hạn dữ liệu:</strong> Ghi rõ nguồn tham khảo 24 địa điểm Hà Nội (tháng 11/2026), công thức ước tính quãng đường/chi phí di chuyển và những khoản chưa bao gồm (vé máy bay, khách sạn).</li>
+            <li><strong>Giải thích lý do &amp; Dễ chỉnh sửa:</strong> Mỗi ngày đều có mục "Vì sao chọn", ghi rõ lý do nếu một điểm khách thích bị loại (đóng cửa / vượt ngân sách); hỗ trợ nhắn sửa tiếp hoặc kéo-thả đổi chỗ trên Web.</li>
           </ul>
         </div>
         <div class="card">
-          <h3>Lộ trình mở rộng &amp; 1 tuần tới</h3>
+          <h3 class="amber">Chốt chặn rủi ro &amp; Quyền quyết định của người dùng</h3>
           <ul>
-            <li><strong>Ngắn hạn:</strong> Chạy <code>run-2</code> sau vá <code>parse_request</code>, gom cụm quận trong <code>sap_xep_lo_trinh</code> (lỗi B08), thử nghiệm 3–5 người dùng thật (<code>validation/log.md</code>).</li>
-            <li><strong>Tích hợp nền tảng đầy đủ:</strong> Nối vào React + FastAPI + PostgreSQL sẵn có cùng TSP (2-opt), bổ sung ảnh thực tế (Unsplash/Wikimedia) &amp; AI tóm tắt review.</li>
+            <li><strong>Chống bịa địa điểm, giờ mở cửa và giá vé:</strong> AI chỉ được phép trả về mã địa điểm có sẵn; toàn bộ tên gọi, khung giờ, ngày nghỉ định kỳ và chi phí đều lấy từ dữ liệu gốc và do code cộng.</li>
+            <li><strong>Tự động cắt giảm an toàn:</strong> Nếu AI chọn vượt ngân sách sau 1 lần nhắc sửa, code tự động lược bỏ điểm đắt nhất và thông báo rõ cho khách.</li>
+            <li><strong>Không tự ý tác động ra ngoài:</strong> Hệ thống tuyệt đối không tự đặt vé, đặt phòng, thanh toán hay lưu dữ liệu cá nhân; khách xem đề xuất và bấm xác nhận mới áp dụng lịch.</li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: KỊCH BẢN DEMO TRỰC TIẾP -->
+    <section class="slide" data-title="Kịch bản Demo trực tiếp">
+      <span class="tag">4 / 8 · Demo trực tiếp trên giao diện Web &amp; Dòng lệnh</span>
+      <h1>Ba tình huống kiểm chứng trực tiếp: Lập lịch chuẩn, Xử lý ràng buộc khó và Chặn ngoài phạm vi</h1>
+      <p class="subtitle">Chạy trực tiếp qua <code>python3 codebase/web.py</code> (giao diện bản đồ + kéo thả + chat AI) · Có sẵn video dự phòng trên README</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3 class="green">1. Tình huống thông thường</h3>
+          <p class="small"><strong>Đầu vào:</strong> "Lịch trình Hà Nội 2 ngày cuối tuần (Thứ Bảy - Chủ Nhật) cho 1 người thích bảo tàng, lịch sử và cà phê yên tĩnh, ngân sách 1.500.000đ."</p>
+          <p class="small" style="margin-top:8px;"><strong>Kết quả kiểm chứng:</strong> Lịch 2 ngày khớp sở thích, mọi điểm mở cửa cuối tuần, hiển thị rõ giờ đến – giờ đi, quãng đường di chuyển và tổng tiền nằm trong 1.500.000đ.</p>
+        </div>
+        <div class="card">
+          <h3 class="amber">2. Tình huống khó &amp; Sửa lịch</h3>
+          <p class="small"><strong>Đầu vào:</strong> Khách đòi đi <strong>Lăng Bác và Bảo tàng Dân tộc học vào đúng Thứ Hai</strong> (ngày đóng cửa định kỳ), sau đó nhắn <strong>"trời mưa đổi sang chỗ trong nhà"</strong>.</p>
+          <p class="small" style="margin-top:8px;"><strong>Kết quả kiểm chứng:</strong> Cảnh báo ngay ở dòng đầu hai điểm đóng cửa Thứ Hai (không xếp bừa), gợi ý điểm mở cửa thay thế; khi báo mưa thì tự động đổi sang điểm trong nhà và tính lại tiền.</p>
+        </div>
+        <div class="card">
+          <h3 class="red">3. Tình huống từ chối &amp; Tấn công</h3>
+          <p class="small"><strong>Đầu vào:</strong> Nhờ đặt vé máy bay / thanh toán khách sạn, hỏi lịch Đà Nẵng 5 ngày, hoặc giả quyền quản trị ép sửa giá vé về 0đ.</p>
+          <p class="small" style="margin-top:8px;"><strong>Kết quả kiểm chứng:</strong> Từ chối ngay ở bước kiểm tra đầu tiên mà không tốn lượt gọi mô hình hoặc giữ nguyên bảng giá gốc, hướng dẫn lại phạm vi hỗ trợ Hà Nội 1–3 ngày.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Điểm nhấn tương tác trên giao diện Web</h3>
+        <p class="small" style="color:var(--text);">Người dùng có thể chọn <strong>vị trí xuất phát trên bản đồ Hà Nội</strong> để xem gợi ý điểm gần nhất, <strong>kéo-thả thay đổi thứ tự điểm tham quan</strong> giữa các ngày (code lập tức kiểm tra lại giờ đóng cửa và tính lại chi phí không cần gọi lại AI), hoặc <strong>xem trước bản nháp đề xuất của AI</strong> rồi mới bấm đồng ý áp dụng.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: ĐỊNH NGHĨA TỐT — BỘ CÂU THỬ & 4 TIÊU CHÍ ĐÁNH GIÁ -->
+    <section class="slide" data-title="Bộ câu thử và 4 tiêu chí đánh giá">
+      <span class="tag">5 / 8 · Định nghĩa "Tốt" &amp; Phương pháp đo lường</span>
+      <h1>Bộ 30 câu thử thực tế và 4 tiêu chí đánh giá rõ ràng chốt cứng từ trước khi chạy</h1>
+      <p class="subtitle">Bộ câu thử <code>eval/benchmark.csv</code>: 12 câu thông thường · 13 câu khó · 5 câu từ chối &amp; tấn công (10/30 câu từ người dùng thật)</p>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Tên tiêu chí đánh giá</th>
+              <th>Nội dung kiểm chứng cụ thể</th>
+              <th>Cách chấm</th>
+              <th>Ngưỡng yêu cầu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Khớp danh mục &amp; giờ mở cửa</strong></td>
+              <td>100% địa điểm trong lịch nằm trong danh mục 24 điểm Hà Nội; giờ tham quan nằm trọn trong khung giờ mở cửa và không rơi vào ngày đóng cửa định kỳ.</td>
+              <td>Tự động bằng code</td>
+              <td><strong>100% lịch xuất ra</strong></td>
+            </tr>
+            <tr>
+              <td><strong>2. Đúng ngân sách dự kiến</strong></td>
+              <td>Tổng chi phí vé tham quan, ăn uống và di chuyển ước tính của cả chuyến không vượt ngân sách khách nhập; thiếu ngân sách phải hỏi lại trước.</td>
+              <td>Tự động bằng code</td>
+              <td><strong>100% lịch xuất ra</strong></td>
+            </tr>
+            <tr>
+              <td><strong>3. Đủ thông tin &amp; lộ trình hợp lý</strong></td>
+              <td>Đúng số ngày yêu cầu (1–3 ngày), đúng nhóm sở thích, có thời gian di chuyển giữa hai điểm liên tiếp và không xếp chồng chéo khung giờ.</td>
+              <td>Người chấm theo tiêu chí</td>
+              <td><strong>&ge; 85% câu thông thường</strong></td>
+            </tr>
+            <tr>
+              <td><strong>4. An toàn &amp; từ chối đúng phạm vi</strong></td>
+              <td>Hỏi lại khi thiếu số ngày/thứ/ngân sách (không tự đoán); từ chối rõ ràng yêu cầu ngoài Hà Nội, quá 3 ngày, đặt vé/thanh toán hoặc câu lệnh tấn công.</td>
+              <td>Người chấm theo tiêu chí</td>
+              <td><strong>100% câu từ chối &amp; thiếu dữ kiện</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3 class="green">Chuẩn "Đạt" tổng thể của toàn bộ sản phẩm (chốt tại CP2, giữ nguyên đến cuối)</h3>
+        <p class="small" style="color:var(--text);">Sản phẩm chỉ được tính là <strong>ĐẠT</strong> khi thỏa mãn đồng thời cả 4 điều kiện: <strong>(1) Tổng số câu vượt qua &ge; 80% trên toàn bộ 30 câu thử</strong> · <strong>(2) Đạt tuyệt đối 100% nhóm câu từ chối/tấn công</strong> · <strong>(3) 0 lịch sai giờ mở cửa, rơi vào ngày đóng cửa, chồng giờ hoặc bịa điểm ngoài danh mục</strong> · <strong>(4) 0 lịch vượt ngân sách người dùng nhập</strong>.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: KẾT QUẢ ĐÁNH GIÁ LƯỢT 1 -> LƯỢT 2 & ĐỐI CHIẾU ĐỐI THỦ -->
+    <section class="slide" data-title="Kết quả đánh giá Lượt 1 đến Lượt 2">
+      <span class="tag">6 / 8 · Kết quả thực chứng Lượt 1 &rarr; Lượt 2</span>
+      <h1>Tăng từ 24/30 (80%) lên 28/30 (93%) sau một vòng cải tiến · 0 vi phạm giờ và ngân sách</h1>
+      <p class="subtitle">Chạy trên cùng bộ 30 câu thử với mô hình <code>gpt-5-mini</code> · Đối chiếu trực tiếp với Chatbot chung hỏi thẳng không qua công cụ kiểm</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="stat amber">2 / 4 lịch sai giờ</div>
+          <div class="small"><strong>Chatbot chung hỏi thẳng:</strong> xếp Lăng Bác vào Thứ Sáu (ngày đóng cửa), xếp phở Bát Đàn buổi chiều (chỉ bán sáng), và báo giá vé thấp hơn thực tế ở 2/4 lịch.</div>
+        </div>
+        <div class="card">
+          <div class="stat blue">24 / 30 (80%)</div>
+          <div class="small"><strong>Lượt 1 (<code>run-1@20261127-232730</code>):</strong> Thông thường 9/12 · Khó 10/13 · Từ chối 5/5 (100%) · <strong>0 lịch sai giờ/vượt tiền</strong> (vừa chạm ngưỡng chuẩn 80%).</div>
+        </div>
+        <div class="card">
+          <div class="stat green">28 / 30 (93%)</div>
+          <div class="small"><strong>Lượt 2 (<code>run-2@20261128-110858</code>):</strong> Thông thường <strong>12/12 (100%)</strong> · Khó <strong>11/13 (85%)</strong> · Từ chối <strong>5/5 (100%)</strong> · <strong>0 câu bị tụt kết quả</strong>.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Phân tích lỗi Lượt 1, Cải tiến đã thực hiện &amp; 2 trường hợp khó còn tồn đọng</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nhóm lỗi phát hiện ở Lượt 1</th>
+              <th>Cải tiến kỹ thuật trước Lượt 2</th>
+              <th>Kết quả Lượt 2 (trên 30 câu)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Đọc sai yêu cầu tự nhiên (2 câu):</strong> Khách viết số người bằng chữ ("hai đứa mình" bị hiểu là 1 người) hoặc nêu một ngày Chủ Nhật kèm khung giờ 8h–11h30 nhưng bị hỏi lại đi mấy ngày.</td>
+              <td>Cập nhật bộ phân tích yêu cầu (<code>parse_request</code>): nhận diện số người viết bằng chữ tiếng Việt và tự suy ra chuyến 1 ngày khi có một thứ cụ thể đi kèm khung giờ đi–về.</td>
+              <td><strong>Đã khắc phục triệt để (2 lỗi &rarr; 0 lỗi)</strong>; nhóm câu thông thường đạt 12/12 (100%), lựa chọn bảo tàng &amp; tuyến đường cũng đạt ổn định.</td>
+            </tr>
+            <tr>
+              <td><strong>Chưa giải thích rõ lý do khi không đáp ứng được (2 câu):</strong> Ngân sách quá thấp (100.000đ cho cả 3 ngày) hoặc hỏi thông tin ngoài danh mục (bãi đỗ xe ô tô, lịch cấm đường phố đi bộ).</td>
+              <td>Giữ nguyên không sửa dồn dập trong cùng lượt để đo lường minh bạch tác động của cải tiến đọc yêu cầu.</td>
+              <td><strong>Còn trượt 2/30 câu:</strong> trường hợp 100.000đ/3 ngày trả lịch trống chưa báo câu "không đủ ngân sách"; câu hỏi đỗ ô tô/cấm đường mới hỏi lại số ngày, chưa báo ngay "chưa có dữ liệu".</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: CHI PHÍ KHI DÙNG THẬT -->
+    <section class="slide" data-title="Chi phí vận hành thực tế">
+      <span class="tag">7 / 8 · Mô phỏng chi phí vận hành thực tế</span>
+      <h1>Chỉ ~51–55 ₫ cho một lịch trình thành công — Tổng chi phí cơ sở ~35.000 ₫/tháng cho 500 khách</h1>
+      <p class="subtitle">Kết quả từ 50 phiên mô phỏng thật (<code>simulate-1@20261127-223955</code>) trên 3 nhóm hành vi: khách đi 1 ngày (40%), đi 2–3 ngày (40%), nhóm bạn/gia đình (20%)</p>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Mô hình AI (đơn giá USD / 1 triệu token vào · ra)</th>
+              <th>Chi phí / lịch thành công</th>
+              <th>Quy mô thấp (200 người/tháng)</th>
+              <th>Quy mô cơ sở (500 người/tháng)</th>
+              <th>Quy mô cao (1.500 người/tháng)</th>
+              <th>Chi phí / người / tháng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>gemini-3.1-flash-lite</code> ($0.25 · $1.50)</td>
+              <td><strong>$0.0020 (&asymp; 51 ₫)</strong></td>
+              <td>12.976 ₫</td>
+              <td><strong>32.439 ₫</strong></td>
+              <td>97.317 ₫</td>
+              <td><strong>&asymp; 65 ₫</strong></td>
+            </tr>
+            <tr>
+              <td><code>gpt-5-mini</code> ($0.25 · $2.00)</td>
+              <td><strong>$0.0022 (&asymp; 55 ₫)</strong></td>
+              <td>14.170 ₫</td>
+              <td><strong>35.424 ₫</strong></td>
+              <td>106.272 ₫</td>
+              <td><strong>&asymp; 71 ₫</strong></td>
+            </tr>
+            <tr>
+              <td><code>gpt-5</code> ($1.25 · $10.00)</td>
+              <td>$0.0109 (&asymp; 276 ₫)</td>
+              <td>70.848 ₫</td>
+              <td>177.120 ₫</td>
+              <td>531.359 ₫</td>
+              <td>&asymp; 354 ₫</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px;">
+        <div class="card">
+          <h3 class="green">Đối chiếu Chi phí so với Giá trị mang lại</h3>
+          <ul>
+            <li>Ở quy mô cơ sở 500 người dùng/tháng, chi phí mô hình chỉ tốn <strong>~65–71 ₫/người/tháng</strong> để đổi lại trung bình <strong>~17 phút/người/tháng</strong> tự tìm kiếm, đối chiếu giờ mở cửa và cộng nhẩm chi phí.</li>
+            <li>Sử dụng mô hình gọn nhẹ (<code>gpt-5-mini</code> hoặc <code>gemini-3.1-flash-lite</code>) giúp tiết kiệm <strong>5,4 lần chi phí</strong> (giảm ~80–82%) so với <code>gpt-5</code> mà vẫn đảm bảo đạt chuẩn 93% nhờ tầng kiểm tra bằng code.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Chi phí ngoài mô hình &amp; Độ trung thực của phép đo</h3>
+          <ul>
+            <li>Dữ liệu địa điểm lưu dưới dạng JSON tĩnh gọn nhẹ, không cần cơ sở dữ liệu phức tạp hay nhân sự duyệt thủ công nên chi phí hạ tầng gần như bằng 0 ở giai đoạn thử nghiệm 500 người.</li>
+            <li><em>Lưu ý minh bạch:</em> Bảng trên tính với tỷ lệ đạt của lượt thử trước; nếu chia theo đúng tỷ lệ đạt 93% của Lượt 2 (<code>gpt-5-mini</code>), chi phí thực tế mỗi lịch thành công cũng chỉ khoảng <strong>~59 ₫</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: KẾT LUẬN & LỘ TRÌNH 1 TUẦN TỚI -->
+    <section class="slide" data-title="Kết luận và lộ trình tiếp theo">
+      <span class="tag">8 / 8 · Quyết định sản phẩm &amp; Kế hoạch 1 tuần tới</span>
+      <h1>Quyết định: Triển khai thử nghiệm (GO) và tập trung xử lý dứt điểm các giới hạn còn lại</h1>
+      <p class="subtitle">Tổng hợp quyết định dựa trên bằng chứng người dùng (Trang 1), chất lượng kiểm thử (Trang 6) và hiệu quả chi phí (Trang 7)</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="stat blue">Nhu cầu thật</div>
+          <div class="small">48% khách khảo sát tốn &ge; 2 giờ lên lịch; 3/3 nhóm phỏng vấn bị phát sinh 250.000đ–1.200.000đ vì ghép thông tin rời rạc.</div>
+        </div>
+        <div class="card">
+          <div class="stat green">Độ tin cậy 93%</div>
+          <div class="small">Đạt 28/30 câu thử ở Lượt 2 (100% câu thông thường &amp; câu từ chối); khóa cứng 0 lịch sai giờ mở cửa, 0 lịch vượt ngân sách.</div>
+        </div>
+        <div class="card">
+          <div class="stat amber">~55–59 ₫ / lịch</div>
+          <div class="small">Chi phí vận hành chỉ ~35.000 ₫/tháng cho 500 khách tự túc, hoàn toàn khả thi để mở thử nghiệm miễn phí cho cộng đồng.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Nếu có thêm 1 tuần: 3 hạng mục ưu tiên dựa trên lỗi thực tế còn lại</h3>
+        <ul>
+          <li><strong>1. Xử lý triệt để 2 trường hợp còn trượt ở Lượt 2 &amp; khung giờ nghỉ trưa:</strong> Hiển thị thông báo rõ ràng khi ngân sách quá thấp (như 100.000đ cho 3 ngày) kèm mức ngân sách tối thiểu gợi ý; bổ sung cảnh báo minh bạch khi khách hỏi thông tin chưa có trong dữ liệu (chỗ đỗ ô tô, lịch cấm đường phố đi bộ cuối tuần) và đưa khung nghỉ trưa của bảo tàng vào luật kiểm tự động.</li>
+          <li><strong>2. Tối ưu gom cụm theo quận &amp; Kiểm thử tự động hội thoại nhiều lượt:</strong> Ưu tiên gom địa điểm cùng khu vực trước khi xếp giờ để tránh đi vòng giữa các quận; bổ sung kịch bản chấm tự động cho luồng nhắn tin sửa lịch liên tiếp.</li>
+          <li><strong>3. Kiểm chứng với người dùng thật trước chuyến đi cuối tuần:</strong> Mời 5–10 khách sắp đi Hà Nội dùng thử giao diện Web, ghi nhận tỷ lệ giữ nguyên lịch gợi ý và số thao tác kéo-thả chỉnh sửa thực tế vào nhật ký kiểm chứng (<code>validation/log.md</code>).</li>
+        </ul>
       </div>
     </section>
   </main>
@@ -371,42 +556,79 @@
   <footer>
     <div class="dots" id="dots"></div>
     <div class="controls">
-      <button id="prev">← Trước</button>
-      <button id="next">Sau →</button>
+      <button id="prev">Trước</button>
+      <button id="next">Tiếp theo</button>
     </div>
   </footer>
 
   <script>
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const dotsEl = document.getElementById('dots');
-    const counterEl = document.getElementById('counter');
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
-    let idx = 0;
+    const slideElements = Array.from(document.querySelectorAll('.slide'));
+    const dotsContainer = document.getElementById('dots');
+    const slideCounterElement = document.getElementById('counter');
+    const previousButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+    let currentSlideIndex = 0;
 
-    slides.forEach((_, i) => {
-      const d = document.createElement('div');
-      d.className = 'dot' + (i === 0 ? ' active' : '');
-      d.addEventListener('click', () => show(i));
-      dotsEl.appendChild(d);
+    slideElements.forEach(function (_, index) {
+      const dotElement = document.createElement('div');
+      if (index === 0) {
+        dotElement.className = 'dot active';
+      } else {
+        dotElement.className = 'dot';
+      }
+      dotElement.addEventListener('click', function () {
+        showSlide(index);
+      });
+      dotsContainer.appendChild(dotElement);
     });
 
-    function show(n) {
-      idx = Math.max(0, Math.min(slides.length - 1, n));
-      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
-      Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('active', i === idx));
-      counterEl.textContent = `Slide ${idx + 1} / ${slides.length}`;
-      prevBtn.disabled = idx === 0;
-      nextBtn.disabled = idx === slides.length - 1;
+    function showSlide(targetIndex) {
+      if (targetIndex < 0) {
+        currentSlideIndex = 0;
+      } else if (targetIndex >= slideElements.length) {
+        currentSlideIndex = slideElements.length - 1;
+      } else {
+        currentSlideIndex = targetIndex;
+      }
+
+      slideElements.forEach(function (slideElement, index) {
+        if (index === currentSlideIndex) {
+          slideElement.classList.add('active');
+        } else {
+          slideElement.classList.remove('active');
+        }
+      });
+
+      Array.from(dotsContainer.children).forEach(function (dotElement, index) {
+        if (index === currentSlideIndex) {
+          dotElement.classList.add('active');
+        } else {
+          dotElement.classList.remove('active');
+        }
+      });
+
+      slideCounterElement.textContent = 'Slide ' + (currentSlideIndex + 1) + ' / ' + slideElements.length;
+      previousButton.disabled = currentSlideIndex === 0;
+      nextButton.disabled = currentSlideIndex === slideElements.length - 1;
     }
 
-    prevBtn.addEventListener('click', () => show(idx - 1));
-    nextBtn.addEventListener('click', () => show(idx + 1));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') show(idx + 1);
-      if (e.key === 'ArrowLeft') show(idx - 1);
+    previousButton.addEventListener('click', function () {
+      showSlide(currentSlideIndex - 1);
     });
-    show(0);
+
+    nextButton.addEventListener('click', function () {
+      showSlide(currentSlideIndex + 1);
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowRight' || event.key === ' ') {
+        showSlide(currentSlideIndex + 1);
+      } else if (event.key === 'ArrowLeft') {
+        showSlide(currentSlideIndex - 1);
+      }
+    });
+
+    showSlide(0);
   </script>
 </body>
 </html>
