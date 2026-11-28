@@ -109,13 +109,17 @@ def tra_dia_diem(so_thich: list = None, co_tre_nho: bool = False, troi_mua: bool
 
 
 @tool
-def sap_xep_lo_trinh(ids: list, thu: str, gio_bat_dau: str = "08:00", gio_ket_thuc: str = DAY_END) -> dict:
+def sap_xep_lo_trinh(ids: list, thu: str, gio_bat_dau: str = "08:00", gio_ket_thuc: str = DAY_END,
+                     giu_thu_tu: bool = False) -> dict:
     """Tên: sap_xep_lo_trinh — xếp thứ tự và giờ cho các điểm của MỘT ngày.
     Cách xếp (tham lam): từ điểm hiện tại, xét các điểm bắt đầu được trong vòng 30 phút so với điểm
     sớm nhất (tính cả thời gian di chuyển và chờ mở cửa), chọn điểm có "giờ muộn nhất còn vào kịp"
     (giờ đóng − thời lượng) sớm nhất — để điểm mở ngắn (vd phở sáng) không bị bỏ lỡ. Điểm đóng cửa
     hôm đó, hoặc không còn kịp tham quan trước giờ đóng / trước gio_ket_thuc, đưa vào khong_xep_duoc kèm lý do.
-    Input: ids (list mã địa điểm), thu (Mon..Sun), gio_bat_dau, gio_ket_thuc ("HH:MM" — khung giờ khách đi trong ngày).
+    giu_thu_tu=True (khách tự kéo thả thứ tự): KHÔNG đổi thứ tự — đi lần lượt đúng thứ tự ids, chỉ tính giờ
+    (chờ mở cửa nếu đến sớm); điểm nào không còn kịp ở vị trí đó thì đưa vào khong_xep_duoc kèm lý do.
+    Input: ids (list mã địa điểm), thu (Mon..Sun), gio_bat_dau, gio_ket_thuc ("HH:MM" — khung giờ khách đi trong ngày),
+           giu_thu_tu (bool, mặc định False).
     Output: {"lich": [{id, name, den, bat_dau, ket_thuc, di_chuyen_phut, di_chuyen_km,
                        tien_di_chuyen (1 người, chặng tới điểm này), chi_phi (vé/ăn 1 người)}],
              "khong_xep_duoc": [{id, ly_do}]}.
@@ -133,6 +137,23 @@ def sap_xep_lo_trinh(ids: list, thu: str, gio_bat_dau: str = "08:00", gio_ket_th
             con_lai.append(p)
 
     now, here = to_min(gio_bat_dau), None
+    if giu_thu_tu:
+        for p in con_lai:
+            move = travel_min(here, p) if here else 0
+            start = max(now + move, to_min(p["open_time"]))
+            end = start + p["duration_min"]
+            if end > to_min(p["close_time"]) or end > to_min(gio_ket_thuc):
+                bo.append({"id": p["id"], "ly_do": "%s ở vị trí này phải bắt đầu %s, không còn kịp trước %s (mở %s–%s)"
+                           % (p["name"], to_hhmm(start), to_hhmm(min(to_min(p["close_time"]), to_min(gio_ket_thuc))),
+                              p["open_time"], p["close_time"])})
+                continue
+            lich.append({"id": p["id"], "name": p["name"], "den": to_hhmm(now + move), "bat_dau": to_hhmm(start),
+                         "ket_thuc": to_hhmm(end), "di_chuyen_phut": move,
+                         "di_chuyen_km": round(road_km(here, p), 1) if here else 0.0,
+                         "tien_di_chuyen": travel_cost(here, p) if here else 0,
+                         "chi_phi": p["estimated_cost_vnd"]})
+            now, here = end, p
+        return {"lich": lich, "khong_xep_duoc": bo}
     while con_lai:
         feasible = []
         for p in con_lai:

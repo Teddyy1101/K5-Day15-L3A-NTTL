@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VietTravel Copilot · Hà Nội</title>
+<meta name="description" content="Lập lịch đi Hà Nội 1–3 ngày: AI chọn điểm, code kiểm giờ mở cửa, ngày đóng cửa và tiền.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3.5v9M3.5 8h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 16 16"><path d="M3.5 8h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-move" viewBox="0 0 16 16"><path d="M3 5.5h9.5M10 3l2.5 2.5L10 8M13 10.5H3.5M6 8l-2.5 2.5L6 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 16 16"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.2 10.2L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-send" viewBox="0 0 16 16"><path d="M8 13V3.5M3.8 7.5L8 3.3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ride" viewBox="0 0 16 16"><path d="M8 2.5v9M4.8 8.6L8 11.8l3.2-3.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-grip" viewBox="0 0 16 16"><g fill="currentColor"><circle cx="6" cy="4" r="1.1"/><circle cx="10" cy="4" r="1.1"/><circle cx="6" cy="8" r="1.1"/><circle cx="10" cy="8" r="1.1"/><circle cx="6" cy="12" r="1.1"/><circle cx="10" cy="12" r="1.1"/></g></symbol>
+  <symbol id="i-chev" viewBox="0 0 16 16"><path d="M4.5 6.5L8 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 6.5A2.5 2.5 0 0 1 7 4h10a2.5 2.5 0 0 1 2.5 2.5v7A2.5 2.5 0 0 1 17 16h-6.2l-3.9 3.3c-.5.4-1.2.1-1.2-.5V16H7a2.5 2.5 0 0 1-2.5-2.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 8.8h7M8.5 11.6h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-roof" viewBox="0 0 16 16"><path d="M2.5 7.5L8 3l5.5 4.5M4 6.5V13h8V6.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="bar">
+  <div class="brand">
+    <span class="brand-name">VietTravel</span>
+    <span class="brand-sub">Lịch đi Hà Nội 1–3 ngày</span>
+  </div>
+  <p class="bar-trip" id="trip-line" hidden></p>
+  <button class="btn btn-quiet" id="btn-new" type="button" hidden>Lập lịch mới</button>
+</header>
+
+<main class="app" id="app" data-view="plan">
+  <!-- Danh mục điểm: nguồn kéo -->
+  <section class="col col-cat" id="col-cat" aria-labelledby="cat-title">
+    <div class="col-head">
+      <h2 id="cat-title">Danh mục <span class="count" id="cat-count"></span></h2>
+      <label class="search">
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="cat-q" type="search" placeholder="Tìm điểm, quận, món…" autocomplete="off">
+      </label>
+      <div class="filters" id="cat-filters" role="group" aria-label="Lọc theo loại"></div>
+    </div>
+    <ul class="cat-list" id="cat-list"></ul>
+    <p class="cat-foot">Giá tham khảo 11/2026, mỗi người. Giờ mở cửa và giá là dữ liệu tĩnh của nhóm, nên kiểm lại trước khi đi.</p>
+  </section>
+
+  <!-- Lịch trình + nhắn sửa -->
+  <section class="col col-plan" id="col-plan" aria-labelledby="plan-title">
+    <h2 class="sr-only" id="plan-title">Lịch trình</h2>
+    <div class="plan-scroll" id="plan-scroll">
+      <div id="plan-empty"></div>
+      <div id="plan-body" hidden>
+        <div class="ledger" id="ledger"></div>
+        <div class="notice" id="notice" role="status" aria-live="polite" hidden></div>
+        <ol class="days" id="days"></ol>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Bản đồ -->
+  <section class="col col-map" aria-label="Bản đồ">
+    <div class="map-tools">
+      <div class="seg" id="map-days" role="group" aria-label="Hiện trên bản đồ"></div>
+    </div>
+    <div id="map"></div>
+    <p class="map-note">Điểm đánh số liên tục cả chuyến. Nét đứt màu: đi trong ngày; nét chấm đen: sang ngày hôm sau (chưa tính giờ và tiền). Các nét nối thẳng, không phải đường đi thật.</p>
+  </section>
+</main>
+
+<!-- Khung nhắn tin nổi: không chặn trang, vẫn kéo thả được khi đang mở -->
+<section class="chat" id="chat" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
+  <header class="chat-head">
+    <div>
+      <h2 id="chat-title">Tư vấn lịch trình</h2>
+      <p class="chat-sub" id="chat-sub"></p>
+    </div>
+    <button class="chat-x" id="chat-close" type="button" aria-label="Thu nhỏ khung nhắn tin">
+      <svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg>
+    </button>
+  </header>
+  <div class="thread" id="thread" aria-live="polite"></div>
+  <div class="suggest" id="suggest"></div>
+  <form class="composer" id="composer">
+    <label class="sr-only" for="msg">Tin nhắn</label>
+    <textarea id="msg" rows="1" placeholder="Vd: bỏ Lăng Bác, thêm Văn Miếu" maxlength="1000"></textarea>
+    <button class="btn-send" type="submit" aria-label="Gửi">
+      <svg class="ic" aria-hidden="true"><use href="#i-send"/></svg>
+    </button>
+  </form>
+</section>
+
+<button class="chat-fab" id="chat-fab" type="button" aria-controls="chat" aria-expanded="false" aria-label="Mở khung nhắn để sửa lịch">
+  <svg class="ic ic-chat" aria-hidden="true"><use href="#i-chat"/></svg>
+  <svg class="ic ic-close" aria-hidden="true"><use href="#i-x"/></svg>
+</button>
+
+<nav class="tabs" aria-label="Chuyển màn hình">
+  <button type="button" data-tab="cat">Danh mục</button>
+  <button type="button" data-tab="plan" aria-current="page">Lịch</button>
+  <button type="button" data-tab="map">Bản đồ</button>
+</nav>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="app.js"></script>
+</body>
+</html>
