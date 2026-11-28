@@ -246,14 +246,26 @@
       setTimeout(() => map?.invalidateSize(), 60);
       return;
     }
-    const famousPool = POPULAR_IDS.map((id) => S.byId[id]).filter(Boolean);
-    const ranked = S.startPoint
-      ? [...famousPool].sort((a, b) => distFromStart(a) - distFromStart(b)).slice(0, 6)
-      : famousPool.slice(0, 6);
     box.hidden = false;
+    if (!S.startPoint) {
+      box.className = "map-popular is-empty";
+      box.innerHTML = `
+        <div class="map-popular-empty">
+          <span>📍 <b>Đề xuất điểm nổi tiếng gần bạn:</b> Cập nhật vị trí GPS hoặc chọn điểm xuất phát để hệ thống gợi ý các địa điểm gần nhất.</span>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button type="button" class="btn btn-primary btn-xs" data-act="gps">📡 Lấy vị trí GPS</button>
+            <button type="button" class="btn btn-quiet btn-xs" data-act="open-loc">Chọn điểm xuất phát</button>
+          </div>
+        </div>`;
+      setTimeout(() => map?.invalidateSize(), 60);
+      return;
+    }
+    box.className = "map-popular";
+    const famousPool = POPULAR_IDS.map((id) => S.byId[id]).filter(Boolean);
+    const ranked = [...famousPool].sort((a, b) => distFromStart(a) - distFromStart(b)).slice(0, 6);
     box.innerHTML = `
       <div class="map-popular-head">
-        <span>🔥 Địa điểm nổi tiếng ${S.startPoint ? "gần " + esc(shortName(S.startPoint.name)) : "tại Hà Nội"}</span>
+        <span>🔥 Địa điểm nổi tiếng gần ${esc(shortName(S.startPoint.name))}</span>
         <span class="map-popular-hint">Bấm thẻ để định vị trên bản đồ ↓</span>
       </div>
       <div class="popular-strip">
@@ -262,7 +274,7 @@
           return `<div class="pop-card" data-act="focus" data-id="${p.id}">
             <div class="pop-card-top">
               <span class="pop-card-name">${esc(shortName(p.name))}</span>
-              ${km != null ? `<span class="pop-card-dist">~${String(km).replace(".", ",")} km</span>` : `<span class="plate">${esc(p.district)}</span>`}
+              <span class="pop-card-dist">~${String(km).replace(".", ",")} km</span>
             </div>
             <div class="pop-card-meta">
               <span>🕐 ${p.open}–${p.close}</span>
