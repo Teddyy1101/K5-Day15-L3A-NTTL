@@ -127,7 +127,7 @@ flowchart TD
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 30 câu (thuong 12 · kho 13 · tu_choi 5; `B01–B20` đúng bản chốt CP2, `B21–B30` thêm sau CP2 từ phỏng vấn P1–P3; 10/30 nguồn `nguoi_dung`) · metric: `eval/metric_spec.yaml` (4 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 80% câu qua, và đồng thời: (1) 100% câu `tu_choi` qua; (2) 0 lịch có điểm ngoài danh mục, vào ngày đóng cửa, ngoài giờ mở cửa hoặc chồng giờ (code kiểm); (3) 0 lịch có tổng chi phí (vé + ăn + di chuyển ước tính) vượt ngân sách khách nhập (code kiểm)."
   - Một câu "qua" = output thoả cột `pass_criterion` của câu đó (cột `pass` = 1 trong `eval/run-N.csv`); % tính trên toàn bộ câu trong bộ, mọi `type`.
-- Kết quả: lượt 1 **`24/30 (80%)` — đạt chuẩn** (thuong 9/12 · kho 10/13 · tu_choi 5/5; 0 lịch sai giờ / ngày đóng / chồng giờ / ngoài danh mục; 0 lịch vượt ngân sách) · lượt 2 `__/30 (__%)` — run ID: `run-1@20261127-232730` / `run-2@…` (`gpt-5-mini`, bộ 30 câu) → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Kết quả: lượt 1 **`24/30 (80%)` — đạt chuẩn** (thuong 9/12 · kho 10/13 · tu_choi 5/5; 0 lịch sai giờ / ngày đóng / chồng giờ / ngoài danh mục; 0 lịch vượt ngân sách) · lượt 2 **`28/30 (93%)` — đạt chuẩn** (thuong 12/12 · kho 11/13 · tu_choi 5/5; chấm nháp) — run ID: `run-1@20261127-232730` / `run-2@20261128-110858` (`gpt-5-mini`, bộ 30 câu, `eval/run-2-cp4.csv`) → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
 - Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-1.csv` (`50` phiên, `12` phiên lỗi không tính vào trung bình)
@@ -136,9 +136,9 @@ flowchart TD
 - So với impact / người / tháng (§2): **Đáng làm** — chỉ tốn ~65 ₫/người/tháng (mô hình `gemini-3.1-flash-lite`) để tiết kiệm ~17 phút/người/tháng tự tìm và khớp lịch.
 
 ## §9. Rủi ro & an toàn
-- Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí:
-- AI **không được** làm gì kể cả khi người dùng yêu cầu:
-- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào:
+- Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí: không thu thập họ tên, số điện thoại, tài khoản hay lưu cơ sở dữ liệu người dùng (lịch chỉ giữ tạm trong bộ nhớ phiên chạy); mọi phiếu khảo sát và phỏng vấn `P1–P3` đều đã ẩn danh; câu nhập của khách được bọc trong `<<< >>>` và lọc ký tự điều khiển trước khi gửi model, không dùng model gói miễn phí cho dữ liệu cá nhân thật.
+- AI **không được** làm gì kể cả khi người dùng yêu cầu: không được tự đặt vé, đặt phòng, thanh toán; không được bịa địa điểm, giờ mở cửa, giá vé ngoài `data/places_hanoi.json`; không được xếp điểm vào ngày đóng cửa hoặc vượt ngân sách; không được nhận lập lịch ngoài Hà Nội / quá 3 ngày hay làm theo lệnh giả mạo (`ADMIN OVERRIDE`, tiết lộ system prompt / API key).
+- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào: khách du lịch tự túc (đặc biệt gia đình có trẻ nhỏ, khách đi ngân sách thấp) có thể tới nhầm điểm đóng cửa, trễ giờ hoặc vượt tiền → chặn bằng cách chỉ cho AI trả mã `HN01–HN24`, toàn bộ giờ mở/đóng cửa, ngày đóng, khung giờ và tổng chi phí do `sap_xep_lo_trinh` và `kiem_lich_trinh` kiểm bằng code, kèm dòng ghi rõ nguồn dữ liệu tĩnh 11/2026 để khách tự kiểm lại trước khi đi.
 
 ## §10. Phân công & changelog
 - Phân công có tên (theo chặng, chia cặp — guide "Cách chia việc"):

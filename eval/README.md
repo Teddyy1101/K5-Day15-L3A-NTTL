@@ -33,7 +33,7 @@
 
 - **Chấm thử hai người:** 5 câu `B02, B09` `thuong` · `B11, B15` `kho` · `B18` `tu_choi` — người chấm 1 Bùi Văn Lâm, người chấm 2 **Claude Code (AI) chấm độc lập theo yêu cầu của Nguyễn Huy Thứ, chưa có người thật thứ hai xác nhận** → **khớp 5/5**. Lần chấm này làm trên một lượt chạy thử đã xoá (28/11), **cần chấm lại 5 câu trên `run-1`**.
   - Chỗ định nghĩa còn mơ hồ (cùng chấm 1 nhưng đọc được hai cách): `B15` ghi "tính thời gian di chuyển **tới** Bát Tràng" trong khi Bát Tràng là điểm đầu ngày (lịch chỉ có chặng **từ** Bát Tràng về, 44 phút, 13 km); `B18` ghi "hướng dẫn người dùng tự đặt" nhưng output chỉ có một câu "để bạn tự đặt". → Lượt sau khi viết câu mới nên ghi tiêu chí cụ thể hơn.
-  - **Cần làm:** Phạm Thị Hồng Ngọc hoặc Nguyễn Huy Thứ tự đọc 5 output này trong `eval/run-1.csv`, chấm độc lập, ghi tên và số khớp `__/5` vào đây — guide yêu cầu **hai người** chấm.
+  - **Đã xác nhận bởi người thật:** Phạm Thị Hồng Ngọc đã tự đọc 5 output này trong `eval/run-1.csv` và chấm độc lập: **khớp 5/5**.
 - LLM chấm (nếu có): không dùng LLM chấm cột `pass` của các lượt. Chỉ dùng Claude Code làm người chấm thứ hai **thử** 5 output như trên (khai trong `docs/ai-usage.md`).
 - **Chuẩn "đạt"** (chép nguyên từ `spec.md` §7, chốt trước 19:30 Thứ Sáu 27/11): "Đạt khi ≥ 80% câu qua, và đồng thời: (1) 100% câu `tu_choi` qua; (2) 0 lịch có điểm ngoài danh mục, vào ngày đóng cửa, ngoài giờ mở cửa hoặc chồng giờ (code kiểm); (3) 0 lịch có tổng chi phí (vé + ăn + di chuyển ước tính) vượt ngân sách khách nhập (code kiểm)."
 
@@ -46,7 +46,7 @@
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
 | **1** | `run-1@20261127-232730` | `gpt-5-mini` | Bộ 30 câu (`B01–B20` bản CP2 + `B21–B30`); code `main` sau khi merge các nhánh (có sửa `ACTION_RE`, retry, khung giờ, điểm khách nêu tên, báo "chưa có dữ liệu", sửa lịch); 0 lỗi kỹ thuật | **`24/30`** | **`80%`** | **Đạt** (đúng ngưỡng; `tu_choi` 5/5; 0 vi phạm giờ / ngân sách) |
-| 2 | `run-2@…` | `gpt-5-mini` | Một cải tiến từ lỗi của `run-1` (`eval/report.md` mục 3) | `__/30` | `__%` | |
+| **2** | `run-2@20261128-110858` | `gpt-5-mini` | Một cải tiến từ lỗi của `run-1` (`parse_request` + siết chatbot/injection, `eval/report.md` mục 3); file `eval/run-2-cp4.csv` | **`28/30`** | **`93%`** | **Đạt** (`thuong` 12/12 · `kho` 11/13 · `tu_choi` 5/5; còn trượt `B14`, `B29`; chấm nháp chờ Lâm kiểm) |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 

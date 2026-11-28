@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VietTravel Copilot — Nhóm NTTL (CP4)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3350;
+      --accent: #4f8ef7;
+      --accent2: #f7a84f;
+      --text: #e8eaf6;
+      --text2: #8b90b0;
+      --green: #4fd1a5;
+      --red: #f76f6f;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Be Vietnam Pro', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 13.5px;
+      color: var(--text2);
+    }
+    .brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      color: var(--accent);
+      margin-right: 10px;
+    }
+    header strong { color: var(--text); }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1120px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 40px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    }
+    .slide.active { display: block; }
+
+    .tag {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(79, 142, 247, 0.14);
+      padding: 4px 11px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    h1 { font-size: 27px; line-height: 1.28; margin-bottom: 6px; font-weight: 700; }
+    .subtitle { color: var(--text2); font-size: 14.5px; margin-bottom: 20px; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .card h3.amber { color: var(--accent2); }
+    .card h3.green { color: var(--green); }
+
+    .stat { font-size: 26px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .stat.green { color: var(--green); }
+    .stat.amber { color: var(--accent2); }
+    .stat.blue { color: var(--accent); }
+    .small { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+    ul { padding-left: 18px; line-height: 1.6; font-size: 13.5px; color: var(--text); }
+    li + li { margin-top: 5px; }
+    strong { color: #fff; }
+    code {
+      background: rgba(79, 142, 247, 0.12);
+      color: #93c5fd;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 12.5px;
+    }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 11px;
+      font-size: 12.5px;
+      color: var(--text);
+    }
+    .pill.hi { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    th { color: var(--text2); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+
+    .quote {
+      border-left: 3px solid var(--accent2);
+      padding-left: 11px;
+      font-style: italic;
+      color: #fde68a;
+      font-size: 13px;
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 28px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 13.5px;
+    }
+    .controls { display: flex; gap: 10px; align-items: center; }
+    button {
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 7px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { border-color: var(--accent); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .dots { display: flex; gap: 8px; }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--border); cursor: pointer;
+    }
+    .dot.active { background: var(--accent); }
+
+    @media (max-width: 820px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .slide { padding: 22px 18px; }
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      header, footer { display: none; }
+      .slide { display: block !important; page-break-after: always; box-shadow: none; border: 1px solid #ccc; margin-bottom: 18px; background: #fff; color: #111; }
+      .card { background: #f8fafc; border-color: #cbd5e1; }
+      .small, th { color: #475569; }
+      strong { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><span class="brand">VietTravel Copilot</span> <strong>Nhóm NTTL · L3A · Track C</strong> — Lập lịch Hà Nội 1–3 ngày</div>
+    <div id="counter">Slide 1 / 4</div>
+  </header>
+
+  <main>
+    <!-- SLIDE 1: NGƯỜI DÙNG, PAIN & TÁC ĐỘNG -->
+    <section class="slide active" data-title="Người dùng, Pain & Impact">
+      <span class="tag">1 / 4 · Bài toán, Người dùng &amp; Tác động</span>
+      <h1>Khách tự túc đi Hà Nội mất hàng giờ ghép lịch &amp; dễ lỡ giờ, vượt tiền</h1>
+      <p class="subtitle">Đối tượng: Khách tự lên kế hoạch đi Hà Nội 1–3 ngày (đi lẻ, cặp đôi, gia đình) · Kiểm chứng từ 3 nguồn độc lập</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="stat blue">10 / 21 (48%)</div>
+          <div class="small">Khảo sát (<code>n = 21</code>): mất <strong>≥ 2 tiếng</strong> lên lịch chuyến 2–3 ngày; <strong>12/21 (57%)</strong> vướng sắp thuận đường &amp; cân đối giờ + tiền; <strong>13/21 (62%)</strong> khó chịu khi phải sửa lịch.</div>
+        </div>
+        <div class="card">
+          <div class="stat amber">3 / 3 phỏng vấn</div>
+          <div class="small">Phỏng vấn sâu (<code>P1–P3</code>): chuẩn bị 45–150 phút nhưng <strong>3/3 vượt chi phí (+250k–1,2tr)</strong> và kẹt/chéo tuyến; P1 lỡ bảo tàng vì quên khung nghỉ trưa.</div>
+        </div>
+        <div class="card">
+          <div class="stat">5 / 50 review (10%)</div>
+          <div class="small">Đào Google Maps (<code>N = 50</code>, 5 điểm): gặp pain lập lịch; <strong>2/50 đóng cửa/sai giờ</strong> đều chấm 1 sao (trên nhóm 3 điểm có ràng buộc giờ là 13,3%).</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px;">
+        <div class="card">
+          <h3 class="green">Tác động &amp; Quyết định chọn lát cắt (spec.md §2)</h3>
+          <ul>
+            <li><strong>Impact hướng A:</strong> ~571/1.000 khách × ~0,12 lần/tháng × ~168 phút ≈ <strong>183 giờ / tháng / 1.000 khách</strong>.</li>
+            <li><strong>Mở rộng hướng C:</strong> Sửa lịch nhanh (~190 giờ/tháng) được gộp ngay trong phiên chat vì cần có lịch A trước.</li>
+            <li><strong>Đã loại B (lọc review) &amp; D (ảnh):</strong> Vướng nguồn dữ liệu lớn &amp; bản quyền, không kịp làm trọn trong 2 ngày.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="amber">Vì sao khách chưa bỏ cách cũ &amp; Tiếng nói người dùng</h3>
+          <ul>
+            <li>Miễn phí, dễ chia sẻ nhóm (P1); chụp màn hình nhanh (P2); cần linh hoạt giờ cho con nhỏ, tour không đáp ứng (P3).</li>
+          </ul>
+          <div class="quote">"Review chân thực lên xin đừng lừa :(" — phiếu khảo sát 27/11 18:25</div>
+          <div class="quote">"một ứng dụng tiện gọn có thể làm được tất cả" — phiếu khảo sát 27/11 21:25</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: SẢN PHẨM, TRẢI NGHIỆM & THIẾT KẾ -->
+    <section class="slide" data-title="Sản phẩm & Trải nghiệm">
+      <span class="tag">2 / 4 · Sản phẩm, Trải nghiệm người dùng &amp; An toàn</span>
+      <h1>Từ nền tảng du lịch sẵn có đến lát cắt AI làm trọn trong Hackathon</h1>
+      <p class="subtitle">1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả — Khách tự kiểm soát &amp; duyệt lịch, không tự ý đặt/thanh toán</p>
+
+      <div class="badge-row">
+        <span class="pill">Nền tảng gốc (React + FastAPI + PostgreSQL): Khám phá bản đồ · Kéo-thả Plan · Tối ưu lộ trình TSP · Review cộng đồng</span>
+        <span class="pill hi">Lát cắt Hackathon: Nhập 1 câu → Lập &amp; Sửa lịch Hà Nội 1–3 ngày an toàn</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Trải nghiệm người dùng (CLI &amp; Web UI)</h3>
+          <ul>
+            <li><strong>Nhập tự nhiên:</strong> Nêu số ngày (1–3), thứ, sở thích, ngân sách → AI chọn &amp; chia điểm từ danh mục 24 điểm Hà Nội (<code>HN01–HN24</code>).</li>
+            <li><strong>Sửa linh hoạt tại chỗ:</strong> Nhắn sửa trong phiên chat (bỏ/thêm điểm, trời mưa, đổi ngân sách) hoặc <strong>kéo-thả trên Web UI</strong> (chọn điểm xuất phát/GPS, gợi ý điểm gần nhất) — hệ thống tự tính lại giờ &amp; tiền.</li>
+            <li><strong>Minh bạch (G1/G11):</strong> Giải thích "Vì sao chọn", ghi rõ điểm bị bỏ (đóng cửa/vượt tiền) và nguồn dữ liệu tham khảo 11/2026.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="amber">Chốt chặn rủi ro &amp; Phân định AI — Người</h3>
+          <ul>
+            <li><strong>Không bịa giờ/giá:</strong> AI chỉ trả mã điểm; toàn bộ giờ mở cửa, ngày đóng, thời lượng, tiền vé/di chuyển do <code>tools.py</code> kiểm 100%.</li>
+            <li><strong>Thu hẹp phạm vi (G10):</strong> Thiếu thông tin → hỏi lại 1 câu; ngoài Hà Nội, &gt;3 ngày, nhờ đặt vé/thanh toán hoặc prompt injection → từ chối ngay.</li>
+            <li><strong>Chỗ người duyệt:</strong> Khách tự quyết định lưu và tự đặt vé/khách sạn — không có công cụ tác động ra ngoài.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: ĐÁNH GIÁ THỰC CHỨNG & ĐỐI THỦ -->
+    <section class="slide" data-title="Đánh giá & Đối thủ">
+      <span class="tag">3 / 4 · Kiểm chứng thực chứng &amp; Chất lượng</span>
+      <h1>Tăng từ 24/30 (80%) lên 28/30 (93%) ở Lượt 2 · Vượt trội Chatbot chung</h1>
+      <p class="subtitle">Đối chiếu Chatbot chung (5 câu) · Bộ câu thử <code>eval/benchmark.csv</code> 30 câu (<code>gpt-5-mini</code>, <code>run-1</code> → <code>run-2</code>)</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="stat amber">2 / 4 lịch sai</div>
+          <div class="small"><strong>Chatbot chung</strong> (<code>gpt-5-mini</code> hỏi thẳng): xếp Lăng Bác vào Thứ 6, phở Bát Đàn buổi chiều (đóng cửa), 2/4 sai giá vé.</div>
+        </div>
+        <div class="card">
+          <div class="stat green">80% → 93% (28/30)</div>
+          <div class="small"><strong>Lượt 1 → Lượt 2 (<code>run-2@20261128-110858</code>):</strong> <code>thuong</code> <strong>12/12</strong> · <code>kho</code> <strong>11/13</strong> · <code>tu_choi</code> <strong>5/5 (100%)</strong>.</div>
+        </div>
+        <div class="card">
+          <div class="stat green">0 vi phạm</div>
+          <div class="small"><strong>Điều kiện cứng:</strong> 0 lịch sai giờ/ngày đóng/chồng giờ/ngoài danh mục · 0 lịch vượt ngân sách · 0 lỗi kỹ thuật.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>Cải tiến từ Lượt 1 → Lượt 2 &amp; 2 câu còn trượt (eval/report.md)</h3>
+        <table>
+          <thead>
+            <tr><th>Nhóm lỗi</th><th>Lượt 1 → Lượt 2</th><th>Kết quả &amp; Phần còn lại</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Đọc sai yêu cầu (code)</strong></td><td>2 → <strong>0</strong> (B24, B28)</td><td>Đã vá <code>parse_request</code> (số người bằng chữ, thứ + khung giờ = 1 ngày) → <strong>B24, B28 đều đạt</strong>.</td></tr>
+            <tr><td><strong>Chọn / xếp điểm</strong></td><td>2 → <strong>0</strong> (B08, B21)</td><td>Cả B08 và B21 đều đạt ở <code>run-2-cp4.csv</code>.</td></tr>
+            <tr><td><strong>Chưa nói rõ lý do</strong></td><td>2 → <strong>2</strong> (B14, B29)</td><td>Còn trượt: B14 (ngân sách 100k lịch trống) &amp; B29 (chỗ đỗ ô tô/cấm đường chưa báo rõ).</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: CHI PHÍ, KINH DOANH & LỘ TRÌNH -->
+    <section class="slide" data-title="Chi phí & Lộ trình">
+      <span class="tag">4 / 4 · Chi phí vận hành, Tính khả thi &amp; Lộ trình</span>
+      <h1>~51–55 ₫ / lịch thành công — Khả thi kinh tế rõ ràng ở quy mô Pilot</h1>
+      <p class="subtitle">Mô phỏng 50 phiên từ 3 persona thật (<code>cost/personas.yaml</code> → <code>cost/simulate-1.csv</code>, seed 42)</p>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Model (giá $/1M token vào · ra)</th>
+              <th>Chi phí / task thành công</th>
+              <th>Thấp (200 người/tháng)</th>
+              <th>Cơ sở (500 người/tháng)</th>
+              <th>Cao (1.500 người/tháng)</th>
+              <th>/ người / tháng (cơ sở)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>gemini-3.1-flash-lite</code> ($0.25 · $1.50)</td>
+              <td><strong>$0.0020 (≈ 51 ₫)</strong></td>
+              <td>12.976 ₫</td>
+              <td><strong>32.439 ₫</strong></td>
+              <td>97.317 ₫</td>
+              <td><strong>≈ 65 ₫</strong></td>
+            </tr>
+            <tr>
+              <td><code>gpt-5-mini</code> ($0.25 · $2.00)</td>
+              <td><strong>$0.0022 (≈ 55 ₫)</strong></td>
+              <td>14.170 ₫</td>
+              <td><strong>35.424 ₫</strong></td>
+              <td>106.272 ₫</td>
+              <td><strong>≈ 71 ₫</strong></td>
+            </tr>
+            <tr>
+              <td><code>gpt-5</code> ($1.25 · $10.00)</td>
+              <td>$0.0109 (≈ 276 ₫)</td>
+              <td>70.848 ₫</td>
+              <td>177.120 ₫</td>
+              <td>531.359 ₫</td>
+              <td>≈ 354 ₫</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px;">
+        <div class="card">
+          <h3 class="green">Quyết định: GO (Tiếp tục triển khai)</h3>
+          <ul>
+            <li>Chi phí <strong>~65–71 ₫/người/tháng</strong> đổi lấy ~17 phút tiết kiệm/người/tháng (~183 giờ/1.000 khách), rẻ hơn <strong>5,4×</strong> so với <code>gpt-5</code>.</li>
+            <li>Hạ tầng nhẹ, dữ liệu tĩnh JSON giúp chi phí vận hành ngoài model gần như bằng 0 ở giai đoạn pilot 500 người.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Lộ trình mở rộng &amp; 1 tuần tới</h3>
+          <ul>
+            <li><strong>Ngắn hạn:</strong> Chạy <code>run-2</code> sau vá <code>parse_request</code>, gom cụm quận trong <code>sap_xep_lo_trinh</code> (lỗi B08), thử nghiệm 3–5 người dùng thật (<code>validation/log.md</code>).</li>
+            <li><strong>Tích hợp nền tảng đầy đủ:</strong> Nối vào React + FastAPI + PostgreSQL sẵn có cùng TSP (2-opt), bổ sung ảnh thực tế (Unsplash/Wikimedia) &amp; AI tóm tắt review.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="dots" id="dots"></div>
+    <div class="controls">
+      <button id="prev">← Trước</button>
+      <button id="next">Sau →</button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dotsEl = document.getElementById('dots');
+    const counterEl = document.getElementById('counter');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    let idx = 0;
+
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => show(i));
+      dotsEl.appendChild(d);
+    });
+
+    function show(n) {
+      idx = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+      Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('active', i === idx));
+      counterEl.textContent = `Slide ${idx + 1} / ${slides.length}`;
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx === slides.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => show(idx - 1));
+    nextBtn.addEventListener('click', () => show(idx + 1));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') show(idx + 1);
+      if (e.key === 'ArrowLeft') show(idx - 1);
+    });
+    show(0);
+  </script>
+</body>
+</html>

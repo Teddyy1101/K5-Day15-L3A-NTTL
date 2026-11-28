@@ -10,7 +10,7 @@ Bộ câu thử: `eval/benchmark.csv` — **30 câu** (`B01–B20` đúng bản 
 | Lượt | Run ID | Đạt / tổng | % | thuong | kho | tu_choi | Điều kiện cứng (code kiểm) | So với chuẩn "đạt" |
 |---|---|---|---|---|---|---|---|---|
 | 1 | `run-1@20261127-232730` | **24/30** | **80%** | 9/12 (75%) | 10/13 (77%) | 5/5 (100%) | 0 vi phạm giờ / ngày đóng / chồng giờ / ngoài danh mục trên 21 lịch · 0 lịch vượt ngân sách | **Đạt — vừa đúng ngưỡng 80%** |
-| 2 | `run-2@…` | __/30 | __% | | | | | *(sau một cải tiến, trước CP4)* |
+| 2 | `run-2@20261128-110858` | **28/30** | **93%** | 12/12 (100%) | 11/13 (85%) | 5/5 (100%) | 0 vi phạm giờ / ngày đóng / chồng giờ / ngoài danh mục · 0 lịch vượt ngân sách | **Đạt chuẩn** *(chấm nháp, chờ Lâm kiểm lại)* |
 
 - Kết quả từng câu + lý do chấm: `eval/run-1.csv` (cột `pass`, `ghi_chu`). Trace: `traces/run-1.jsonl`. Lượt chạy 30/30 câu, 0 lỗi kỹ thuật; trung bình 1,0 lần gọi model, 4,3 lần gọi công cụ, 1.849 token vào / 3.034 token ra mỗi câu.
 - **Người chấm:** cột `pass` do **Claude Code chấm nháp** theo `pass_criterion` (khai trong `docs/ai-usage.md`), điều kiện cứng (2)–(3) kiểm bằng script đọc output. **Bùi Văn Lâm cần kiểm lại**, nhất là 6 câu trượt và `B21`, `B22`.
@@ -39,8 +39,8 @@ Bộ câu thử: `eval/benchmark.csv` — **30 câu** (`B01–B20` đúng bản 
 
 - **Nhắm vào nhóm lỗi:** **Đọc sai yêu cầu của khách** — `B24` ("hai đứa mình" thành 1 người), `B28` ("Chủ nhật … từ 8h đến 11h30" bị hỏi lại số ngày).
 - **Đã sửa gì:** `parse_request` trong `codebase/agent.py`, luật chung: (1) số người viết bằng chữ ("hai đứa", "ba người"; bỏ qua "thứ hai"); (2) có một thứ / ngày cụ thể + khung giờ có cả giờ đi lẫn giờ về mà không nói số ngày → 1 ngày. So kết quả đọc cả 30 câu trước / sau: chỉ `B24`, `B28` đổi. *Lưu ý:* `run-2` còn gồm phần siết chatbot / chặn prompt injection làm cùng buổi (`spec.md` §10, 28/11 09:50).
-- **Kết quả:** nhóm lỗi __ → __ · tổng 24/30 → __/30
-- **Câu nào tệ đi sau khi sửa:** __
+- **Kết quả:** nhóm lỗi đọc sai yêu cầu `2/2 → 0/2` (`B24`, `B28` đều đạt; `B08`, `B21` cũng đạt ở lượt này) · tổng `24/30 (80%) → 28/30 (93%)` (`eval/run-2-cp4.csv`, `traces/run-2-cp4.jsonl`, 30/30 câu, 0 lỗi kỹ thuật; còn trượt `B14` và `B29`; cột `pass` chấm nháp chờ Lâm kiểm lại).
+- **Câu nào tệ đi sau khi sửa:** Không có (`0` câu đạt ở lượt 1 bị trượt ở lượt 2).
 
 ## 4. Còn lại
 

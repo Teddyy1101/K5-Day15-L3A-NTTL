@@ -106,7 +106,7 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 | Đọc yêu cầu, xếp giờ, kiểm giờ mở cửa / ngày đóng cửa / khung giờ / ngân sách, cộng tiền | **Thật** — code, không dùng AI | `codebase/agent.py`, `codebase/tools.py` |
 | Danh mục 24 địa điểm (giờ mở cửa, ngày đóng cửa, giá vé) | **Thật nhưng tĩnh** — nhóm tự tổng hợp, giá / giờ tham khảo 11/2026 | `data/places_hanoi.json`, `data/DATA_CARD.md` |
 | Thời gian và tiền di chuyển | **Ước tính** — đường chim bay × 1,4; 20 km/h; 15.000đ + 12.000đ/km mỗi người mỗi chặng | `data/chi_phi_khac.csv` *(tự ước tính)* |
-| Giao diện | Dòng lệnh (`python run.py`) | — |
+| Giao diện | Dòng lệnh (`python run.py`) + Web UI (`python -m codebase.web` — chat, bản đồ, kéo thả thứ tự) | `codebase/app.py`, `codebase/web.py` |
 | Đặt vé, thanh toán, lưu / gửi lịch | **Không có** — ngoài phạm vi, khách tự làm | `spec.md` §4 "Không làm" |
 
 ## Dùng AI vào việc gì
@@ -148,5 +148,5 @@ Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md
 | 4 | Bản chạy thử làm trọn lát cắt | `codebase/` · lệnh ở mục "Lệnh" |
 | 5 | Định nghĩa "tốt" + bộ câu thử | `data/DATA_CARD.md` · `eval/` |
 | 6 | Mô phỏng chi phí khi dùng thật | `cost/` |
-| 7 | Slide + demo + video dự phòng | slide trong repo (PDF, PPTX, HTML…) hoặc link slide ở form CP4 · link video: [bản chạy thử gọi AI thật (CP3)](https://drive.google.com/file/d/1Ag7fjMeE1G0B9kj4wyp-lIiAyBkkWPfl/view?usp=sharing) |
+| 7 | Slide + demo + video dự phòng | [slides/demo-slides.html](slides/demo-slides.html) (4 slide HTML, tóm tắt từ [slides/outline.md](slides/outline.md)) · video dự phòng: [CP4 demo](https://drive.google.com/file/d/1t7KZSItTQ8nyhEorf4Fei5bBEM2RWcO_/view?usp=sharing) · [bản chạy thử gọi AI thật (CP3)](https://drive.google.com/file/d/1Ag7fjMeE1G0B9kj4wyp-lIiAyBkkWPfl/view?usp=sharing) |
 | + | *Bonus:* người dùng thử | `validation/log.md` |
