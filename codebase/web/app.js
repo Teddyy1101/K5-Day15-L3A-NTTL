@@ -237,19 +237,50 @@
     .replace(/\b(lich-su|van-hoa|am-thuc|thien-nhien|giai-tri|mua-sam)\b/g, (c) => (S.cats[c] || c).toLowerCase())
     .replace(/\bHN\d\d\b/g, (id) => (S.byId[id] ? shortName(S.byId[id].name) : id));
 
-  /* ------------------------------------------------------------ MÀN HÌNH MỚI VÀO: Vị trí + Điểm nổi tiếng + Lập lịch */
+  /* ------------------------------------------------------------ MÀN HÌNH MỚI VÀO: Bước 1 (Vị trí) + Bước 2 (Lập lịch) */
+  function renderPopularStrip() {
+    const box = $("#map-popular");
+    if (!box) return;
+    if (S.plan || !S.places.length) {
+      box.hidden = true;
+      setTimeout(() => map?.invalidateSize(), 60);
+      return;
+    }
+    const famousPool = POPULAR_IDS.map((id) => S.byId[id]).filter(Boolean);
+    const ranked = S.startPoint
+      ? [...famousPool].sort((a, b) => distFromStart(a) - distFromStart(b)).slice(0, 6)
+      : famousPool.slice(0, 6);
+    box.hidden = false;
+    box.innerHTML = `
+      <div class="map-popular-head">
+        <span>🔥 Địa điểm nổi tiếng ${S.startPoint ? "gần " + esc(shortName(S.startPoint.name)) : "tại Hà Nội"}</span>
+        <span class="map-popular-hint">Bấm thẻ để định vị trên bản đồ ↓</span>
+      </div>
+      <div class="popular-strip">
+        ${ranked.map((p) => {
+          const km = distFromStart(p);
+          return `<div class="pop-card" data-act="focus" data-id="${p.id}">
+            <div class="pop-card-top">
+              <span class="pop-card-name">${esc(shortName(p.name))}</span>
+              ${km != null ? `<span class="pop-card-dist">~${String(km).replace(".", ",")} km</span>` : `<span class="plate">${esc(p.district)}</span>`}
+            </div>
+            <div class="pop-card-meta">
+              <span>🕐 ${p.open}–${p.close}</span>
+              <span class="pop-card-cost">${p.cost ? vnd(p.cost) : "Miễn phí"}</span>
+              ${p.closed.length ? `<span class="closed">Đóng ${p.closed.map((d) => SHORT[d]).join(",")}</span>` : ""}
+            </div>
+          </div>`;
+        }).join("")}
+      </div>`;
+    setTimeout(() => map?.invalidateSize(), 60);
+  }
+
   function renderSetup(err) {
     const st = S.setup;
     const seg = (key, vals, fmt) => vals.map((v) =>
       `<button type="button" data-act="set" data-key="${key}" data-val="${v}" aria-pressed="${st[key] === v}">${fmt ? fmt(v) : v}</button>`).join("");
     const likes = Object.entries(S.cats).map(([k, label]) =>
       `<button type="button" class="chip" data-act="like" data-cat="${k}" aria-pressed="${st.so_thich.includes(k)}">${esc(label)}</button>`).join("");
-
-    // Top 6 điểm nổi tiếng sắp theo khoảng cách nếu đã có vị trí xuất phát
-    const famousPool = POPULAR_IDS.map((id) => S.byId[id]).filter(Boolean);
-    const ranked = S.startPoint
-      ? [...famousPool].sort((a, b) => distFromStart(a) - distFromStart(b)).slice(0, 6)
-      : famousPool.slice(0, 6);
 
     const startChips = START_PRESETS.map((pr) =>
       `<button type="button" class="chip" data-act="start-preset" data-key="${pr.key}" aria-pressed="${S.startPoint?.name === pr.name}">${esc(shortName(pr.name))}</button>`
@@ -302,30 +333,6 @@
           <button type="button" class="btn btn-quiet" data-act="setup" data-mode="manual">📋 Tự xếp từ danh mục</button>
         </div>
         ${err ? `<p class="setup-err" role="alert">${esc(err)}</p>` : ""}
-      </div>
-
-      <!-- Ô 3: Địa điểm nổi tiếng đề xuất gần bạn -->
-      <div class="zone-card tint-amber zone-popular">
-        <div class="zone-title">
-          <span>🔥 Địa điểm nổi tiếng ${S.startPoint ? "gần " + esc(shortName(S.startPoint.name)) : "tại Hà Nội"}</span>
-          <span style="text-transform:none;font-weight:500">Bấm để xem trên bản đồ</span>
-        </div>
-        <div class="popular-grid">
-          ${ranked.map((p) => {
-            const km = distFromStart(p);
-            return `<div class="pop-card" data-act="focus" data-id="${p.id}">
-              <div class="pop-card-top">
-                <span class="pop-card-name">${esc(shortName(p.name))}</span>
-                ${km != null ? `<span class="pop-card-dist">~${String(km).replace(".", ",")} km</span>` : `<span class="plate">${esc(p.district)}</span>`}
-              </div>
-              <div class="pop-card-meta">
-                <span>🕐 ${p.open}–${p.close}</span>
-                <span class="pop-card-cost">${p.cost ? vnd(p.cost) : "Miễn phí"}</span>
-                ${p.closed.length ? `<span class="closed">Đóng ${p.closed.map((d) => SHORT[d]).join(",")}</span>` : ""}
-              </div>
-            </div>`;
-          }).join("")}
-        </div>
       </div>`;
   }
 
@@ -718,7 +725,7 @@
   }
 
   function renderAll(fresh, fit) {
-    renderBar(); renderLocationUI(); renderPlan(fresh); renderCatalogue(); renderMapDays(); renderMap(fit); renderSuggest();
+    renderBar(); renderLocationUI(); renderPlan(fresh); renderPopularStrip(); renderCatalogue(); renderMapDays(); renderMap(fit); renderSuggest();
   }
 
   let noticeTimer;
