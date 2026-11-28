@@ -335,8 +335,11 @@ ol, ul { padding: 0; list-style: none; }
   gap: 10px;
 }
 .zone-card.tint-blue { background: #eff6ff; border-color: #bfdbfe; }
-.zone-card.tint-amber { background: #fffbeb; border-color: #fde68a; }
+.zone-card.tint-amber { background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%); border-color: #fcd34d; }
 .zone-card.tint-green { background: #ecfdf5; border-color: #a7f3d0; }
+.zone-card.tint-amber .zone-title { color: #b45309; }
+.zone-popular .pop-card { background: #ffffff; border-color: #fde68a; box-shadow: 0 1px 3px rgba(180, 83, 9, 0.08); }
+.zone-popular .pop-card:hover { border-color: #f59e0b; background: #fffdf5; }
 
 .zone-title {
   font-size: 11.5px;

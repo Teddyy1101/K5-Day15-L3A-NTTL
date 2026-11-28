@@ -270,7 +270,7 @@
       </div>
 
       <!-- Ô 2: Địa điểm nổi tiếng đề xuất gần bạn -->
-      <div class="zone-card">
+      <div class="zone-card tint-amber zone-popular">
         <div class="zone-title">
           <span>🔥 Địa điểm nổi tiếng ${S.startPoint ? "gần " + esc(shortName(S.startPoint.name)) : "tại Hà Nội"}</span>
           <span style="text-transform:none;font-weight:500">Bấm để xem trên bản đồ</span>
