@@ -38,6 +38,8 @@ Kết quả từng câu: `eval/run-1.csv` → `eval/run-4.csv`. Trace: `traces/r
 - **Kết quả:** Nhóm lỗi `tu_choi` `3/4` → `4/4` (`100%`), lỗi kỹ thuật `4/20` → `0/20`, tổng `15/20 (75%)` → `20/20 (100%)`.
 - **Câu nào tệ đi sau khi sửa:** Không có (`0` câu trượt mới ở lượt 2).
 
+- **Lượt 5 (`gpt-5-mini`, `eval/run-2-cp4.csv`, run ID `run-2@20261128-110858`):** chạy trên bộ 30 câu `B01–B30` của `main`, 30/30 câu, 0 lỗi kỹ thuật, kết quả chấm nháp `28/30 (93%)`: `thuong` 12/12 · `kho` 11/13 · `tu_choi` 5/5. Trượt `B14` (ngân sách 100k: lịch trống, nhãn sai "chưa có dữ liệu", câu bị cắt) và `B29` (không nói rõ chưa có dữ liệu chỗ đỗ xe / cấm đường). Cột `pass` là chấm nháp; Bùi Văn Lâm cần kiểm lại trước khi chốt. Chi phí của lượt này chưa có mô phỏng.
+
 ## 4. Còn lại
 
 - **Lỗi chưa sửa + nguy hiểm thế nào:** Bộ `run.py eval` chạy từng câu độc lập nên chưa đo tự động được kịch bản **sửa lịch nhiều lượt** (mới test tay qua `agent.edit()` với trường hợp bỏ điểm + giảm ngân sách). Ngoài ra dữ liệu giờ mở cửa và giá vé vẫn là dữ liệu tĩnh 24 điểm, giá di chuyển là ước tính.

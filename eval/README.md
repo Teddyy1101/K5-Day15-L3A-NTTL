@@ -44,6 +44,9 @@
 | 2 | `run-2@20261127-221642` | `gemini-3.1-flash-lite` | Sửa `ACTION_RE` bắt đặt vé/thanh toán (`B18`) + thêm retry HTTP 429/503 trong `post_json` | `20/20` | `100%` | Đạt |
 | 3 | `run-3@20261127-232149` | `gemini-3.1-flash-lite` | Mở rộng bộ câu thử lên 25 câu (`B21–B25` từ review Google Maps); 5 câu lỗi timeout/503 | `20/25` | `80%` | Đạt (có 5 lỗi mạng) |
 | 4 | `run-4@20261127-232826` | `gemini-3.1-flash-lite` | Nâng timeout lên 45s + thêm retry `TimeoutError`/`URLError` (còn 2 câu lỗi HTTP 503) | `23/25` | `92%` | **Đạt** |
+| 5 | `run-2@20261128-110858` (file `eval/run-2-cp4.csv`) | `gpt-5-mini` | Bộ 30 câu `B01–B30` của `main` (nhánh này còn 25 câu, xem ghi chú); code `main` sau khi sửa parse số người và thứ trong tuần; 0 lỗi kỹ thuật | `28/30` | `93%` | **Đạt** (chấm nháp của Claude Code; `B14`, `B29` trượt) |
+
+*Ghi chú lượt 5:* chạy trên bộ 30 câu của `main` (có `B26–B30`), trong khi nhánh `buivanlam` chỉ có 25 câu `B01–B25`. Cột `pass` là chấm nháp, chưa được người thứ hai kiểm. Chi phí của lượt này chưa mô phỏng (simulate `gpt-5-mini` chưa chạy xong).
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
