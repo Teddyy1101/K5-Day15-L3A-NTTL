@@ -16,8 +16,8 @@ python run.py eval --try        # thử 3 câu, thấy "Nối model được" l�
 python run.py check             # kiểm bộ 30 câu thử + metric
 ```
 
-- **Model chính thức của nhóm: `gpt-5-mini`** (OpenAI) — dùng cho lượt đánh giá chính thức (`eval/run-3.csv` trở đi).
-- Có sẵn nhánh Gemini trong `codebase/ai.py`: điền `MODEL_PROVIDER=gemini` · `MODEL_NAME=gemini-3.1-flash-lite` · `API_KEY=<key Gemini>`. Nhóm đã dùng để chạy thử (`run-1`, `run-2`) và so chi phí (`cost/`), không dùng cho lượt chính thức.
+- **Model chính thức của nhóm: `gpt-5-mini`** (OpenAI) — dùng cho lượt đánh giá chính thức (`eval/run-1.csv` trở đi).
+- Có sẵn nhánh Gemini trong `codebase/ai.py`: điền `MODEL_PROVIDER=gemini` · `MODEL_NAME=gemini-3.1-flash-lite` · `API_KEY=<key Gemini>`. Nhóm đã dùng để chạy thử và so chi phí (`cost/`), không dùng cho lượt chính thức.
 - Để trống `MODEL_PROVIDER` thì chạy chế độ giả: AI không được gọi, bước chọn điểm dùng luật dự phòng (output ghi rõ). Không cần `pip install`.
 
 **Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md). **Điền TEAMS.md đúng format**: khi chấm và đánh giá, BTC quét file này để ghép điểm cho từng người.
@@ -148,5 +148,5 @@ Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md
 | 4 | Bản chạy thử làm trọn lát cắt | `codebase/` · lệnh ở mục "Lệnh" |
 | 5 | Định nghĩa "tốt" + bộ câu thử | `data/DATA_CARD.md` · `eval/` |
 | 6 | Mô phỏng chi phí khi dùng thật | `cost/` |
-| 7 | Slide + demo + video dự phòng | slide trong repo (PDF, PPTX, HTML…) hoặc link slide ở form CP4 · link video: ____ |
+| 7 | Slide + demo + video dự phòng | slide trong repo (PDF, PPTX, HTML…) hoặc link slide ở form CP4 · link video: [bản chạy thử gọi AI thật (CP3)](https://drive.google.com/file/d/1Ag7fjMeE1G0B9kj4wyp-lIiAyBkkWPfl/view?usp=sharing) |
 | + | *Bonus:* người dùng thử | `validation/log.md` |
