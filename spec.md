@@ -167,6 +167,7 @@ flowchart TD
 | 28/11 09:50 | Siết chatbot: chào hỏi / ngoài lề code tự trả lời, không gọi model; chặn prompt injection thêm câu không dấu / tiếng Anh, lọc `<<< >>>`, lọc chữ model trả | "Hello" khi đang có lịch bị AI xếp lại lịch; 30 câu thử không đổi kết quả chặn |
 | 28/11 10:10 | **Cải tiến trước lượt 2** — `parse_request`: đọc số người viết bằng chữ ("hai đứa mình"); một thứ + khung giờ đi–về = 1 ngày | Nhóm lỗi "đọc sai yêu cầu" ở `run-1`: `B24`, `B28`. Chỉ 2 câu này đổi kết quả đọc. `run-2` tính cả 2 dòng trên |
 | 28/11 10:30 | Xoá 2 lượt chạy thử Gemini (`run-1`, `run-2` cũ, bộ câu thử bị sửa sau CP2); đổi tên lượt chính thức `run-3` → `run-1` (cả run ID trong csv / trace). Lượt 2 sẽ là `run-2` | Đánh số lượt khớp với lượt chính thức. Kết quả không đổi: `score eval/run-1.csv` vẫn 24/30. Bản cũ còn trong lịch sử git |
+| 28/11 10:38 | Nâng cấp giao diện web tĩnh (`codebase/web/{index.html,app.css,app.js}`): thêm chọn vị trí GPS/điểm xuất phát & gợi ý điểm nổi tiếng gần nhất ngay màn hình đầu, bố cục 4 cột không chồng popup, giao diện nền trắng + 3 ô KPI + nút Tư vấn AI nổi | Cải thiện trải nghiệm demo trực quan; không sửa `web.py`, `agent.py`, `tools.py`, `eval/` hay `cost/` |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
