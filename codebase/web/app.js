@@ -269,31 +269,7 @@
         </div>
       </div>
 
-      <!-- Ô 2: Địa điểm nổi tiếng đề xuất gần bạn -->
-      <div class="zone-card tint-amber zone-popular">
-        <div class="zone-title">
-          <span>🔥 Địa điểm nổi tiếng ${S.startPoint ? "gần " + esc(shortName(S.startPoint.name)) : "tại Hà Nội"}</span>
-          <span style="text-transform:none;font-weight:500">Bấm để xem trên bản đồ</span>
-        </div>
-        <div class="popular-grid">
-          ${ranked.map((p) => {
-            const km = distFromStart(p);
-            return `<div class="pop-card" data-act="focus" data-id="${p.id}">
-              <div class="pop-card-top">
-                <span class="pop-card-name">${esc(shortName(p.name))}</span>
-                ${km != null ? `<span class="pop-card-dist">~${String(km).replace(".", ",")} km</span>` : `<span class="plate">${esc(p.district)}</span>`}
-              </div>
-              <div class="pop-card-meta">
-                <span>🕐 ${p.open}–${p.close}</span>
-                <span class="pop-card-cost">${p.cost ? vnd(p.cost) : "Miễn phí"}</span>
-                ${p.closed.length ? `<span class="closed">Đóng ${p.closed.map((d) => SHORT[d]).join(",")}</span>` : ""}
-              </div>
-            </div>`;
-          }).join("")}
-        </div>
-      </div>
-
-      <!-- Ô 3: Lập lịch trình 1–3 ngày -->
+      <!-- Ô 2: Lập lịch trình 1–3 ngày (liền mạch ngay sau Bước 1) -->
       <div class="zone-card">
         <div class="zone-title"><span>✨ Bước 2 · Lập lịch trình Hà Nội (1–3 ngày)</span></div>
         <h3 class="zone-h3">Chuyến đi Hà Nội của bạn</h3>
@@ -326,6 +302,30 @@
           <button type="button" class="btn btn-quiet" data-act="setup" data-mode="manual">📋 Tự xếp từ danh mục</button>
         </div>
         ${err ? `<p class="setup-err" role="alert">${esc(err)}</p>` : ""}
+      </div>
+
+      <!-- Ô 3: Địa điểm nổi tiếng đề xuất gần bạn -->
+      <div class="zone-card tint-amber zone-popular">
+        <div class="zone-title">
+          <span>🔥 Địa điểm nổi tiếng ${S.startPoint ? "gần " + esc(shortName(S.startPoint.name)) : "tại Hà Nội"}</span>
+          <span style="text-transform:none;font-weight:500">Bấm để xem trên bản đồ</span>
+        </div>
+        <div class="popular-grid">
+          ${ranked.map((p) => {
+            const km = distFromStart(p);
+            return `<div class="pop-card" data-act="focus" data-id="${p.id}">
+              <div class="pop-card-top">
+                <span class="pop-card-name">${esc(shortName(p.name))}</span>
+                ${km != null ? `<span class="pop-card-dist">~${String(km).replace(".", ",")} km</span>` : `<span class="plate">${esc(p.district)}</span>`}
+              </div>
+              <div class="pop-card-meta">
+                <span>🕐 ${p.open}–${p.close}</span>
+                <span class="pop-card-cost">${p.cost ? vnd(p.cost) : "Miễn phí"}</span>
+                ${p.closed.length ? `<span class="closed">Đóng ${p.closed.map((d) => SHORT[d]).join(",")}</span>` : ""}
+              </div>
+            </div>`;
+          }).join("")}
+        </div>
       </div>`;
   }
 
